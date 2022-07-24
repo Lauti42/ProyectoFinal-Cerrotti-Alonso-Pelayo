@@ -17,7 +17,7 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from ProyectoFinal.views import aboutview, contactview
+from Main.views import aboutview, contactview
 
 urlpatterns = [
     path('admin/', admin.site.urls),
