@@ -26,5 +26,6 @@ urlpatterns = [
     path('registrarse/', include('RegistroUsuarios.urls')),
     path('about/', aboutview),
     path('contact/', contactview),
+    path('registrarse/registrado/preferencias/', include('RegistroUsuarios.urls')),
     
 ]

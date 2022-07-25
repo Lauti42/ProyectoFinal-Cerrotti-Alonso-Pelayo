@@ -1,7 +1,7 @@
 from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
-from RegistroUsuarios.models import Registro_usuarios
+from RegistroUsuarios.models import Registro_usuarios, Preferencias_Usuario
 
 # Create your views here.
 def indexview(request):
@@ -26,3 +26,19 @@ def registro(request):
             
         documentoDeTexto = f"Integrante creado con exito: {nombre} {email} {password} {password2}"
         return render(request, "indexregistrado.html", {'documentoDeTexto': documentoDeTexto})
+
+def preferencias(request):
+    if request.method == "POST":
+        print("POST")
+        #Obteniendo datos del registro (Form)
+        
+        lenguaje = request.POST['Lenguaje']
+        backOfront = request.POST['BackFront']
+        pais = request.POST['Pais']
+        trabajo = request.POST['Trabajo']
+
+        #Guardando los datos en la DB
+        Pref = Preferencias_Usuario(lenguaje=lenguaje, backOfront=backOfront, pais=pais, trabajo=trabajo)
+        Pref.save()
+
+        return render(request, "preferenciasenviadas.html")

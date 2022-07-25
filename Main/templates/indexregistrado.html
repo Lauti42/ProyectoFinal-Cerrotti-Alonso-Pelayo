@@ -69,7 +69,11 @@
             </header>
             <!-- Features section-->
             <!-- Registrado Correctamente-->
-            <aside class="bg-primary bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+            {% block preferenciasok %}
+
+            
+
+            <aside class="bg-success bg-gradient rounded-3 p-4 p-sm-5 mt-5">
                 <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
                     <div class="mb-4 mb-xl-0">
                         <div class="fs-3 fw-bold text-white">Tu usuario se registró Existosamente</div>
@@ -77,6 +81,53 @@
             </aside>
                     </div>
             <!-- Registrado Correctamente-->
+            <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5" >
+             <div class="container px-1">       
+             <div class="my-5 text-center text-xl-start">
+                <div class="row gx-5 align-items-center justify-content-center"></div>
+                <h1 class="display-5 fw-bolder text-white mb-2">Queremos conocer mas acerca tuyo, puedes llenar tus preferencias a continuacion</h1>
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Las preferencias son privadas pero nos sirven para determinar como es nuestra comunidad</h2>
+                            <br></br>
+                                <div class="row gx-5 justify-content-center">
+                                    <div class="col-lg-8 col-xl-12">
+                                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="preferencias/" method="post">
+                                            <!-- Name input-->
+                                            {% csrf_token %}
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="Lenguaje" name="Lenguaje" type="text" placeholder="¿Que lenguaje de programacion conoces?" data-sb-validations="required" />
+                                                <label for="Lenguaje">¿Que lenguaje de programacion conoces?</label>
+                                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                            </div>
+                                            <!-- Email address input-->
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="BackFront" name="BackFront" type="text" placeholder="Backend? , Frontend?" data-sb-validations="required,email" />
+                                                <label for="BackFront">Backend? , Frontend?</label>
+                                            </div>
+                                            <!-- Phone number input-->
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="Pais" name="Pais" type="text" placeholder="Pais"/>
+                                                <label for="Pais">¿De que pais eres?</label>
+                                                
+                                            </div>
+                                            <!-- Phone number input-->
+                                            <div class="form-floating mb-3">
+                                                <input class="form-control" id="Trabajo" name="Trabajo" type="text" placeholder="¿Buscando trabajo?"/>
+                                                <label for="Trabajo">¿Buscando trabajo?</label>
+                                                
+                                            </div>
+                                            <!-- Registrarse boton-->
+                                            <button class="btn btn-dark btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="preferencias">Registrarte</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div> 
+             </div>
+             </div>
+             </div>
+            </header>
+            {% endblock preferenciasok %}   
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">
