@@ -1,0 +1,30 @@
+{% extends 'buscarpreferencias.html' %}
+
+
+{% block respuesta %}
+    
+    <p>Estamos buscando {{preferencias}}</p>
+
+        {% if Preferencias_Usuario %}
+        <div class="container px-5 my-5">
+        <ul>
+            
+            {% for preferencia in  Preferencias_Usuario %}
+                <li>{{Preferencias_Usuario.lenguaje}}</li>
+                <li>{{Preferencias_Usuario.backOfront}}</li>
+                <li>{{Preferencias_Usuario.pais}}</li>
+                <li>{{Preferencias_Usuario.trabajo}}</li>
+
+            {% endfor %}
+                
+
+
+        </ul>
+        </div>
+        {% endif %}
+        
+    
+
+
+{% endblock respuesta %}
+    
