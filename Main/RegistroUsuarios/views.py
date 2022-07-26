@@ -1,8 +1,7 @@
 from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
-from RegistroUsuarios.models import Registro_usuarios, Preferencias_Usuario
-
+from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
 # Create your views here.
 def indexview(request):
     return render(request, 'indexBase.html')

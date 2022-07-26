@@ -18,4 +18,4 @@ def resultadoPreferencias(request):
         return render(request, 'resultadopreferencias.html', {'preferencias': preferencias})
 
 def buscarUsuarios(request):
-    pass
+     pass
