@@ -15,7 +15,7 @@ def resultadoPreferencias(request):
         lenguaje = request.GET["lenguaje"]
         preferencias = Preferencias_Usuario.objects.filter(lenguaje__icontains=lenguaje)
 
-        return render(request, 'resultadopreferencias.html', {'preferencias': preferencias})
+        return render(request, 'resultadopreferencias.html', {'preferencias': preferencias, 'lenguaje': lenguaje})
 
 def buscarUsuarios(request):
      pass

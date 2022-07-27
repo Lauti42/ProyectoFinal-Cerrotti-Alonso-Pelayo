@@ -2,6 +2,7 @@ from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
 from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
+from RegistroUsuarios.forms import PreferenciasFormulario
 # Create your views here.
 def indexview(request):
     return render(request, 'indexBase.html')
@@ -18,7 +19,7 @@ def registro(request):
         email = request.POST['Email']
         password = request.POST['Contraseña']
         password2 = request.POST['Contraseña2']
-
+    
         #Guardando los datos en la DB
         User_registred = Registro_usuarios(nombre=nombre, email=email, password=password)
         User_registred.save()
@@ -31,13 +32,19 @@ def preferencias(request):
         print("POST")
         #Obteniendo datos del registro (Form)
         
-        lenguaje = request.POST['Lenguaje']
-        backOfront = request.POST['BackFront']
-        pais = request.POST['Pais']
-        trabajo = request.POST['Trabajo']
+        # lenguaje = request.POST['Lenguaje']
+        # backOfront = request.POST['BackFront']
+        # pais = request.POST['Pais']
+        # trabajo = request.POST['Trabajo']
 
-        #Guardando los datos en la DB
-        Pref = Preferencias_Usuario(lenguaje=lenguaje, backOfront=backOfront, pais=pais, trabajo=trabajo)
-        Pref.save()
+        preferenciasUsuarioForm = PreferenciasFormulario(request.POST)    
+        
+        if preferenciasUsuarioForm.is_valid():
+
+            data = preferenciasUsuarioForm.cleaned_data
+
+            #Guardando los datos en la DB
+            Pref = Preferencias_Usuario(lenguaje=data["lenguaje"], backOfront=["backofront"], pais=["pais"], trabajo=["trabajo"])
+            Pref.save()
 
         return render(request, "preferenciasenviadas.html")

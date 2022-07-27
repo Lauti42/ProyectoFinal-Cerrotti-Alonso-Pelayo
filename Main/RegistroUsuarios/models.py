@@ -1,3 +1,4 @@
+
 from venv import create
 from django.db import models
 
@@ -20,3 +21,7 @@ class Preferencias_Usuario(models.Model):
 
     def __str__(self):
         return self.lenguaje + " " + self.backOfront + " " + self.pais + " " + self.trabajo
+
+    class Meta():
+        verbose_name = "Preferencias"
+        
