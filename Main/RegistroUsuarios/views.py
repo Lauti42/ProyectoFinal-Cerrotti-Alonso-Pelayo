@@ -31,12 +31,6 @@ def preferencias(request):
     if request.method == "POST":
         print("POST")
         #Obteniendo datos del registro (Form)
-        
-        # lenguaje = request.POST['Lenguaje']
-        # backOfront = request.POST['BackFront']
-        # pais = request.POST['Pais']
-        # trabajo = request.POST['Trabajo']
-
         preferenciasUsuarioForm = PreferenciasFormulario(request.POST)    
         
         if preferenciasUsuarioForm.is_valid():
