@@ -34,22 +34,22 @@ def GeneralPost(request):
     autor=  None
     fecha=  None
 
-    for entry in Entry.objects.all()
-        for post in entry:
-            nombre= post.nombre
-            contenido= post.contenido
-            imagen= post.imagen
-            autor= post.autor
-            fecha= post.fecha
+    # for entry in Entry.objects.all():
+    #     for post in entry:
+    #         nombre= post.nombre
+    #         contenido= post.contenido
+    #         imagen= post.imagen
+    #         autor= post.autor
+    #         fecha= post.fecha
 
     
-    # entries = Entry.objects.all()
-    # for entry in entries:
-    #     nombre = entry.nombre
-    #     contenido = entry.contenido
-    #     imagen = entry.imagen
-    #     autor = entry.autor
-    #     fecha = entry.fecha
+    entries = Entry.objects.all()
+    for entry in entries:
+        nombre = entry.nombre
+        contenido = entry.contenido
+        imagen = entry.imagen
+        autor = entry.autor
+        fecha = entry.fecha
         
-    return render(request, "Blog_Generalindex.html", {'entries': entries, 'nombre': nombre, 'contenido': contenido, 'imagen': imagen, 'autor': autor, 'fecha': fecha})
     #return render(request, "Blog_Generalindex.html", {'entries': entries, 'nombre': nombre, 'contenido': contenido, 'imagen': imagen, 'autor': autor, 'fecha': fecha})
+    return render(request, "Blog_Generalindex.html", {'entries': entries, 'nombre': nombre, 'contenido': contenido, 'imagen': imagen, 'autor': autor, 'fecha': fecha})
