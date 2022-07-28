@@ -3,9 +3,6 @@ from django.shortcuts import render
 from Blog_General.models import Entry
 # Create your views here.
 
-def blog_general_index(request):
-    
-    return render(request, 'Blog_Generalindex.html')
 
 def NewPostSave(request):
     if request.method == 'POST':
@@ -26,7 +23,7 @@ def NewPost(request):
     return render(request, 'makeanewpost.html')
 
 
-def GeneralPost(self):
+def blog_general_index(self):
 
     post= Entry.objects.all()
 

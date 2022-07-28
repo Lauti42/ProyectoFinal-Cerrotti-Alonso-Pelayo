@@ -17,13 +17,12 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Blog_General.views import blog_general_index , GeneralPost, NewPost, NewPostSave
+from Blog_General.views import blog_general_index , NewPost, NewPostSave
 
 
 
 urlpatterns = [
     path('General/index/', blog_general_index),
-    path('General/Post/', GeneralPost),
     path('General/NewPost/', NewPost),
     path('General/NewPost/save', NewPostSave),
     
