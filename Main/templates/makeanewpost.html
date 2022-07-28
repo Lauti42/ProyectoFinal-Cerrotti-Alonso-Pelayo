@@ -1,0 +1,57 @@
+{% extends 'indexBase.html' %}
+
+{% block navigation %}
+
+<div class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <h2 class="display-10 fw-bolder text-white mb-2">Aqui debajo puedes crear un nuevo Post</h2>
+    </div>
+</div>
+
+<br></br>
+<br></br>
+
+<div class="row gx-5 justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- * * SB Forms Contact Form * *-->
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- This form is pre-integrated with SB Forms.-->
+        <!-- To make this form functional, sign up at-->
+        <!-- https://startbootstrap.com/solution/contact-forms-->
+        <!-- to get an API token!-->
+        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="http://127.0.0.1:8000/blog/General/NewPost/save" method="post"> {% csrf_token %}
+            <!-- Asunto-->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="name" type="text" name="nombre" placeholder="Ingresa el Asunto del Post" data-sb-validations="required" />
+                <label for="name">Asunto</label>
+                
+            </div>
+            <!-- Contenido-->
+            <div class="form-floating mb-3">
+                <textarea class="form-control" id="message" type="text" name="contenido" placeholder="Es necesario un contenido para realizar el Post" style="height: 10rem" data-sb-validations="required"></textarea>
+                <label for="message">Contenido</label>
+                
+            </div>
+            <!-- Imagen-->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="name" type="text" name="imagen" placeholder="Ingresa una imagen para tu post" data-sb-validations="required" />
+                <label for="name">Imagen url</label>
+                
+            </div>
+            <!-- Autor-->
+            <div class="form-floating mb-3">
+                <input class="form-control" id="name" type="text" name="autor" placeholder="Por favor escribe el Autor" data-sb-validations="required" />
+                <label for="name">Autor</label>
+                
+            </div>
+            <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Postear">Postear</button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+
+{% endblock navigation %}
+

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RegistroUsuarios',
     'SearchData',
+    'Blog_General'
 ]
 
 MIDDLEWARE = [
