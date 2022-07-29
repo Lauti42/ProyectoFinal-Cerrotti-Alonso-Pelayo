@@ -28,5 +28,6 @@ urlpatterns = [
     path('contact/', contactview),
     path('registrarse/registrado/preferencias/', include('RegistroUsuarios.urls')),
     path('buscar/', include('SearchData.urls')),
+    path('juegos/', include('App_juegos.urls')),
     
 ]

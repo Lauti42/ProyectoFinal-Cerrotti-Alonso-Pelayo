@@ -1,0 +1,73 @@
+{% extends 'padre.html' %}
+
+{% load static %}
+
+{% block navigation %}
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a la sección de Juegos</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">Se podra ver información sobre actualizaciones de videojuegos y agregar mas información</p>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://images2.alphacoders.com/123/1231556.png" alt="Sección videojuegos" /></div>
+            </div>
+        </div>
+    </header>
+    <body>
+
+        <ul>
+        
+            {% for juego in object_list %}
+                <li>
+                    <a href="{% url 'DetalleJuego' juego.id %}">{{plataforma.nombre}}{{juego.nombre}}</a>
+                </li>
+
+                <button><a href="{% url 'EditaJuego' juego.id %}">Editar</a></button>
+
+                <button><a href="{% url 'EliminarJuego' juego.id %}">Eliminar</a></button>
+
+            {% endfor %}
+        </ul>
+        <br>
+        <a href="{% url 'CreaJuego' %}">Agregar otro juego</a>
+        <br><br>
+
+        <section class="py-5">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://us.123rf.com/450wm/greyjj/greyjj1802/greyjj180200071/95914618-iconos-de-vector-de-g%C3%A9neros-de-videojuegos-en-estilo-de-contorno-lleno.jpg?ver=6" alt="Entrada a Géneros"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="http://127.0.0.1:8000/juegos/generos"><h5 class="card-title mb-3">Géneros</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de Generos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://i0.wp.com/www.gameoverla.com/wp-content/uploads/2020/06/gamersOverla-26.jpg?fit=1200%2C917&ssl=1" alt="Entrada a Desarrolladores"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="http://127.0.0.1:8000/juegos/desarrolladores"><h5 class="card-title mb-3">Desarrolladores</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de desarrolladores de videojuegos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://i0.wp.com/videojuegos.enriqueortegaburgos.com/wp-content/uploads/2021/08/featured-image-for-game-stores-890x450-1.png?fit=890%2C450&ssl=1" alt="Entrada a plataformas"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="http://127.0.0.1:8000/juegos/plataformas"><h5 class="card-title mb-3">Plataformas</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de las plataformas de juegos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+{% endblock navigation %}
+
