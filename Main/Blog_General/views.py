@@ -1,6 +1,7 @@
 from enum import auto
 from django.shortcuts import render
 from Blog_General.models import Entry
+from django.utils.text import slugify
 # Create your views here.
 
 
@@ -12,7 +13,7 @@ def NewPostSave(request):
         contenido = request.POST['contenido']
         imagen = request.POST['imagen']
         autor = request.POST['autor']
-    
+        
         #Guardando los datos en la DB
         Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor)
         Entrys.save()
