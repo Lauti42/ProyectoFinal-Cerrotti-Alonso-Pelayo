@@ -26,6 +26,6 @@ def NewPost(request):
 
 def blog_general_index(self):
 
-    post= Entry.objects.filter(muestra_inferior= 'si')
+    post= Entry.objects.all()
 
     return render(self, 'Blog_Generalindex.html', {'post': post})
