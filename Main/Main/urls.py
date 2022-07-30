@@ -18,11 +18,12 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Main.views import aboutview, contactview
+from Main.views import aboutview, contactview, indexview
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('RegistroUsuarios.urls')),
+    path('', indexview, name='index'),
     path('registrado/', include('RegistroUsuarios.urls'),name='registrado'),
     path('registrarse/', include('RegistroUsuarios.urls'),name='registrarse'),
     path('about/', aboutview, name='about'),
