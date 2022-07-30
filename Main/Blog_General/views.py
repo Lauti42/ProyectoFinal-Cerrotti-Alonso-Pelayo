@@ -27,6 +27,8 @@ def NewPost(request):
 def blog_general_index(self):
 
     post= Entry.objects.all()
+    # post_sup= Entry.objects.filter(muestra_superior= 'si')
+   
 
     return render(self, 'Blog_Generalindex.html', {'post': post})
 

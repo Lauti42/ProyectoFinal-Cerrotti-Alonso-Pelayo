@@ -24,6 +24,7 @@ class Entry(models.Model):
     fecha = models.DateField(auto_now_add=True)
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
+    muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
 
     def __str__(self):
         return self.nombre + " - " + self.autor + " - " + str(self.fecha)
