@@ -16,8 +16,9 @@ def NewPostSave(request):
         #Guardando los datos en la DB
         Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor)
         Entrys.save()
+        
+    return render(request, 'indexBase.html')
 
-    return render(request, 'Blog_Generalindex.html')
 
 def NewPost(request):
     return render(request, 'makeanewpost.html')
