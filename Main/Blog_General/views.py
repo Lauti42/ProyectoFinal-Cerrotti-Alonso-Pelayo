@@ -1,8 +1,14 @@
 from enum import auto
 from django.shortcuts import render
 from Blog_General.models import Entry
-from django.utils.text import slugify
+from django.views.generic.detail import DetailView
 # Create your views here.
+
+
+class PostDetalle(DetailView):
+    model = Entry
+    context_object_name = 'post'
+    template_name = 'GeneralPost.html'
 
 
 def NewPostSave(request):
@@ -36,3 +42,5 @@ def blog_general_index(self):
 def verpost(request):
     print(request)
     return render(request, 'indexBase.html')
+
+
