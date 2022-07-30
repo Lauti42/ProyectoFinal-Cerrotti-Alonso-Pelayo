@@ -8,5 +8,5 @@ urlpatterns = [
     path('', indexview),
     path('registrado/', registro,  name='registrado'),
     path('registrarse/', registrarse, name='registrarse'),
-    path('registrarse/registrado/preferencias/', preferencias, name='preferencias'),
+    path('preferencias_enviadas/', preferencias, name='preferencias'),
 ]

@@ -5,8 +5,8 @@ from django.urls import include, path
 from .views import buscarPreferencias, buscarUsuarios, resultadoPreferencias
 
 urlpatterns = [
-    path('preferencias/', buscarPreferencias),
-    path('Usuarios/', buscarUsuarios),
-    path('preferencias/resultado/', resultadoPreferencias),
+    path('preferencias/', buscarPreferencias, name='buscarpref'),
+    path('Usuarios/', buscarUsuarios, name='buscarusu'),
+    path('preferencias/resultado/', resultadoPreferencias, name='resultadopref'),
     
 ]

@@ -22,8 +22,9 @@ from Blog_General.views import blog_general_index , NewPost, NewPostSave
 
 
 urlpatterns = [
-    path('General/index/', blog_general_index),
-    path('General/NewPost/', NewPost),
-    path('General/NewPost/save', NewPostSave),
+    path('General/index/', blog_general_index , name='blog_general_index'),
+    path('General/NewPost/', NewPost, name='NewPost'),
+    path('General/NewPost/save', NewPostSave, name='NewPostSave'),
     
 ]
+    
