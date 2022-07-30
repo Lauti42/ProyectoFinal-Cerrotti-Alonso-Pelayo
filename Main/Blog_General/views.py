@@ -29,3 +29,7 @@ def blog_general_index(self):
     post= Entry.objects.all()
 
     return render(self, 'Blog_Generalindex.html', {'post': post})
+
+def verpost(request):
+    print(request)
+    return render(request, 'indexBase.html')
