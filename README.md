@@ -40,7 +40,7 @@
 <h2 aling="center" >Templates</h2>
 
 
-1) Templates / Inicio:
+1) Templates / Inicio: 
    
    [![Index-Nuevo.png](https://i.postimg.cc/vHVQBMdp/Index-Nuevo.png)](https://postimg.cc/GHb07WtQ)
    
