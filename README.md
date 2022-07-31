@@ -330,13 +330,13 @@ Para probar todo el contenido recomendamos una secuencia que lo llevara atravez 
 <br></br>
 <h2 aling="center" >Futuros cambios</h2>
 
-[] Debemos revisar la totalidad de los enlaces para que funcionen absolutamente todos con {% url 'urls' %}.
-[] Identificar los Try: Except: mas importantes para implementar (Caracteres no validos en formularios , Formularios incompletos , Busqueda de elementos de objetos no existentes , Urls inexistentes).
-[] Establecer tamaños de imagenes estaticos para distintas partes de la web.
-[] Un modelo de comentarios para aplicar esta funcionalidad.
-[] Colocar imagenes faltantes y reemplazo de Lorem.
-[] Establecer Login y Logout.
-[] Enlazar Registro de Usuarios con Preferencias atravez de Foreign Key.
-[] Permitir solamente valores unicos en Registro de Usuarios.
-[] Posibilidad de editar / borrar posteos realizados.
-[] Establecer permisos de usuarios.
+* Debemos revisar la totalidad de los enlaces para que funcionen absolutamente todos con {% url 'urls' %}.
+* Identificar los Try: Except: mas importantes para implementar (Caracteres no validos en formularios , Formularios incompletos , Busqueda de elementos de objetos no existentes , Urls inexistentes).
+* Establecer tamaños de imagenes estaticos para distintas partes de la web.
+* Un modelo de comentarios para aplicar esta funcionalidad.
+* Colocar imagenes faltantes y reemplazo de Lorem.
+* Establecer Login y Logout.
+* Enlazar Registro de Usuarios con Preferencias atravez de Foreign Key.
+* Permitir solamente valores unicos en Registro de Usuarios.
+* Posibilidad de editar / borrar posteos realizados.
+* Establecer permisos de usuarios.
