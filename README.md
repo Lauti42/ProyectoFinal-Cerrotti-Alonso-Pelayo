@@ -34,6 +34,8 @@
 :abc:Orden de Prueba:
 * Registro / Preferencias / Busqueda / Blog.
 
+:hammer_and_wrench:Futuros Cambios:
+
 <br></br>
 <h2 aling="center" >Templates</h2>
 
@@ -311,4 +313,30 @@
 Para probar todo el contenido recomendamos una secuencia que lo llevara atravez de cada funcionalidad implementada al momento.
 
    * Iniciamos por index. Simplemente ingresando al link http://127.0.0.1:8000/ podemos visualizar el index completo
-   * Seguimos por el registro, haciendo click en el boton Registrarte
+   * Seguimos por el registro, haciendo click en el boton Registrarte se cargara la vista registro y procederas a ingresar tus datos.
+   * A continuacion , al enviar el formulario entraras a una web donde confirma tu registro. si bajas en la web tendras otro formulario para completar (Pref)
+   * Si completaste todos los datos , pasaras a otra web donde confirma tus preferencias.
+   * Dirigirse al Index.
+   * Ahora vamos a buscar preferencias haciendo click sobre "Buscar Preferencias" en la navbar.
+   * Ingresando un Lenguaje (recomendamos buscar Html por mayor cantidad de datos agregados al momento) y presionando buscar apareceran los resultados.
+   * Dirigirse al Index.
+   * Ahora vamos a ver el Blog Index, Hacemos click sobre Blog/Blog Home en la navbar.
+   * Vas a ver una web donde se muestran los posteos realizados por los usuarios del blog.
+   * Tambien podemos crear un post nosotros y para ello necesitamos ingresar a Blog/Blog Post en la navbar.
+   * Aqui veremos un formulario donde llenaremos los datos del Posteo a realizar (en imagen utilizar una url)
+   * Para ver el post creado debemos volver a Blog Home y aparecera en el inicio, haciendo un click podemos acceder para ver el contenido agregado de manera ordenada.
+  
+  
+<br></br>
+<h2 aling="center" >Futuros cambios</h2>
+
+[] Debemos revisar la totalidad de los enlaces para que funcionen absolutamente todos con {% url 'urls' %}.
+[] Identificar los Try: Except: mas importantes para implementar (Caracteres no validos en formularios , Formularios incompletos , Busqueda de elementos de objetos no existentes , Urls inexistentes).
+[] Establecer tamaños de imagenes estaticos para distintas partes de la web.
+[] Un modelo de comentarios para aplicar esta funcionalidad.
+[] Colocar imagenes faltantes y reemplazo de Lorem.
+[] Establecer Login y Logout.
+[] Enlazar Registro de Usuarios con Preferencias atravez de Foreign Key.
+[] Permitir solamente valores unicos en Registro de Usuarios.
+[] Posibilidad de editar / borrar posteos realizados.
+[] Establecer permisos de usuarios.
