@@ -294,7 +294,7 @@
 
     def __str__(self) -> str:
         return f'{self.nombre} ({self.anodecreacion})'
-    ```
+   ```
 
     
 <br></br>
@@ -311,6 +311,41 @@
     pais = forms.CharField()
     trabajo = forms.CharField()
    ```
+   
+2) Formulario de Juegps:
+   
+   ```Python
+   class DesarrolladorCreate(CreateView):
+    model = Desarrollador
+    template_name = "crea-desarrollador.html"
+    fields = ["nombre", "pais"]
+    success_url = "/juegos/desarrolladores/"
+   ```
+   
+   ```Python
+   class GeneroCreate(CreateView):
+    model = Genero
+    template_name = "crea-genero.html"
+    fields = ["nombre"]
+    success_url = "/juegos/generos/"
+   ```
+   
+   ```Python
+   class PlataformasCreate(CreateView):
+    model = Plataformas
+    template_name = "crea-plataforma.html"
+    fields = ["nombre", "link"]
+    success_url = "/juegos/plataformas/"
+   ```
+   
+   ```Python
+   class JuegosCreate(CreateView):
+    model = Juegos
+    template_name = "crea-juego.html"
+    fields = ["nombre", "anodecreacion", "desarrollador", "genero", "plataforma", "urlimagen", "descripcion"]
+    success_url = "/juegos/"
+   ```
+ + Formularios creados con Clases basadas en vistas
 
 <br></br>
 <h2 aling="center" >Funcionalidades del Proyecto</h2>
@@ -409,6 +444,194 @@
     print(request)
     return render(request, 'indexBase.html')
    ```
+* :hammer:Listas con entrada a Detalles de los modelos. Tenemos la funcionalidad de ver la lista de los modelos creados y guardados en base de datos. Se pueden ver los detalles de cada modelo.
+
+   ```Python
+   def all_games(request):
+
+    post= Juegos.objects.all()
+    # post_sup= Entry.objects.filter(muestra_superior= 'si')
+   
+
+    return render(request, 'Blog_GeneralindexG.html', {'post': post})
+    
+   class JuegosList(ListView):
+    
+    model = Juegos
+    template_name = "iniciojuegos.html"
+    context_object_name= 'juegos'
+
+   class JuegosDetail(DetailView):
+    model = Juegos
+    template_name = "GeneralPostG.html"
+    context_object_name= 'juegos'
+   ```
+   ```Python
+   class PlataformasList(ListView):
+    
+    model = Plataformas
+    template_name = "lista-plataformas.html"
+    context_object_name= 'plataformas'
+
+   class PlataformasDetail(DetailView):
+    model = Plataformas
+    template_name = "detalle-plataforma.html"
+    context_object_name= 'plataformas'
+   ```
+   ```Python
+   class GeneroList(ListView):
+    
+    model = Genero
+    template_name = "lista-generos.html"
+    context_object_name= 'generos'
+
+   class GeneroDetail(DetailView):
+    model = Genero
+    template_name = "detalle-genero.html"
+    context_object_name= 'generos'
+   ```
+   ```Python
+   class DesarrolladorList(ListView):
+    
+    model = Desarrollador
+    template_name = "lista-desarrolladores.html"
+    context_object_name= 'desarrollador'
+
+   class DesarrolladorDetail(DetailView):
+    model = Desarrollador
+    template_name = "detalle-desarrollador.html"
+    context_object_name= 'desarrollador'
+   ```
+   
+* :hammer:Posibilidad de borrar y editar los modelos. Tenemos la funcionalidad de editar y eliminar los modelos guardados en base de datos.
+
+   ```Python
+   class JuegosUpdate(UpdateView):
+    model = Juegos
+    template_name = "edita-juego.html"
+    fields = ('__all__')
+    success_url = "/juegos/"
+
+   class Juegosdelete(DeleteView):
+    model = Juegos
+    template_name = "eliminar-juego.html"
+    success_url = "/juegos/"
+
+   ```
+   ```Python
+   class PlataformasUpdate(UpdateView):
+    model = Plataformas
+    template_name = "edita-plataforma.html"
+    fields = ('__all__')
+    success_url = "/juegos/plataformas/"
+    
+   class Plataformasdelete(DeleteView):
+    model = Plataformas
+    template_name = "eliminar-plataforma.html"
+    success_url = "/juegos/plataformas/"
+   ```
+   ```Python
+   class GeneroUpdate(UpdateView):
+    model = Genero
+    template_name = "edita-genero.html"
+    fields = ('__all__')
+    success_url = "/juegos/generos/"
+    
+   class Generodelete(DeleteView):
+    model = Genero
+    template_name = "eliminar-genero.html"
+    success_url = "/juegos/generos/"
+   ```
+   ```Python
+   class DesarrolladorUpdate(UpdateView):
+    model = Desarrollador
+    template_name = "edita-desarrollador.html"
+    fields = ('__all__')
+    success_url = "/juegos/desarrolladores/"
+
+   class Desarrolladordelete(DeleteView):
+    model = Desarrollador
+    template_name = "eliminar-desarrollador.html"
+    success_url = "/juegos/desarrolladores/"
+   ```
+   
+* :hammer:Buscar por nombre de modelo. Tenemos la posibilidad de buscar por el nombre de cada modelos registrado en la base de datos.
+   
+   ```Python
+   def buscar(request): 
+
+    if request.GET["nombre"]:
+
+        nombre = request.GET["nombre"]
+
+        juegos = Juegos.objects.filter(nombre__icontains=nombre)
+
+        return render (request, "resultadoBusqueda.html", {"juegos": juegos, "nombre": nombre})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+   ```
+   
+   ```Python
+   def buscarplataforma(request): 
+
+    if request.GET["plataforma"]:
+
+        plataforma = request.GET["plataforma"]
+
+        plataformas = Juegos.objects.filter(nombre__icontains=plataforma)
+
+        return render (request, "resultadoBusqueda.html", {"plataformas": plataformas, "nombre": plataforma})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+   ```
+   
+   ```Python
+   def buscargenero(request): 
+
+    if request.GET["genero"]:
+
+        genero = request.GET["genero"]
+
+        generos = Genero.objects.filter(nombre__icontains=genero)
+
+        juegos = Juegos.objects.filter(genero__icontains=generos)
+
+        return render (request, "resultadoBusqueda.html", {"generos": juegos, "nombre": genero})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+   ```
+   
+   ```Python
+   def buscardesarrollador(request): 
+
+    if request.GET["desarrollador"]:
+
+        desarrollador = request.GET["desarrollador"]
+
+        desarrolladores = Desarrollador.objects.filter(nombre__icontains=desarrollador)
+
+        return render (request, "resultadoBusqueda.html", {"desarrolladores": desarrolladores, "nombre": desarrollador})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+   ```
+
+   
 
 <br></br>
 <h2 aling="center" >Orden de Prueba</h2>
@@ -428,6 +651,9 @@ Para probar todo el contenido recomendamos una secuencia que lo llevara atravez 
    * Tambien podemos crear un post nosotros y para ello necesitamos ingresar a Blog/Blog Post en la navbar.
    * Aqui veremos un formulario donde llenaremos los datos del Posteo a realizar (en imagen utilizar una url)
    * Para ver el post creado debemos volver a Blog Home y aparecera en el inicio, haciendo un click podemos acceder para ver el contenido agregado de manera ordenada.
+   * En la navbar podemos acceder a la sección Juegos
+   * En sección juegos debemos primeramente añadir genero, desarrollador y plataforma, luegos podremos generar juegos para visualizarlos en el inicio
+   * En el inicio ademas de visualizar los post de juegos creados, podemos buscar juegos por su nombre y accesder a las distintas secciones del Blog Juegos
   
   
 <br></br>
@@ -443,3 +669,4 @@ Para probar todo el contenido recomendamos una secuencia que lo llevara atravez 
 * Permitir solamente valores unicos en Registro de Usuarios.
 * Posibilidad de editar / borrar posteos realizados.
 * Establecer permisos de usuarios.
+* En los post queda agregar al autor de dicho blog
