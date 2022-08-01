@@ -15,15 +15,21 @@
 * Blog Index
 * Blog Post
 * Blog View
+* Blog Juegos
 
 :wrench:Modelos:
 
 * Modelo de Registro
 * Modelo de Preferencias
 * Modelo de Blog Entry
+* Modelo de Juegos
 
 :spiral_notepad:Formularios: 
 * Formulario de Preferencias
+* Modelo de Juegos
+* Modelo de Desarrolladores
+* Modelo de Generos
+* Modelo de Plataformas
 
 :hammer:Funcionalidades del proyecto
 * :hammer:Registrar usuarios. Tenemos la funcionalidad de guardar datos que ingresan nuestros usuarios en la Base de datos.
@@ -32,7 +38,8 @@
 * :hammer:Realizar Posteos. Tenemos la funcionalidad de realizar posteos, reflejarlos en la Base de datos y mostrarlos a eleccion dentro de todo el sitio.
 
 :abc:Orden de Prueba:
-* Registro / Preferencias / Busqueda / Blog.
+* Registro / Preferencias / Busqueda / Blog**.
+* **Blog / Blog Juegos / Formularios(Desarrolladores, Generos, Plataformas, Juegos) / Inicio / Busqueda
 
 :hammer_and_wrench:Futuros Cambios:
 
@@ -121,7 +128,51 @@
     * Reenderiza un objeto de Blog 
     * Renderiza Autor,Contenido,Imagen y asunto.
     <br></br>
+   
+11) Templates / Blog Juegos:
     
+   [![imagen-2022-08-01-014426739.png](https://i.postimg.cc/Qdm58QbH/imagen-2022-08-01-014426739.png)](https://postimg.cc/mPchVFKs)
+    
+   * Entrada a la sección Juegos
+   * Aqui se encuentran los ultimos juegos cargados
+   * Se encuentra la entrada a visualizaciones de generos, desarrolladores, plataformas
+   * Se encuentra boton de busqueda de juegos
+   <br></br>
+
+12) Templates / Blog Juegos / Todos los juegos:
+    
+   [![imagen-2022-08-01-015047030.png](https://i.postimg.cc/bwhWchCq/imagen-2022-08-01-015047030.png)](https://postimg.cc/ykLvcwCG)
+    
+   * Vista de todos los juegos cargados
+   <br></br>
+   
+13) Templates / Blog Juegos / Detalle de juegos:
+    
+   [![imagen-2022-08-01-015801911.png](https://i.postimg.cc/wvGZSRPr/imagen-2022-08-01-015801911.png)](https://postimg.cc/zbTxhvqw)
+    
+   * Detalle de los juegos cargados
+   <br></br>
+
+14) Templates / Blog Juegos / (generos, desarrolladores, plataformas):
+    
+   [![imagen-2022-08-01-014741515.png](https://i.postimg.cc/Wb3cYjHC/imagen-2022-08-01-014741515.png)](https://postimg.cc/grf7n9dH)
+   [![imagen-2022-08-01-014758916.png](https://i.postimg.cc/MG1CfGnM/imagen-2022-08-01-014758916.png)](https://postimg.cc/wtTfSgcg)
+   [![imagen-2022-08-01-014814592.png](https://i.postimg.cc/6qbgx2mS/imagen-2022-08-01-014814592.png)](https://postimg.cc/PvZ2mxhz)
+    
+   * Vista de cada uno de los modelos
+   * Visual en construcción
+   * Se encuentra boton de busqueda de cada sección (en un futuro de devolverla los juegos corrrepondientes a cada sección)
+   * Cada modelo se puede editar, borrar y crear nuevos
+   <br></br>
+   
+15) Templates / Blog Juegos / Resultado de busqueda:
+    
+   [![imagen-2022-08-01-015420557.png](https://i.postimg.cc/BZC1c5rN/imagen-2022-08-01-015420557.png)](https://postimg.cc/Z0CRJNKy)
+    
+   * Busqueda dependiendo del origen de la busqueda
+   * Visual en construcción
+   <br></br>
+
 
 <br></br>
 <h2 aling="center" >Modelos</h2>
@@ -192,7 +243,59 @@
     ```
     * Nombre - Contenido - Imagen - Autor - Fecha (Se agrega de manera auto) - Publicado - Muestra Inferior (Determinamos si puede mostrarse o no debajo del index)
       Muestra superior (Determianmos si va a estar en el Header de Blog Index.)
+ 
+ 4) Modelos / Blog Juegos:
     
+   ```Python  
+    class Desarrollador(models.Model):
+    nombre = models.CharField(max_length=50)
+    pais = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return f'{self.nombre} - {self.pais}'
+  ```
+   ```Python 
+   class Genero(models.Model):
+       nombre = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return f'{self.nombre}'
+   ```
+   ```Python 
+    class Plataformas(models.Model):
+      nombre = models.CharField(max_length=50)
+      link = models.CharField(max_length=50)
+
+    def __str__(self) -> str:
+        return f'{self.nombre} - {self.link}'
+   ```
+   ```Python
+   class Juegos(models.Model):
+
+    options= (
+        ('draft', 'Draft'),
+        ('publicado', 'Publicado'),
+    )
+
+    options2= (
+        ('si', 'Si'),
+        ('no', 'No'),
+    )
+
+
+    nombre = models.CharField(max_length=50)
+    anodecreacion = models.IntegerField()
+    desarrollador = models.ForeignKey(Desarrollador, on_delete=models.CASCADE)
+    genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
+    plataforma = models.ForeignKey(Plataformas, on_delete=models.CASCADE)
+    urlimagen = models.CharField(max_length=200)
+    descripcion = models.TextField(max_length=500)
+    muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
+
+    def __str__(self) -> str:
+        return f'{self.nombre} ({self.anodecreacion})'
+    ```
+
     
 <br></br>
 <h2 aling="center" >Formularios</h2>
