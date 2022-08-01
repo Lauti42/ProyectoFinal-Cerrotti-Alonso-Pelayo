@@ -22,7 +22,7 @@ def NewPostSave(request):
         descripcion = request.POST['descripcion']
         
         #Guardando los datos en la DB
-        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, request=descripcion)
+        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, descripcion=descripcion)
         Entrys.save()
         
     return render(request, 'indexBase.html')
