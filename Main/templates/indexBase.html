@@ -100,11 +100,11 @@
                         
                             <div class="col-lg-4 mb-5">
                                 <div class="card h-100 shadow border-0">
-                                    <img class="card-img-top" src="{{posteos.imagen}}" alt="..." />
+                                    <img class="card-img-top" src="{{posteos.imagen}}" width="500" height="350" alt="..." />
                                     <div class="card-body p-4">
                                         <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
                                         <a class="text-decoration-none link-dark stretched-link" href="{% url 'verpost' posteos.id %}"><div class="h5 card-title mb-3">{{posteos.nombre}}</div></a>
-                                        <p class="card-text mb-0">{{posteos.contenido}}</p>
+                                        <p class="card-text mb-0">{{posteos.descripcion}}</p>
                                     </div>
                                     <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                         <div class="d-flex align-items-end justify-content-between">

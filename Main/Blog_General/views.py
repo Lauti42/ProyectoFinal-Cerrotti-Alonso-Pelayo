@@ -19,9 +19,10 @@ def NewPostSave(request):
         contenido = request.POST['contenido']
         imagen = request.POST['imagen']
         autor = request.POST['autor']
+        descripcion = request.POST['descripcion']
         
         #Guardando los datos en la DB
-        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor)
+        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, request=descripcion)
         Entrys.save()
         
     return render(request, 'indexBase.html')

@@ -19,6 +19,7 @@ class Entry(models.Model):
 
 
     nombre = models.CharField(max_length=100)
+    descripcion = models.TextField(max_length = 150, default="Some String")
     contenido = models.TextField(max_length=1000)
     imagen = models.URLField()
     autor = models.CharField(max_length=100)
