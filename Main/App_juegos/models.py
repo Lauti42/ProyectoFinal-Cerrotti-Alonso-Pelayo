@@ -45,4 +45,4 @@ class Juegos(models.Model):
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
 
     def __str__(self) -> str:
-        return f'{self.nombre} ({self.anodecreacion}) - {self.genero} - {self.desarrollador} - {self.plataforma} - {self.urlimagen} - {self.descripcion}'
+        return f'{self.nombre} ({self.anodecreacion})'
