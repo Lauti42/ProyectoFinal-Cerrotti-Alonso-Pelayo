@@ -17,24 +17,47 @@
         </div>
     </header>
     <body>
-
-        <ul>
         
-            {% for juego in object_list %}
-                <li>
-                    <a href="{% url 'DetalleJuego' juego.id %}">{{plataforma.nombre}}{{juego.nombre}}</a>
-                </li>
+            
+                <div class="row justify-content-center">
+                    <div class="col-lg-10 col-xxl-10">
+                        <section class="py-10">
+            
+                            <div class="container px-5 my-5">
+                                <div class="row gx-3">
+                                    {% for juego in object_list %}
+                                    <div class="col-lg-2 mb-5">
+                                        <div class="card h-100 shadow border-0">
+                                            <img class="card-img-top" src="{{juego.urlimagen}}" alt="Entrada a Géneros" height="250" target="blank"/>
+                                            
+                                            <a class="text-decoration-none link-dark stretched-link" href="{% url 'DetalleJuego' juego.id %}" target="blank"></a>
+                                            
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                        </section>
+        
+                        <div class="input-group mb-3">
+                            <form action="{% url 'Buscar' %}" method="GET"> {% csrf_token %}
+                                <input  type="text" name="nombre" id="nombre" placeholder="Nombre del juego" aria-label="Nombre del juego">
+                                <button  class="btn btn-primary btn-lg-" id="button-newsletter" type="submit" value="Buscar">Buscar</button>
+                            </form>
+                        
+                        </div>
+                        <br>
+                        <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
+                        <br><br>
+                    </div>
+                </div>
+       
 
-                <button><a href="{% url 'EditaJuego' juego.id %}">Editar</a></button>
 
-                <button><a href="{% url 'EliminarJuego' juego.id %}">Eliminar</a></button>
-
-            {% endfor %}
-        </ul>
-        <br>
-        <a href="{% url 'CreaJuego' %}">Agregar otro juego</a>
-        <br><br>
-
+        
+            
+       
         <section class="py-5">
             <div class="container px-5 my-5">
                 <div class="row gx-5">

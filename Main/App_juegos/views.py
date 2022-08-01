@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Desarrollador, Genero, Juegos, Plataformas
 
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.http import HttpResponse
 
 # Create your views here.
 # ---------------------MODELO DESARROLLADOR-------------------
@@ -33,6 +34,24 @@ class Desarrolladordelete(DeleteView):
     template_name = "eliminar-desarrollador.html"
     success_url = "/juegos/desarrolladores/"
 
+def buscardesarrollador(request): 
+
+    if request.GET["desarrollador"]:
+
+        desarrollador = request.GET["desarrollador"]
+
+        desarrolladores = Desarrollador.objects.filter(nombre__icontains=desarrollador)
+
+        return render (request, "resultadoBusqueda.html", {"desarrolladores": desarrolladores, "nombre": desarrollador})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+
+    path('buscar-genero', buscargenero, name="BuscarGenero"),
+
 # ---------------------MODELO GENERO-------------------
 class GeneroList(ListView):
     
@@ -60,6 +79,27 @@ class Generodelete(DeleteView):
     model = Genero
     template_name = "eliminar-genero.html"
     success_url = "/juegos/generos/"
+
+def buscargenero(request): 
+
+    if request.GET["genero"]:
+
+        genero = request.GET["genero"]
+
+        generos = Genero.objects.filter(nombre__icontains=genero)
+
+        juegos = Juegos.objects.filter(genero__icontains=generos)
+
+        return render (request, "resultadoBusqueda.html", {"generos": juegos, "nombre": genero})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+
+
+    path('buscar-plataforma', buscarplataforma, name="BuscarPlataforma"),
 
 # ---------------------MODELO PLATAFORMAS-------------------
 
@@ -90,6 +130,24 @@ class Plataformasdelete(DeleteView):
     template_name = "eliminar-plataforma.html"
     success_url = "/juegos/plataformas/"
 
+def buscarplataforma(request): 
+
+    if request.GET["plataforma"]:
+
+        plataforma = request.GET["plataforma"]
+
+        plataformas = Juegos.objects.filter(nombre__icontains=plataforma)
+
+        return render (request, "resultadoBusqueda.html", {"plataformas": plataformas, "nombre": plataforma})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+
+    path('buscar-desarrollador', buscardesarrollador, name="BuscarDesarrollador"),
+
 # ---------------------MODELO JUEGOS-------------------
 
 class JuegosList(ListView):
@@ -106,7 +164,7 @@ class JuegosDetail(DetailView):
 class JuegosCreate(CreateView):
     model = Juegos
     template_name = "crea-juego.html"
-    fields = ["nombre", "anodecreacion", "desarrollador", "genero", "plataforma"]
+    fields = ["nombre", "anodecreacion", "desarrollador", "genero", "plataforma", "urlimagen", "descripcion"]
     success_url = "/juegos/"
 
 class JuegosUpdate(UpdateView):
@@ -119,3 +177,21 @@ class Juegosdelete(DeleteView):
     model = Juegos
     template_name = "eliminar-juego.html"
     success_url = "/juegos/"
+
+def buscar(request): 
+
+    if request.GET["nombre"]:
+
+        nombre = request.GET["nombre"]
+
+        juegos = Juegos.objects.filter(nombre__icontains=nombre)
+
+        return render (request, "resultadoBusqueda.html", {"juegos": juegos, "nombre": nombre})
+
+    else:
+
+        respuesta = "No enviaste datos"
+
+    return HttpResponse (respuesta)
+
+

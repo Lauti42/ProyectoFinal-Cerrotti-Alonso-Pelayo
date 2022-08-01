@@ -20,7 +20,14 @@
         </div>
     </header>
     <body>
+        <form action="{% url 'BuscarGenero' %}" method="GET"> {% csrf_token %}
 
+            <p>Buscar por genero: <input type="text" name="genero" id="genero"></p>
+    
+            <input type="submit" value="Buscar">
+    
+        </form>
+        
         <ul>
         
             {% for genero in object_list %}

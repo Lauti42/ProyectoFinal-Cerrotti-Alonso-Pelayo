@@ -23,6 +23,33 @@
         </div>
     </header>
     <body>
-        <h2>{{juegos.nombre}}</h2>
+        <header class="py-5">
+            <div class="container px-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-13 col-xxl-10">
+                        <h2>{{juegos.nombre}} ({{juegos.anodecreacion}})</h2>
+
+                            <img  src='{{juegos.urlimagen}}' width="280" height="399"/>
+                            <ul>
+                                <li>{{juegos.desarrollador}}</li>
+                                <li>{{juegos.genero}}</li>
+                            </ul>
+
+                            <p>{{juegos.descripcion}}</p>
+
+                            <p>Se lo puede encontrar en la plataforma {{juegos.plataforma}}</p>
+
+                            <br><br><br>
+
+
+                            <a class="btn btn-primary btn-lg" href="{% url 'EditaJuego' juegos.id %}">Editar</a>
+
+                            <a class="btn btn-primary btn-lg" href="{% url 'EliminarJuego' juegos.id %}">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        
     </body>
 {% endblock navigation %}

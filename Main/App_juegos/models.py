@@ -28,6 +28,8 @@ class Juegos(models.Model):
     desarrollador = models.ForeignKey(Desarrollador, on_delete=models.CASCADE)
     genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
     plataforma = models.ForeignKey(Plataformas, on_delete=models.CASCADE)
+    urlimagen = models.CharField(max_length=200)
+    descripcion = models.CharField(max_length=500)
 
     def __str__(self) -> str:
-        return f'{self.nombre} ({self.anodecreacion}) - {self.genero} - {self.desarrollador} - {self.plataforma}'
+        return f'{self.nombre} ({self.anodecreacion}) - {self.genero} - {self.desarrollador} - {self.plataforma} - {self.urlimagen} - {self.descripcion}'

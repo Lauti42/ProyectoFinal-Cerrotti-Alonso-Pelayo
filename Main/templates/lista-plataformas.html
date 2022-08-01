@@ -20,7 +20,15 @@
         </div>
     </header>
     <body>
+        <form action="{% url 'BuscarPlataforma' %}" method="GET"> {% csrf_token %}
 
+            <p>Buscar por plataforma: <input type="text" name="plataforma" id="plataforma"></p>
+    
+            <input type="submit" value="Buscar">
+    
+        </form>
+
+        
         <ul>
         
             {% for plataforma in object_list %}
