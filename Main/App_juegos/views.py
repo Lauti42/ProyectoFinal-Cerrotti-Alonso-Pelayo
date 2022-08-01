@@ -158,7 +158,7 @@ class JuegosList(ListView):
 
 class JuegosDetail(DetailView):
     model = Juegos
-    template_name = "detalle-juego.html"
+    template_name = "GeneralPostG.html"
     context_object_name= 'juegos'
 
 class JuegosCreate(CreateView):
@@ -195,3 +195,10 @@ def buscar(request):
     return HttpResponse (respuesta)
 
 
+def all_games(request):
+
+    post= Juegos.objects.all()
+    # post_sup= Entry.objects.filter(muestra_superior= 'si')
+   
+
+    return render(request, 'Blog_GeneralindexG.html', {'post': post})

@@ -13,21 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from argparse import Namespace
 from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Main.views import aboutview, contactview
+from Main.views import aboutview, contactview, indexview
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('RegistroUsuarios.urls')),
-    path('registrado/', include('RegistroUsuarios.urls')),
-    path('registrarse/', include('RegistroUsuarios.urls')),
-    path('about/', aboutview),
-    path('contact/', contactview),
-    path('registrarse/registrado/preferencias/', include('RegistroUsuarios.urls')),
-    path('buscar/', include('SearchData.urls')),
-    path('juegos/', include('App_juegos.urls')),
+    path('', indexview, name='index'),
+    path('registrado/', include('RegistroUsuarios.urls'),name='registrado'),
+    path('registrarse/', include('RegistroUsuarios.urls'),name='registrarse'),
+    path('about/', aboutview, name='about'),
+    path('contact/', contactview, name='contact'),
+    path('preferencias/', include('RegistroUsuarios.urls'),name='preferencias'),
+    path('buscar/', include('SearchData.urls',)),
+    path('blog/', include('Blog_General.urls'),),
+    path('juegos/', include('App_juegos.urls'), name='juegos'),
     
 ]

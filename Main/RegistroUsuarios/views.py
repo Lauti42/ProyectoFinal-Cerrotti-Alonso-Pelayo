@@ -4,8 +4,7 @@ from django.http import HttpResponse
 from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
 from RegistroUsuarios.forms import PreferenciasFormulario
 # Create your views here.
-def indexview(request):
-    return render(request, 'indexBase.html')
+
 
 def registrarse(request):
     return render(request, 'registrarse.html')

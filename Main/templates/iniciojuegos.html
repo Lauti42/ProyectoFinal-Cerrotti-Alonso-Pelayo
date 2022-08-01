@@ -1,4 +1,4 @@
-{% extends 'padre.html' %}
+{% extends 'indexBase.html' %}
 
 {% load static %}
 
@@ -10,6 +10,7 @@
                     <div class="my-5 text-center text-xl-start">
                         <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a la sección de Juegos</h1>
                         <p class="lead fw-normal text-white-50 mb-4">Se podra ver información sobre actualizaciones de videojuegos y agregar mas información</p>
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'all_games' %}">Todos los Juegos</a>
                     </div>
                 </div>
                 <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://images2.alphacoders.com/123/1231556.png" alt="Sección videojuegos" /></div>
@@ -17,42 +18,73 @@
         </div>
     </header>
     <body>
-        
-            
-        <div class="row justify-content-center">
-            <div class="col-lg-10 col-xxl-10">
-                <section class="py-10">
-    
-                    <div class="container px-5 my-5">
-                        <div class="row gx-3">
-                            {% for juego in object_list %}
-                            <div class="col-lg-2 mb-5">
-                                <div class="card h-100 shadow border-0">
-                                    <img class="card-img-top" src="{{juego.urlimagen}}" alt="Entrada a Géneros" height="250" target="blank"/>
-                                    
-                                    <a class="text-decoration-none link-dark stretched-link" href="{% url 'DetalleJuego' juego.id %}" target="blank"></a>
+         <!-- Prueba de card -->
+         <section class="py-5">
+            <div class="container px-5">
+                
+                {% for juego in object_list %}
+
+                    
+                        <div class="card border-0 shadow rounded-3 overflow-hidden">
+                            <div class="card-body p-0">
+                                <div class="row gx-0">
+                                    <div class="col-lg-6 col-xl-5 py-lg-5">
+                                        <div class="p-4 p-md-5">
+                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                            <div class="h2 fw-bolder">{{juego.nombre}}</div>
+                                            <p>{{juego.genero}}</p>
+                                            <a class="stretched-link text-decoration-none" href="#!">
+                                                Leer Mas
+                                                <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('{{juego.urlimagen}}')">
+                                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'DetalleJuego' juego.id %}" target="blank"></a>
+                                    </div></div>
                                     
                                 </div>
                             </div>
-                            {% endfor %}
                         </div>
-                    </div>
-                    
-                </section>
-
-                <div class="input-group mb-3">
-                    <form action="{% url 'Buscar' %}" method="GET"> {% csrf_token %}
-                        <input  type="text" name="nombre" id="nombre" placeholder="Nombre del juego" aria-label="Nombre del juego">
-                        <button  class="btn btn-primary btn-lg-" id="button-newsletter" type="submit" value="Buscar">Buscar</button>
-                    </form>
+                        <br></br>
+                {% endfor %}
                 
-                </div>
-                <br>
-                <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
-                <br><br>
             </div>
-        </div>
-       
+        </section>
+
+        <section class="py-5" id="features">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Aqui puedes buscar un juego por el nombre</h2>
+                        <br></br>
+                            <div class="row gx-5 justify-content-center">
+                                <div class="col-lg-8 col-xl-12">
+                                    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'Buscar' %}" method="GET">
+                                        <!-- Name input-->
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre del juego" data-sb-validations="required" />
+                                            <label for="nombre">Buscar un juego</label>
+                                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        </div>
+                                        <!-- Submit-->
+                                        <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Buscar">Buscar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+             <!-- Prueba de card -->
+             <section class="py-5">
+            
+                </div>
+                <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
+                </div>
+            
+                </div>
+            </section>
 
 
         

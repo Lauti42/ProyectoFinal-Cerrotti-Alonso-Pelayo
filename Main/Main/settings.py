@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'RegistroUsuarios',
     'SearchData',
     'App_juegos',
+    'Blog_General'
 ]
 
 MIDDLEWARE = [

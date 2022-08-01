@@ -1,15 +1,16 @@
 from django.urls import path 
 
-from .views import DesarrolladorCreate, DesarrolladorDetail, DesarrolladorList, DesarrolladorUpdate, Desarrolladordelete, GeneroCreate, GeneroDetail, GeneroList, GeneroUpdate, Generodelete, JuegosCreate, JuegosDetail, JuegosList, JuegosUpdate, Juegosdelete, PlataformasCreate, PlataformasDetail, PlataformasList, PlataformasUpdate, Plataformasdelete, buscar, buscardesarrollador, buscargenero, buscarplataforma
+from .views import DesarrolladorCreate, DesarrolladorDetail, DesarrolladorList, DesarrolladorUpdate, Desarrolladordelete, GeneroCreate, GeneroDetail, GeneroList, GeneroUpdate, Generodelete, JuegosCreate, JuegosDetail, JuegosList, JuegosUpdate, Juegosdelete, PlataformasCreate, PlataformasDetail, PlataformasList, PlataformasUpdate, Plataformasdelete, buscar, buscardesarrollador, buscargenero, buscarplataforma, all_games
 
 urlpatterns = [
 
-    path('', JuegosList.as_view(), name= "ListaJuegos"),
+    path('', JuegosList.as_view(), name='juegos'),
     path('detalle-juego/<pk>', JuegosDetail.as_view(), name= "DetalleJuego"),
     path('crea-juegos/', JuegosCreate.as_view(), name="CreaJuego"),
     path('edita-juego/<pk>', JuegosUpdate.as_view(), name="EditaJuego"),
     path('eliminar-juegos/<pk>', Juegosdelete.as_view(), name="EliminarJuego"),
     path('buscar-juego', buscar, name="Buscar"),
+    path('todos-los-juegos', all_games, name="all_games"),
 
     path('generos/', GeneroList.as_view(), name= "ListaGenero"),
     path('detalle-genero/<pk>', GeneroDetail.as_view(), name= "DetalleGenero"),
