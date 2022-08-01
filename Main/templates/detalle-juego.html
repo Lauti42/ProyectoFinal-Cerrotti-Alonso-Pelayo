@@ -1,0 +1,55 @@
+{% extends 'indexBase.html' %}
+
+{% load static %}
+
+{% block navigation %}
+
+
+
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a la sección de Juegos</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">Se podra ver información sobre actualizaciones de videojuegos y agregar mas información</p>
+                        <br>
+                        <br>
+                        <h5 class="display-6 fw-bolder text-white mb-2">Desarrolladores</h5>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://images2.alphacoders.com/123/1231556.png" alt="Sección videojuegos" /></div>
+            </div>
+        </div>
+    </header>
+    <body>
+        <header class="py-5">
+            <div class="container px-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-13 col-xxl-10">
+                        <h2>{{juegos.nombre}} ({{juegos.anodecreacion}})</h2>
+
+                            <img  src='{{juegos.urlimagen}}' width="280" height="399"/>
+                            <ul>
+                                <li>{{juegos.desarrollador}}</li>
+                                <li>{{juegos.genero}}</li>
+                            </ul>
+
+                            <p>{{juegos.descripcion}}</p>
+
+                            <p>Se lo puede encontrar en la plataforma {{juegos.plataforma}}</p>
+
+                            <br><br><br>
+
+
+                            <a class="btn btn-primary btn-lg" href="{% url 'EditaJuego' juegos.id %}">Editar</a>
+
+                            <a class="btn btn-primary btn-lg" href="{% url 'EliminarJuego' juegos.id %}">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        </header> 
+        
+        
+    </body>
+{% endblock navigation %}
