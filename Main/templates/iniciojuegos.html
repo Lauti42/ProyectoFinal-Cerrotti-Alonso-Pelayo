@@ -1,0 +1,128 @@
+{% extends 'indexBase.html' %}
+
+{% load static %}
+
+{% block navigation %}
+    <header class="bg-dark py-5">
+        <div class="container px-5">
+            <div class="row gx-5 align-items-center justify-content-center">
+                <div class="col-lg-8 col-xl-7 col-xxl-6">
+                    <div class="my-5 text-center text-xl-start">
+                        <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a la sección de Juegos</h1>
+                        <p class="lead fw-normal text-white-50 mb-4">Se podra ver información sobre actualizaciones de videojuegos y agregar mas información</p>
+                        <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'all_games' %}">Todos los Juegos</a>
+                    </div>
+                </div>
+                <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://images2.alphacoders.com/123/1231556.png" alt="Sección videojuegos" /></div>
+            </div>
+        </div>
+    </header>
+    <body>
+         <!-- Prueba de card -->
+         <section class="py-5">
+            <div class="container px-5">
+                
+                {% for juego in object_list %}
+
+                    
+                        <div class="card border-0 shadow rounded-3 overflow-hidden">
+                            <div class="card-body p-0">
+                                <div class="row gx-0">
+                                    <div class="col-lg-6 col-xl-5 py-lg-5">
+                                        <div class="p-4 p-md-5">
+                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                            <div class="h2 fw-bolder">{{juego.nombre}}</div>
+                                            <p>{{juego.genero}}</p>
+                                            <a class="stretched-link text-decoration-none" href="#!">
+                                                Leer Mas
+                                                <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('{{juego.urlimagen}}')">
+                                        <a class="text-decoration-none link-dark stretched-link" href="{% url 'DetalleJuego' juego.id %}" target="blank"></a>
+                                    </div></div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <br></br>
+                {% endfor %}
+                
+            </div>
+        </section>
+
+        <section class="py-5" id="features">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Aqui puedes buscar un juego por el nombre</h2>
+                        <br></br>
+                            <div class="row gx-5 justify-content-center">
+                                <div class="col-lg-8 col-xl-12">
+                                    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'Buscar' %}" method="GET">
+                                        <!-- Name input-->
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre del juego" data-sb-validations="required" />
+                                            <label for="nombre">Buscar un juego</label>
+                                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        </div>
+                                        <!-- Submit-->
+                                        <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Buscar">Buscar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+             <!-- Prueba de card -->
+             <section class="py-5">
+            
+                </div>
+                <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
+                </div>
+            
+                </div>
+            </section>
+
+
+        
+            
+       
+        <section class="py-5">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://us.123rf.com/450wm/greyjj/greyjj1802/greyjj180200071/95914618-iconos-de-vector-de-g%C3%A9neros-de-videojuegos-en-estilo-de-contorno-lleno.jpg?ver=6" alt="Entrada a Géneros"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaGenero' %}"><h5 class="card-title mb-3">Géneros</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de Generos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://i0.wp.com/www.gameoverla.com/wp-content/uploads/2020/06/gamersOverla-26.jpg?fit=1200%2C917&ssl=1" alt="Entrada a Desarrolladores"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaDesarrollador' %}"><h5 class="card-title mb-3">Desarrolladores</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de desarrolladores de videojuegos.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-5">
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="https://i0.wp.com/videojuegos.enriqueortegaburgos.com/wp-content/uploads/2021/08/featured-image-for-game-stores-890x450-1.png?fit=890%2C450&ssl=1" alt="Entrada a plataformas"/>
+                            <div class="card-body p-4">
+                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaPlataforma' %}"><h5 class="card-title mb-3">Plataformas</h5></a>
+                                <p class="card-text mb-0">Ingresar a la vista del menu de las plataformas de juegos.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+{% endblock navigation %}
+

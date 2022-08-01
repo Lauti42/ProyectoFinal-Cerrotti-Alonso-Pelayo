@@ -31,5 +31,6 @@ urlpatterns = [
     path('preferencias/', include('RegistroUsuarios.urls'),name='preferencias'),
     path('buscar/', include('SearchData.urls',)),
     path('blog/', include('Blog_General.urls'),),
+    path('juegos/', include('App_juegos.urls'), name='juegos'),
     
 ]
