@@ -16,6 +16,10 @@ def resultadoPreferencias(request):
         preferencias = Preferencias_Usuario.objects.filter(lenguaje__icontains=lenguaje)
 
         return render(request, 'resultadopreferencias.html', {'preferencias': preferencias, 'lenguaje': lenguaje})
+    else:
+        lenguaje = "No seleccionado"
+        return render(request, 'buscarpreferencias.html', {'lenguaje': lenguaje})
+
 
 def buscarUsuarios(request):
      pass
