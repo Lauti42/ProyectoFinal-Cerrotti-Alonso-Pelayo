@@ -670,3 +670,4 @@ Para probar todo el contenido recomendamos una secuencia que lo llevara atravez 
 * Posibilidad de editar / borrar posteos realizados.
 * Establecer permisos de usuarios.
 * En los post queda agregar al autor de dicho blog
+* Tememos problemas con el menu desplegable en el extend de Buscar Preferencias.
