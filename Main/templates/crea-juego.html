@@ -17,15 +17,14 @@
         </div>
     </header>
     <body>
-
+        <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5" >
         <form action="{% url 'CreaJuego' %}" method="POST"> {% csrf_token %}
         
-
-            {{form.as_p}}
-
-
-            <input type="submit" value="Enviar">
+            <table class="text-white mb-1">   
+                <br></br>{{form.as_table}}
+            </table>
+            <input class="btn btn-secondary btn-lg px-1 me-sm-4 " type="submit" vaslue="Enviar">
         </form>
-
+    </header>
     </body>
 {% endblock navigation %}

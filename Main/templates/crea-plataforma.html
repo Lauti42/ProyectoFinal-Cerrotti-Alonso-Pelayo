@@ -23,10 +23,10 @@
 
         <form action="{% url 'CreaPlataforma' %}" method="POST"> {% csrf_token %}
         
-
-            {{form.as_p}}
-            
-            <input type="submit" value="Enviar">
+            <table class="text-dark mb-1">
+                <br></br>{{form.as_table}}
+            </table>
+            <input class="btn btn-secondary btn-lg px-1 me-sm-4 " type="submit" value="Enviar">
         </form>
 
     </body>

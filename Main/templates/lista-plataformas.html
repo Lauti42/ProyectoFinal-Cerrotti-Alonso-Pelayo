@@ -20,31 +20,50 @@
         </div>
     </header>
     <body>
-        <form action="{% url 'BuscarPlataforma' %}" method="GET"> {% csrf_token %}
-
-            <p>Buscar por plataforma: <input type="text" name="plataforma" id="plataforma"></p>
-    
-            <input type="submit" value="Buscar">
-    
-        </form>
-
+        <section class="py-5" id="features">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Aqui puedes buscar por Desarrollador</h2>
+                        <br></br>
+                            <div class="row gx-5 justify-content-center">
+                                <div class="col-lg-8 col-xl-12">
+                                    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'BuscarPlataforma' %}" method="GET">
+                                        <!-- Name input-->
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="plataforma" name="plataforma" type="text" placeholder="Buscar por desarrollador" data-sb-validations="required" />
+                                            <label for="genero">Buscar por plataforma</label>
+                                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        </div>
+                                        <!-- Submit-->
+                                        <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Buscar">Buscar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+        <ul>     
         
-        <ul>
-        
-            {% for plataforma in object_list %}
-                <li>
-                    <a href="{% url 'DetallePlataforma' plataforma.id %}">{{plataforma.nombre}}</a> --- <a href="{{plataforma.link}}" target="blank">{{plataforma.link}}</a>
-                </li>
+              
+            <br><br>         
+        {% for plataforma in object_list %}
+            
+            <li>
+                <a class="display-7 fw-bolder text-dark mb-3" href="{% url 'DetallePlataforma' plataforma.id %}">{{plataforma.nombre}}</a> --- <a class="display-7 fw-bolder text-dark mb-3" href="{{plataforma.link}}" target="blank">{{plataforma.link}}</a>
+            </li>
+            
+            <a class="btn btn-primary btn-sm" href="{% url 'EditaPlataforma' plataforma.id %}">Editar</a> <a class="btn btn-secondary  btn-sm" href="{% url 'EliminarPlataforma' plataforma.id %}">Eliminar</a>
+            <br><br>
+            
+        {% endfor %}
 
-                <button><a href="{% url 'EditaPlataforma' plataforma.id %}">Editar</a></button>
+        <li>
+            <a class="btn btn-primary btn-lg px-1 me-sm-3" href="{% url 'CreaPlataforma' %}">Agregar otra Plataforma</a>
+        </li>
+            
+    </ul>
 
-                <button><a href="{% url 'EliminarPlataforma' plataforma.id %}">Eliminar</a></button>
 
-            {% endfor %}
-                
-        </ul>
-        <a href="{% url 'CreaPlataforma' %}">Agregar otra plataforma</a>
-        <br><br>
+
 
     </body>
 {% endblock navigation %}

@@ -26,11 +26,11 @@
         <form action="{% url 'CreaDesarrollador' %}" method="POST"> {% csrf_token %}
             
 
+            <table class="text-dark mb-1">
+            <br></br>{{form.as_table}}
+            </table>
             
-            {{form.as_p}}
-            
-            
-            <input type="submit" value="Enviar">
+            <input class="btn btn-secondary btn-lg px-1 me-sm-4 " type="submit" value="Enviar">
         </form>
     </body>
 {% endblock navigation %}

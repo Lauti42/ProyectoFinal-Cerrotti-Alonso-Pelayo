@@ -30,12 +30,11 @@
                                 <div class="row gx-0">
                                     <div class="col-lg-6 col-xl-5 py-lg-5">
                                         <div class="p-4 p-md-5">
-                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{juego.genero}}</div>
+                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">{{juego.anodecreacion}}</div>
                                             <div class="h2 fw-bolder">{{juego.nombre}}</div>
-                                            <p>{{juego.genero}}</p>
-                                            <a class="stretched-link text-decoration-none" href="#!">
-                                                Leer Mas
-                                                <i class="bi bi-arrow-right"></i>
+
+                                        
                                             </a>
                                         </div>
                                     </div>
@@ -52,44 +51,7 @@
             </div>
         </section>
 
-        <section class="py-5" id="features">
-            <div class="container px-5 my-5">
-                <div class="row gx-5">
-                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Aqui puedes buscar un juego por el nombre</h2>
-                        <br></br>
-                            <div class="row gx-5 justify-content-center">
-                                <div class="col-lg-8 col-xl-12">
-                                    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'Buscar' %}" method="GET">
-                                        <!-- Name input-->
-                                        {% csrf_token %}
-                                        <div class="form-floating mb-3">
-                                            <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre del juego" data-sb-validations="required" />
-                                            <label for="nombre">Buscar un juego</label>
-                                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                                        </div>
-                                        <!-- Submit-->
-                                        <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Buscar">Buscar</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-             <!-- Prueba de card -->
-             <section class="py-5">
-            
-                </div>
-                <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
-                </div>
-            
-                </div>
-            </section>
-
-
         
-            
-       
         <section class="py-5">
             <div class="container px-5 my-5">
                 <div class="row gx-5">
@@ -123,6 +85,47 @@
                 </div>
             </div>
         </section>
+        <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5" >
+        <section class="py-1" id="features">
+            <div class="container px-1 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder text-white mb-2">Aqui puedes buscar un juego por el nombre</h2>
+                        <br></br>
+                            <div class="row gx-5 justify-content-center">
+                                <div class="col-lg-8 col-xl-12">
+                                    <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'Buscar' %}" method="GET">
+                                        <!-- Name input-->
+                                        {% csrf_token %}
+                                        <div class="form-floating mb-3">
+                                            <input class="form-control" id="nombre" name="nombre" type="text" placeholder="Nombre del juego" data-sb-validations="required" />
+                                            <label for="nombre">Buscar un juego</label>
+                                            <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                        </div>
+                                        <!-- Submit-->
+                                        <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Buscar">Buscar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+             <!-- Prueba de card -->
+             <section class="py-5">
+            
+                </div>
+                <a class="btn btn-primary btn-lg" href="{% url 'CreaJuego' %}">Agregar otro juego</a>
+                </div>
+            
+                </div>
+            </section>
+        </header>
+
+        
+            
+       
     </body>
+
+
 {% endblock navigation %}
 

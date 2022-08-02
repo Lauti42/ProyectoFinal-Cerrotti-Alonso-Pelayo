@@ -88,9 +88,9 @@ def buscargenero(request):
 
         generos = Genero.objects.filter(nombre__icontains=genero)
 
-        juegos = Juegos.objects.filter(genero__icontains=generos)
+        #juegos = Juegos.objects.filter(genero__icontains=generos)
 
-        return render (request, "resultadoBusqueda.html", {"generos": juegos, "nombre": genero})
+        return render (request, "resultadoBusqueda.html", {"nombre": genero})
 
     else:
 
