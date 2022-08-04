@@ -1,0 +1,43 @@
+{% extends 'indexBase.html' %}
+
+{% load static %}
+
+{% block navigation %}
+
+        
+
+
+
+
+        <div class="container login-container">
+            <div class="row">
+                <div class="col-md-6 login-form-1">
+                    <h3>Iniciar sesion</h3>
+                    <form action="{% url 'login' %}"method="POST">{% csrf_token %}
+
+                        {{form.as_p}}
+                        
+                        <div class="form-group">
+                            <input type="submit" value="Iniciar sesion">
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="ForgetPwd">Forget Password?</a>
+                        </div>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+            
+
+        
+    
+
+
+                {% block respuesta %}   
+                
+                
+
+                {% endblock respuesta %}
+{% endblock navigation %}
+
