@@ -1,43 +1,77 @@
-{% extends 'indexBase.html' %}
 
-{% load static %}
-
-{% block navigation %}
-
-        
+	<!DOCTYPE html>
+	<html lang="en" dir="ltr">
 
 
+	<head>
+
+		{% load static %}
 
 
-        <div class="container login-container">
-            <div class="row">
-                <div class="col-md-6 login-form-1">
-                    <h3>Iniciar sesion</h3>
-                    <form action="{% url 'login' %}"method="POST">{% csrf_token %}
+	<meta charset="utf-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css'>
+		<link href="{% static 'css\styles.css' %}" rel="stylesheet" />
+		<link href="{% static 'css\style-login.css' %}" rel="stylesheet" />
+		<link href="{% static 'static\scripts.js' %}" rel="stylesheet" />
+	</head>
 
-                        {{form.as_p}}
-                        
-                        <div class="form-group">
-                            <input type="submit" value="Iniciar sesion">
-                        </div>
-                        <div class="form-group">
-                            <a href="#" class="ForgetPwd">Forget Password?</a>
-                        </div>
-                    </form>
-                </div>
-                
-            </div>
-        </div>
-            
-
-        
-    
+	<body>
 
 
-                {% block respuesta %}   
-                
-                
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form action="#">
+				<h1>Create Account</h1>
+				<div class="social-container">
+					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+				<span>or use your email for registration</span>
+				<input type="text" placeholder="Name" />
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Password" />
+				<button>Sign Up</button>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form action="#">
+				<h1>Sign in</h1>
+				<div class="social-container">
+					<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+					<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+					<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+				</div>
+				<span>or use your account</span>
+				<input type="email" placeholder="Email" />
+				<input type="password" placeholder="Password" />
+				<a href="#">Forgot your password?</a>
+				<button>Sign In</button>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Welcome Back!</h1>
+					<p>To keep connected with us please login with your personal details</p>
+					<button class="ghost" id="signIn">Sign In</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Hi There!</h1>
+					<p>Enter your personal details to open an account with us</p>
+					<button class="ghost" id="signUp">Sign Up</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-                {% endblock respuesta %}
-{% endblock navigation %}
+	<script src="script.js" charset="utf-8"></script>
+	</body>
+
+	</html>
+
+
 
