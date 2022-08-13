@@ -1,8 +1,11 @@
+import re
 from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
 from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
 from RegistroUsuarios.forms import PreferenciasFormulario
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout, authenticate
 # Create your views here.
 
 
@@ -41,3 +44,36 @@ def preferencias(request):
             Pref.save()
 
         return render(request, "preferenciasenviadas.html")
+
+def login_request(request):
+
+    if request.method == 'POST':
+        form= AuthenticationForm(request, data = request.POST)
+
+        if form.is_valid():
+            usuario= form.cleaned_data.get('username')
+            contra= form.cleaned_data.get('password')
+
+            user= authenticate(username= usuario, password= contra)
+
+            if user:
+                login(request, user)
+
+                return render(request, 'indexBase.html', {'mensaje': f'Bienvenido {usuario}'})
+
+            else:
+
+                return render(request, 'indexBase.html', {'mensaje': 'Error, datos incorrectos'})
+
+        
+
+        return render(request, 'indexBase.html', {'mensaje': 'Error, formulario erroneo'})
+
+    else: 
+
+    
+       form= AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
+
+                
