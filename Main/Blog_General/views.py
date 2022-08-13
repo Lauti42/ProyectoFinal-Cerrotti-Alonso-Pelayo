@@ -36,15 +36,16 @@ def NewPost(request):
 def blog_general_index(request):
 
     listado_posts= Entry.objects.all().order_by('-id')
-    paginator= Paginator(listado_posts, 3)
+    paginator= Paginator(listado_posts, 2)
     pagina= request.GET.get('page') or 1
     posts= paginator.get_page(pagina)
-    current_page= range(1, posts.paginator.num_pages + 1)
+    pagina_actual= int(pagina)
+    paginas= range(1, posts.paginator.num_pages + 1)
 
     
    
 
-    return render(request, 'Blog_Generalindex.html', {'posts': posts})
+    return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
 
 def verpost(request):
     print(request)
