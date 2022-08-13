@@ -32,3 +32,12 @@ class Entry(models.Model):
     def __str__(self):
         return self.nombre + " - " + self.autor + " - " + str(self.fecha)
 
+
+class Comentario(models.Model):
+    post = models.ForeignKey(Entry, related_name="comments", on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return '%s - %s' % (self.post.nombre, self.name) 
