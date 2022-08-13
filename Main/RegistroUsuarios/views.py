@@ -17,13 +17,12 @@ def registro(request):
         print("POST")
 
         form = UserCreationForm(request.POST)
-        print(form)
-
+        
         if form.is_valid(): 
             print("es valido")
             username = form.cleaned_data['username']
             form.save()
-            return render(request, 'indexBase.html', {'mensaje': f'Usuario Creado {username}'})
+            return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
 
     else:
 
@@ -80,9 +79,9 @@ def login_request(request):
 
             else:
                 print("entramos a error")
-                return render(request, 'indexBase.html', {'mensaje': 'Error, datos incorrectos'})
+                return render(request, 'Errores.html', {'mensaje': 'Error, datos incorrectos'})
 
-        return render(request, 'indexBase.html', {'mensaje': 'Error, formulario erroneo'})
+        return render(request, 'Errores.html', {'mensaje': 'Error, formulario erroneo'})
 
     else:  
 

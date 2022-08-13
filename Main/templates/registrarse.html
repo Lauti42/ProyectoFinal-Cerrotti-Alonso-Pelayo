@@ -11,10 +11,26 @@
                 <br></br>
                     <div class="row gx-5 justify-content-center">
                         <div class="col-lg-8 col-xl-12">
-                            <form action="{% url 'registrado'%}" method="post">{% csrf_token %}
-                                {{form.as_p}}
-                            <input type="submit" value="Registrar">
+                            <div class="card" style="width: 25rem;">
+                                <div class="card-body">
+                                    <form action="{% url 'registrado'%}" method="post">{% csrf_token %}
+                                    <div class="input-group mb-3">
+                                        {% for field in form %}
+                                            
+                                            <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                            
+                                            <label class="col-sm-6 col-form-label">{{field}}</label>
+                                        {% endfor %}
+                                    
+                                    
+                                    </div>
+                                    <input class="btn btn-secondary" type="submit" value="Registrar" role="button"></a>
+                                
+                            </div>
+                        </div>
+                                    
                             </form>
+                            
                         
                            <!-- <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'registrado'%}" method="post">
                                 
@@ -49,9 +65,10 @@
                         </div>
                     </div> 
                 </div>   
-      
+                
             <div class="col-lg-8" w>
                 <br></br>
+               
                 <div class="row gx-3 row-cols-1 row-cols-md-2">
                     <div class="col mb-5 h-100">
                         <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
