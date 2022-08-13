@@ -15,6 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <!--<link href="css/styles.css" rel="stylesheet" />-->
+        
         <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
     </head>
     <body class="d-flex flex-column h-100">
@@ -26,11 +27,11 @@
                 
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container px-5">
-                    <a class="navbar-brand" href="http://127.0.0.1:8000/">HOME</a>
+                    <a class="navbar-brand" href="http://127.0.0.1:8000/index">HOME</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/" >Home</a></li> 
+                            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/index" >Home</a></li> 
                             <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'buscarpref'%}">Buscar Preferencias</a></li>
                              <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
@@ -68,7 +69,7 @@
                                 <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a nuestro Blog para CODERHOUSE </h1>
                                 <p class="lead fw-normal text-white-50 mb-4">Vas a poder publicar tus trabajos, historias, tus gustos y hobbies</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'registrarse'%}">Registrarte</a>
+                                    <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'registrado'%}">Registrarte</a>
                                     <a class="btn btn-outline-light btn-lg px-4" href="{% url 'about'%}">Sobre Nosotros</a>
                                     
                                     
@@ -147,7 +148,7 @@
                 </div>
             </section>
         </main>
-        
+        {{mensaje}}
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">

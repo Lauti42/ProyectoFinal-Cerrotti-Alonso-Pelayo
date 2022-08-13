@@ -19,11 +19,13 @@ from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
 from Main.views import aboutview, contactview, indexview
+from RegistroUsuarios.views import login_request
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', indexview, name='index'),
+    path('', login_request, name= 'login'),
+    path('index/', indexview, name='index'),
     path('registrado/', include('RegistroUsuarios.urls'),name='registrado'),
     path('registrarse/', include('RegistroUsuarios.urls'),name='registrarse'),
     path('about/', aboutview, name='about'),
