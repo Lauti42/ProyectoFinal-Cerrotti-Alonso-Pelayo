@@ -5,7 +5,7 @@
 }
 
 body {
-	background: #f6f5f7;
+	background: #ffffff;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -44,9 +44,9 @@ a {
 }
 
 button {
-	border-radius: 20px;
-	border: 1px solid #F2eee3;
-	background-color: #F2eee3;
+	border-radius: 22px;
+	border: 3px solid #000000;
+	background-color: #ffffff;
 	color: black;
 	font-size: 12px;
 	font-weight: bold;
@@ -54,7 +54,7 @@ button {
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
-	border-color: red;
+	border-color: #949494;
 }
 
 button:active {
@@ -67,22 +67,22 @@ button:focus {
 
 button.ghost {
 	background-color: transparent;
-	border-color: red;
+	border-color: white;
 }
 
 form {
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	flex-direction: column;
+	flex-direction: column;	
 	padding: 0 50px;
 	height: 100%;
 	text-align: center;
 }
 
 input {
-	background-color: #f2eee3;
+	background-color: #d4d4d4;
 	border: none;
 	padding: 12px 15px;
 	margin: 8px 0;
@@ -216,7 +216,7 @@ input {
 }
 
 .social-container a {
-	border: 1px solid rgb(0, 0, 0);
+	border: 1px solid rgb(255, 255, 255);
 	border-radius: 50%;
 	display: inline-flex;
 	justify-content: center;
@@ -226,3 +226,4 @@ input {
 	width: 40px;
 	background: #f2eee3;
 }
+
