@@ -86,7 +86,15 @@
                 {% block base %}
 
                 {% endblock base %}
-            
+                {% if mensaje %}
+                <aside class="bg-success bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                    <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                        <div class="mb-4 mb-xl-0">
+                            <div class="fs-3 fw-bold text-white">{{mensaje}}!</div>
+                            <div class="text-white-50">Puedes continuar navegando</div>
+                </aside>
+                        </div>
+                {% endif %}
             <!-- Blog preview section-->
             <section class="py-5">
                 <div class="container px-5 my-5">
@@ -148,7 +156,7 @@
                 </div>
             </section>
         </main>
-        {{mensaje}}
+        
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">
