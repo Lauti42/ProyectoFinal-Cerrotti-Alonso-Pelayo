@@ -18,7 +18,7 @@
 		<link href="{% static 'scripts.js' %}" rel="stylesheet" />
 	</head>
 
-	<body>
+	<body class="bg-dark p-2 text-dark bg-opacity-75">
 
 		<br></br>
 
@@ -30,7 +30,13 @@
 					<h1>Sign in</h1>
 				<div class="social-container">		
 				</div>
-					{{form.as_p}}
+				
+				{% for fields in form %}
+					{{fields.label}}
+					<label class="col-sm-6 col-form-label">{{fields}}</label>
+					
+				{% endfor %}
+					
 				<button type="submit" value="Login">Ingresar</button>
 				</form>
 				
