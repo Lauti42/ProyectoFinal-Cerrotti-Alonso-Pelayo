@@ -2,6 +2,7 @@ from enum import auto
 from django.shortcuts import render
 from Blog_General.models import Entry
 from django.views.generic.detail import DetailView
+from django.core.paginator import Paginator
 # Create your views here.
 
 
@@ -32,13 +33,18 @@ def NewPost(request):
     return render(request, 'makeanewpost.html')
 
 
-def blog_general_index(self):
+def blog_general_index(request):
 
-    post= Entry.objects.all()
-    # post_sup= Entry.objects.filter(muestra_superior= 'si')
+    listado_posts= Entry.objects.all().order_by('-id')
+    paginator= Paginator(listado_posts, 3)
+    pagina= request.GET.get('page') or 1
+    posts= paginator.get_page(pagina)
+    current_page= range(1, posts.paginator.num_pages + 1)
+
+    
    
 
-    return render(self, 'Blog_Generalindex.html', {'post': post})
+    return render(request, 'Blog_Generalindex.html', {'posts': posts})
 
 def verpost(request):
     print(request)
