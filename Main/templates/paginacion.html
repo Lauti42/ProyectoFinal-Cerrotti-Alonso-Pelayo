@@ -1,5 +1,5 @@
-<div class}="row mt-3 justify-content-center">
-    <nav aria-label="Page navigation example">
+<div class="row mt-3 justify-content-center">
+    <nav>
         <ul class="pagination">
             
                 {% if posts.has_previous %}
@@ -9,7 +9,7 @@
 
                 
                 {% for pagina in paginas %}
-                    <li class="page-item{% if pagina_actual == page %} active{% endif %}">
+                    <li class="page-item{% if pagina_actual == pagina %} active{% endif %}" aria-current="page">
                         <a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a>
 
 
