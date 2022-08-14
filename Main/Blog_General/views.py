@@ -1,8 +1,9 @@
 from enum import auto
 from django.shortcuts import render
-from Blog_General.models import Entry
+from Blog_General.models import Entry, Comentario
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator
+from .forms import NewCommentForm
 # Create your views here.
 
 
@@ -10,6 +11,25 @@ class PostDetalle(DetailView):
     model = Entry
     context_object_name = 'post'
     template_name = 'GeneralPost.html'
+
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+
+        comments_connected = Comentario.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
+        data['comments']= comments_connected
+        if self.request.user.is_authenticated:
+            data['comment_form']= NewCommentForm(instance=self.request.user)
+
+        return data
+
+    def post(self, request, *args, **kwargs):
+        new_comment= Comentario(body= request.POST.get('body'), 
+            name= self.request.user,
+            blogpost_connected= self.get_object())
+        
+        new_comment.save()
+        return self.get(self, request, *args, **kwargs)
+
 
 
 def NewPostSave(request):
