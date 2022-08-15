@@ -127,6 +127,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
+LOGIN_URL = 'index'
+
 LOGIN_REDIRECT_URL = 'index'
 
 # Default primary key field type

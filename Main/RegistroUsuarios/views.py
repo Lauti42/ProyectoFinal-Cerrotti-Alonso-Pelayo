@@ -6,6 +6,8 @@ from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
 from RegistroUsuarios.forms import PreferenciasFormulario
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
 from django.contrib.auth import login, logout, authenticate
+from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -91,3 +93,34 @@ def login_request(request):
     return render(request, 'indexBase.html', {'form': form})
 
                 
+@login_required
+def editar_perfil(request):
+    
+    print('method:', request.method)
+    print('post:', request.POST)
+
+    usuario = request.user
+
+    if request.method == 'POST':
+
+        miFormulario = UserEditForm(request.POST, instance=request.user)
+
+        if miFormulario.is_valid():
+
+            data = miFormulario.cleaned_data
+
+            usuario.first_name = data["first_name"]
+            usuario.last_name = data["last_name"]
+            usuario.email = data["email"]
+            usuario.password = data["password1"]
+
+            usuario.set_password(usuario.password)
+            usuario.save()
+
+            return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
+
+    else:
+
+        miFormulario = UserEditForm(instance=request.user)
+
+    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario})
