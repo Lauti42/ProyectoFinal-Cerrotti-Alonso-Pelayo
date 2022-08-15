@@ -3,7 +3,7 @@
 
   {% if user.is_authenticated %}
   <form method="POST">
-    {% csrf_token %}
+    {% csrf_token %} 
     <div class="form-group">
       {{ comment_form }}
       <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>

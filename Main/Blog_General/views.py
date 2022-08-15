@@ -4,6 +4,7 @@ from Blog_General.models import Entry, Comentario
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator
 from .forms import NewCommentForm
+from django.contrib.auth.forms import AuthenticationForm
 # Create your views here.
 
 
@@ -45,12 +46,13 @@ def NewPostSave(request):
         #Guardando los datos en la DB
         Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, descripcion=descripcion)
         Entrys.save()
-        
-    return render(request, 'indexBase.html')
+        form = AuthenticationForm() 
+    return render(request, 'indexBase.html', {'form': form})
 
 
 def NewPost(request):
-    return render(request, 'makeanewpost.html')
+    form = AuthenticationForm() 
+    return render(request, 'makeanewpost.html', {'form': form})
 
 
 def blog_general_index(request):
@@ -64,11 +66,12 @@ def blog_general_index(request):
 
     
    
-
-    return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
+    form = AuthenticationForm() 
+    return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas, 'form': form})
 
 def verpost(request):
     print(request)
-    return render(request, 'indexBase.html')
+    form = AuthenticationForm() 
+    return render(request, 'indexBase.html', {'form': form})
 
 

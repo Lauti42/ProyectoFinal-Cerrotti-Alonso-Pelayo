@@ -16,19 +16,19 @@ def registro(request):
     if request.method == 'POST':
         print("POST")
 
-        form = UserCreationForm(request.POST)
+        formreg = UserCreationForm(request.POST)
         
-        if form.is_valid(): 
+        if formreg.is_valid(): 
             print("es valido")
-            username = form.cleaned_data['username']
-            form.save()
+            username = formreg.cleaned_data['username']
+            formreg.save()
             return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
 
     else:
 
-        form = UserCreationForm()
-
-    return render(request, 'registrarse.html', {'form': form})        
+        formreg = UserCreationForm()
+        form = AuthenticationForm()
+    return render(request, 'registrarse.html', {'formreg': formreg, 'form': form})    
 
 
         #Obteniendo datos del registro (Form)
@@ -57,11 +57,11 @@ def preferencias(request):
             #Guardando los datos en la DB
             Pref = Preferencias_Usuario(lenguaje=data["lenguaje"], backOfront=["backofront"], pais=["pais"], trabajo=["trabajo"])
             Pref.save()
-
-        return render(request, "preferenciasenviadas.html")
+        form = AuthenticationForm()
+        return render(request, "preferenciasenviadas.html", {'form': form})
 
 def login_request(request):
-
+    print("entramos a login request")
     if request.method == 'POST':
         form= AuthenticationForm(request, data = request.POST)
 
@@ -71,7 +71,7 @@ def login_request(request):
             usuario = form.cleaned_data.get('username')
 
             user= authenticate(username= usuario, password= password)
-
+ 
             if user:
                 login(request, user)
                 print("entramos a bienvenido")
@@ -86,8 +86,8 @@ def login_request(request):
     else:  
 
     
-       form= AuthenticationForm()
+       form = AuthenticationForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'indexBase.html', {'form': form})
 
                 

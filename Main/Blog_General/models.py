@@ -40,4 +40,4 @@ class Comentario(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return '%s - %s' % (self.name, self.post) 
+        return '%s - %s' % (self.name, self.body) 

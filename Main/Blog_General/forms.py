@@ -8,9 +8,14 @@ class NewCommentForm(forms.ModelForm):
         model= Comentario
         fields= ("body",)
         widgets= {
-            'body': forms.TextInput(
+            'body': forms.Textarea(
                 attrs={
-                    'placeholder': 'Comenta aqui'
+                    'placeholder': 'Comenta aqui',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    
                 }
             )
         }

@@ -18,7 +18,7 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Main.views import aboutview, contactview, indexview
+from Main.views import aboutview, contactview, indexview, indexLogin
 from RegistroUsuarios.views import login_request
 
 
