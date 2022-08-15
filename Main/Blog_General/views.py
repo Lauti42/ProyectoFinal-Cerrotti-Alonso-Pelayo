@@ -58,7 +58,7 @@ def NewPost(request):
 def blog_general_index(request):
 
     listado_posts= Entry.objects.all().order_by('-id')
-    paginator= Paginator(listado_posts, 2)
+    paginator= Paginator(listado_posts, 6)
     pagina= request.GET.get('page') or 1
     posts= paginator.get_page(pagina)
     pagina_actual= int(pagina)
