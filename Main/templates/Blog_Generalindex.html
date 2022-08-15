@@ -47,6 +47,41 @@
                                     <!--<li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>-->
                                 </ul>
                             </li>
+                        </li>
+                        <li>{% if user.is_authenticated %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                            {% else %}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                            {% endif %}
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                    
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{% url 'login'%}" method="post"> {% csrf_token %}
+                                    
+                                        <div class="input-group mb-3">
+                                            {% for field in form %}
+                                                 
+                                                <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                                
+                                                <label class="col-sm-6 col-form-label">{{field}}</label>
+                                            {% endfor %}
+                                        
+                                    <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
                         </ul>
                     </div>
                 </div>

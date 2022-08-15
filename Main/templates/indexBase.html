@@ -50,34 +50,35 @@
                                     
                                 </ul>
                             </li>
-                            <li>
-                                <button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
-                                
+                            <li>{% if user.is_authenticated %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                                {% else %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                                {% endif %}
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">
                                       <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                        
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                       </div>
                                       <div class="modal-body">
                                         <form action="{% url 'login'%}" method="post"> {% csrf_token %}
-                                            <h1>Sign in</h1>
-                                        <div class="social-container">		
-                                        </div>
                                         
-                                        {% for fields in form %}
-                                            {{fields.label}}
-                                            <label class="col-sm-6 col-form-label">{{fields}}</label>
+                                            <div class="input-group mb-3">
+                                                {% for field in form %}
+                                                     
+                                                    <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                                    
+                                                    <label class="col-sm-6 col-form-label">{{field}}</label>
+                                                {% endfor %}
                                             
-                                        {% endfor %}
-                                            
-                                        <button type="submit" value="Login">Ingresar</button>
+                                        <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
                                         </form>
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <button type="submit" value="Login" type="button" class="btn btn-primary">Send message</button>
                                       </div>
                                     </div>
                                   </div>
@@ -130,8 +131,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://st4.depositphotos.com/1052205/25690/i/600/depositphotos_256909854-stock-photo-web-programming-functions-on-laptop.jpg" alt="..." /></div>
-                    </div>
+                        <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
+                            <img src="https://i.pinimg.com/originals/e0/73/71/e073716d0d0c92e002d603783a9854cd.gif" style="border: 12px solid rgba(63, 63, 63, 0.247);" width="560" height="350" alt="">
+                            
+                        </div>
                 </div>
             </header>
             
