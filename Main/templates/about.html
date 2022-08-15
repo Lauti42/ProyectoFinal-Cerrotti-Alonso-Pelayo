@@ -42,6 +42,10 @@
                                 </ul>
                             </li>
                         </li>
+                        </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                        {% endif %}
                         <li>{% if user.is_authenticated %}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
                             {% else %}

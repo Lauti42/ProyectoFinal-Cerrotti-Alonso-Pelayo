@@ -26,15 +26,18 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/index" >Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>              
                             <li class="nav-item"><a class="nav-link" href="{% url 'buscarpref'%}">Buscar Preferencias</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                            
                              <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
                             
                             <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/pricing">Pricing</a></li>-->
                             <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/faq">FAQ</a></li>-->
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
+                                {% if user.is_authenticated %}
+                                <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                                {% endif %}
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                     <li><a class="dropdown-item" href="{% url 'blog_general_index'%}">Blog Home</a></li>
                                     <li><a class="dropdown-item" href="{% url 'juegos'%}">Blog Juegos</a></li>
@@ -51,6 +54,7 @@
                         </li>
                         <li>{% if user.is_authenticated %}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                            
                             {% else %}
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
                             {% endif %}
