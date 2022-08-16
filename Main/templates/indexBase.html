@@ -53,11 +53,14 @@
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
-                            {% endif %}
-                            
+                            {% if url %}
                             <li>
-                                {% if user.is_authenticated %}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{url}}" alt="user" class="rounded-circle" width="37" height="37">
+                            </li>
+                            {% endif %}
+                            <li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                            </li>
                                 {% else %}
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
                                 {% endif %}

@@ -18,9 +18,12 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Main.views import aboutview, contactview, indexview, indexLogin
+from Main.views import aboutview, contactview, indexview
 from RegistroUsuarios.views import login_request
 from django.contrib.auth.views import LogoutView
+from django.conf import settings
+from django.conf.urls.static import static
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,4 +39,7 @@ urlpatterns = [
     path('juegos/', include('App_juegos.urls'), name='juegos'),
     path('logout/', LogoutView.as_view(template_name='indexBase.html'), name="logout"),
     
+    
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -29,4 +29,7 @@ class Preferencias_Usuario(models.Model):
 
 class Avatar(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    imagen = models.ImageField(upload_to='avatares', blank=True, null=True)
+    imagen = models.ImageField(upload_to='avatares', blank=True , null=True)
+
+    def __str__(self):
+        return self.user.username

@@ -98,19 +98,19 @@ def editar_perfil(request):
         if miFormulario.is_valid() and miAvatar.is_valid():
 
             data = miFormulario.cleaned_data
-            avatardata = miAvatar.cleaned_data
-
+            avatarData = miAvatar.cleaned_data
+        
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
             usuario.email = data["email"]
             usuario.password = data["password1"]
 
-            avatar = Avatar(user=request.user, imagen=avatardata['imagen'])
             usuario.set_password(usuario.password) 
             usuario.save()
-            avatar.save()  
-            
-      
+
+            avatar = Avatar(user=request.user, imagen=avatarData['imagen'])
+            avatar.save()
+        
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
 
@@ -118,5 +118,4 @@ def editar_perfil(request):
         miAvatar = AvatarFormulario()
 
     return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "miAvatar": miAvatar})
-
 

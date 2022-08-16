@@ -27,7 +27,7 @@
         <!-- https://startbootstrap.com/solution/contact-forms-->
         <!-- to get an API token!-->
         
-        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'modperfil'%}" method="post"> {% csrf_token %}
+        <form enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'modperfil'%}" method="post"> {% csrf_token %}
             <!-- Asunto-->
             
             <div class="form-floating mb-3">
