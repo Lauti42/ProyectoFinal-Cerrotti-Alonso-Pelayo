@@ -1,6 +1,7 @@
 
 from venv import create
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Registro_usuarios(models.Model):
@@ -25,3 +26,7 @@ class Preferencias_Usuario(models.Model):
     class Meta():
         verbose_name = "Preferencias"
         
+
+class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', blank=True, null=True)

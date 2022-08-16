@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
+from RegistroUsuarios.models import Avatar
 class PreferenciasFormulario(forms.Form):
 
     lenguaje = forms.CharField()
@@ -32,3 +33,9 @@ class UserEditForm(UserChangeForm):
         if password2 != self.cleaned_data["password1"]:
             raise forms.ValidationError("Las contraseñas no coinciden..")
         return password2
+
+class AvatarFormulario(forms.ModelForm):
+
+    class Meta:
+        model=Avatar
+        fields=('imagen',)

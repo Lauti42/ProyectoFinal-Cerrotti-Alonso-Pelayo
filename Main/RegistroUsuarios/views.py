@@ -8,6 +8,7 @@ from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
 from django.contrib.auth.decorators import login_required
+from RegistroUsuarios.models import Avatar
 # Create your views here.
 
 
@@ -92,23 +93,30 @@ def editar_perfil(request):
     if request.method == 'POST':
 
         miFormulario = UserEditForm(request.POST, instance=request.user)
+        miAvatar = AvatarFormulario(request.POST, request.FILES)
 
-        if miFormulario.is_valid():
+        if miFormulario.is_valid() and miAvatar.is_valid():
 
             data = miFormulario.cleaned_data
+            avatardata = miAvatar.cleaned_data
 
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
             usuario.email = data["email"]
             usuario.password = data["password1"]
 
-            usuario.set_password(usuario.password)
+            avatar = Avatar(user=request.user, imagen=avatardata['imagen'])
+            usuario.set_password(usuario.password) 
             usuario.save()
-
+            avatar.save()  
+            
+      
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
-
     else:
 
         miFormulario = UserEditForm(instance=request.user)
+        miAvatar = AvatarFormulario()
 
-    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario})
+    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "miAvatar": miAvatar})
+
+
