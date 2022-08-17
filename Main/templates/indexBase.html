@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Blog Proyecto Final CoderHouse</title>
+        <title>Blog</title>
         <!-- Favicon
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
         <!-- Bootstrap icons-->
@@ -130,7 +130,7 @@
                     <div class="row gx-5 align-items-center justify-content-center">
                         <div class="col-lg-8 col-xl-7 col-xxl-6">
                             <div class="my-5 text-center text-xl-start">
-                                <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a nuestro Blog para CODERHOUSE </h1>
+                                <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a nuestro Blog</h1>
                                 <p class="lead fw-normal text-white-50 mb-4">Vas a poder publicar tus trabajos, historias, tus gustos y hobbies</p>
                                 <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
                                     <a class="btn btn-primary btn-lg px-4 me-sm-3" href="{% url 'registrado'%}">Registrarte</a>
@@ -195,8 +195,13 @@
                                                 </div> 
                                             </div>
                                         </div>
+                                        <br></br>
+                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">Editar</button>
+                                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#exampleModal">Eliminar</button>
                                     </div>
+                                    
                                 </div>
+                                
                             </div>
                         {% endfor %}
 

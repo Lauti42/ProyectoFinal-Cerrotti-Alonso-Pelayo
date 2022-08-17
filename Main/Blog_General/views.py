@@ -10,7 +10,7 @@ from RegistroUsuarios.models import Avatar
 
 
 class PostDetalle(DetailView):
-    model = Entry
+    model = Entry 
     context_object_name = 'post'
     template_name = 'GeneralPost.html'
 
@@ -21,12 +21,12 @@ class PostDetalle(DetailView):
         data['comments']= comments_connected
         if self.request.user.is_authenticated:
             data['comment_form']= NewCommentForm(instance=self.request.user)
-
+            
         return data
 
     def post(self, request, *args, **kwargs):
         new_comment= Comentario(body= request.POST.get('body'), 
-            name= self.request.user,
+            user= self.request.user,
             blogpost_connected= self.get_object())
         
         new_comment.save()

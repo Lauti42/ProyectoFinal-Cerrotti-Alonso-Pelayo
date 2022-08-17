@@ -1,7 +1,9 @@
+from email.mime import image
 from ssl import Options
 from django.db import models
 from django.urls import reverse
-
+from RegistroUsuarios.models import Avatar
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Entry(models.Model):
@@ -35,9 +37,15 @@ class Entry(models.Model):
 
 class Comentario(models.Model):
     blogpost_connected = models.ForeignKey(Entry, related_name="comments", on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
-
+    
+    def imagenComentario(self):
+        if self.user:
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else None
+        else:
+            return None
+    
     def __str__(self):
-        return '%s - %s' % (self.name, self.body) 
+        return '%s - %s' % (self.user, self.body)  

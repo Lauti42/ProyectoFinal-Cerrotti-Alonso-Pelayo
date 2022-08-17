@@ -5,3 +5,4 @@ from Blog_General.models import Entry, Comentario
 
 admin.site.register(Entry)
 admin.site.register(Comentario)
+

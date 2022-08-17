@@ -159,9 +159,9 @@ class JuegosList(ListView):
 
 
 class JuegosDetail(DetailView):
-    model = Juegos, Avatar
+    model = Juegos
     template_name = "GeneralPostG.html"
-    context_object_name= 'juegos', 'url'
+    context_object_name= 'juegos'
 
 class JuegosCreate(CreateView):
     model = Juegos
