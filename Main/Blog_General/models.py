@@ -29,10 +29,14 @@ class Entry(models.Model):
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
+    likes = models.ManyToManyField(User, related_name='blog_posts')
 
 
     def __str__(self):
         return self.nombre + " - " + self.autor + " - " + str(self.fecha)
+
+    def total_likes(self):
+        return self.likes.count()
 
     
     @property

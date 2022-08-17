@@ -17,7 +17,8 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 from django.urls import path 
 from django.urls import include, path
-from Blog_General.views import blog_general_index , NewPost, NewPostSave, verpost, PostDetalle
+from Blog_General.views import blog_general_index , NewPost, NewPostSave, verpost, PostDetalle, darLike
+from .views import darLike
 
 
 
@@ -27,6 +28,7 @@ urlpatterns = [
     path('General/NewPost/', NewPost, name='NewPost'),
     path('General/NewPost/save', NewPostSave, name='NewPostSave'),
     path('General/VerPost/<int:pk>', PostDetalle.as_view(), name='verpost'),
+    path('like/<int:pk>', darLike, name='like_post'),
     
 ]
     

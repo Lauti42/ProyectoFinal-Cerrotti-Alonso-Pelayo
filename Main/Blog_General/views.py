@@ -1,11 +1,13 @@
 from enum import auto
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from Blog_General.models import Entry, Comentario
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator
 from .forms import NewCommentForm
 from django.contrib.auth.forms import AuthenticationForm
 from RegistroUsuarios.models import Avatar
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 
@@ -13,12 +15,17 @@ class PostDetalle(DetailView):
     model = Entry 
     context_object_name = 'post'
     template_name = 'GeneralPost.html'
+    
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
 
         comments_connected = Comentario.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
         data['comments']= comments_connected
+        stuff= get_object_or_404(Entry, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        data['total_likes']= total_likes
+
         if self.request.user.is_authenticated:
             data['comment_form']= NewCommentForm(instance=self.request.user)
             
@@ -73,5 +80,12 @@ def verpost(request):
     print(request)
     
     return render(request, 'indexBase.html')
+
+
+def darLike(request, pk):
+
+    post = get_object_or_404(Entry, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('verpost', args=[str(pk)]))
 
 
