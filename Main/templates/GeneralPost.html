@@ -45,19 +45,18 @@
                                
                         
             
-                            {% if user.is_authenticated %}
-                            <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
-                            {% if url %}
-                            <li>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{url}}" alt="user" class="rounded-circle" width="37" height="37">
-                            </li>
-                            {% endif %}
-                            <li>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
-                            </li>
-                                {% else %}
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
-                                {% endif %}
+                                    {% if user.is_authenticated %}
+                                    <li class="nav-item dropdown">
+                                        &nbsp;&nbsp;<a id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{url}}" alt="user" class="rounded-circle" width="37" height="37"></a>
+                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                            <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesion</a></li>
+                                        </ul>
+                                    </li>
+                                        {% else %}
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                                        {% endif %}
                             </ul>
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
