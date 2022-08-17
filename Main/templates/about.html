@@ -43,14 +43,20 @@
                             </li>
                         </li>
                         </li>
+                        
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
-                        {% endif %}
-                        <li>{% if user.is_authenticated %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
-                            {% else %}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                            {% if url %}
+                            <li>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="{{url}}" alt="user" class="rounded-circle" width="37" height="37">
+                            </li>
                             {% endif %}
+                            <li>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-outline-secondary" href="{% url 'logout'%}">Cerrar Sesion</a>
+                            </li>
+                                {% else %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                                {% endif %}
                             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                               <div class="modal-dialog">
                                 <div class="modal-content">
@@ -63,7 +69,7 @@
                                     <form action="{% url 'login'%}" method="post"> {% csrf_token %}
                                     
                                         <div class="input-group mb-3">
-                                            {% for field in form %}
+                                            {% for field in formAuth %}
                                                  
                                                 <label class="col-sm-6 col-form-label">{{field.label}}</label>
                                                 

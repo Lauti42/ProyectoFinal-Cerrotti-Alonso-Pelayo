@@ -13,6 +13,7 @@ from RegistroUsuarios.models import Avatar
 
 
 def registrarse(request):
+    
     return render(request, 'registrarse.html')
 
 def registro(request):
@@ -20,7 +21,8 @@ def registro(request):
         print("POST")
 
         formreg = UserCreationForm(request.POST)
-        
+       
+
         if formreg.is_valid(): 
             print("es valido")
             username = formreg.cleaned_data['username']
@@ -31,7 +33,8 @@ def registro(request):
 
         formreg = UserCreationForm()
         form = AuthenticationForm()
-    return render(request, 'registrarse.html', {'formreg': formreg, 'form': form})    
+        
+    return render(request, 'registrarse.html', {'formreg': formreg, 'form': form})  
 
 
 
@@ -44,6 +47,7 @@ def preferencias(request):
         if preferenciasUsuarioForm.is_valid():
 
             data = preferenciasUsuarioForm.cleaned_data
+            avatar = Avatar.objects.get(user=request.user.id)
 
             #Guardando los datos en la DB
             Pref = Preferencias_Usuario(lenguaje=data["lenguaje"], backOfront=["backofront"], pais=["pais"], trabajo=["trabajo"])
@@ -62,7 +66,7 @@ def login_request(request):
             usuario = form.cleaned_data.get('username')
 
             user= authenticate(username= usuario, password= password)
- 
+            
             if user:
                 login(request, user)
                 print("entramos a bienvenido")
@@ -76,10 +80,7 @@ def login_request(request):
 
     else:  
 
-    
-       form = AuthenticationForm()
-
-    return render(request, 'indexBase.html', {'form': form})
+       return render(request, 'indexBase.html')
 
                 
 @login_required
@@ -110,10 +111,14 @@ def editar_perfil(request):
 
             avatar = Avatar(user=request.user, imagen=avatarData['imagen'])
             avatar.save()
-        
+
+            #Avatar load:
+            
+
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
 
+       
         miFormulario = UserEditForm(instance=request.user)
         miAvatar = AvatarFormulario()
 

@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'Main.context_procesor.getUserInfo',
             ],
         },
     },
@@ -141,3 +142,4 @@ LOGIN_REDIRECT_URL = 'index'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

@@ -8,20 +8,15 @@ from RegistroUsuarios.models import Avatar
 def indexview(request):
 
     posteos = Entry.objects.filter(muestra_inferior= 'si')
-    avatar = Avatar.objects.get(user=request.user.id)
-    form = AuthenticationForm()
-    
-    return render(request, 'indexBase.html', {'posteos': posteos, 'form': form, "url": avatar.imagen.url})
+    return render(request, 'indexBase.html', {'posteos': posteos})
 
 def aboutview(request):
-    form = AuthenticationForm()
-    avatar = Avatar.objects.get(user=request.user.id)
-    return render(request, 'about.html', {'form': form, "url": avatar.imagen.url})
+    return render(request, 'about.html') 
 
 def contactview(request):
-    avatar = Avatar.objects.get(user=request.user.id)
-    form = AuthenticationForm()
-    return render(request, 'contact.html', {'form': form, "url": avatar.imagen.url})
+    
+    
+    return render(request, 'contact.html')
 
 
 

@@ -46,7 +46,7 @@
                                     <li><a class="dropdown-item" href="{% url 'blog_general_index'%}">Blog Home</a></li>
                                     <li><a class="dropdown-item" href="{% url 'juegos'%}">Blog Juegos</a></li>
                                     <li><a class="dropdown-item" href="{% url 'NewPost'%}">Blog Post</a></li>
-                                    
+                                     
                                     
                                     
                                 </ul>
@@ -76,7 +76,7 @@
                                         <form action="{% url 'login'%}" method="post"> {% csrf_token %}
                                         
                                             <div class="input-group mb-3">
-                                                {% for field in form %}
+                                                {% for field in formAuth %}
                                                      
                                                     <label class="col-sm-6 col-form-label">{{field.label}}</label>
                                                     

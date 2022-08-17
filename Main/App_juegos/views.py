@@ -3,7 +3,7 @@ from .models import Desarrollador, Genero, Juegos, Plataformas
 
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.http import HttpResponse
-
+from RegistroUsuarios.models import Avatar
 # Create your views here.
 # ---------------------MODELO DESARROLLADOR-------------------
 class DesarrolladorList(ListView):
@@ -155,11 +155,13 @@ class JuegosList(ListView):
     model = Juegos
     template_name = "iniciojuegos.html"
     context_object_name= 'juegos'
+    
+
 
 class JuegosDetail(DetailView):
-    model = Juegos
+    model = Juegos, Avatar
     template_name = "GeneralPostG.html"
-    context_object_name= 'juegos'
+    context_object_name= 'juegos', 'url'
 
 class JuegosCreate(CreateView):
     model = Juegos
@@ -200,5 +202,5 @@ def all_games(request):
     post= Juegos.objects.all()
     # post_sup= Entry.objects.filter(muestra_superior= 'si')
    
-
+    
     return render(request, 'Blog_GeneralindexG.html', {'post': post})
