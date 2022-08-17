@@ -34,6 +34,11 @@ class Entry(models.Model):
     def __str__(self):
         return self.nombre + " - " + self.autor + " - " + str(self.fecha)
 
+    
+    @property
+    def number_of_comments(self):
+        return Comentario.objects.filter(blogpost_connected=self).count()
+
 
 class Comentario(models.Model):
     blogpost_connected = models.ForeignKey(Entry, related_name="comments", on_delete=models.CASCADE)
