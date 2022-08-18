@@ -11,5 +11,6 @@ def getUserInfo(request):
         avatar = Avatar.objects.filter(user=request.user.id).last()
         context['url'] = avatar.imagen.url if avatar else None
         print(context)
+    
     return context
 

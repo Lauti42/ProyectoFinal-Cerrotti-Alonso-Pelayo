@@ -1,83 +1,50 @@
 {% extends 'indexBase.html' %}
 
 {% block navigation %}
-
-<div class="bg-dark py-4 mt-auto">
-    <div class="container px-5">
-        <h2 class="display-10 fw-bolder text-white mb-2">Modificar Perfil</h2>
-    </div>
-</div>
-
-<br></br>
-<br></br>
-
-
-  
-
-<div class="row gx-5 justify-content-center"> 
-<div class="card border-secondary mb-3" style="max-width: 22rem;">
-    <div class="card-header">Modifica tus datos</div>
-
-    <div class="col-lg-8 col-xl-2">
-        <!-- * * * * * * * * * * * * * * *-->
-        <!-- * * SB Forms Contact Form * *-->
-        <!-- * * * * * * * * * * * * * * *-->
-        <!-- This form is pre-integrated with SB Forms.-->
-        <!-- To make this form functional, sign up at-->
-        <!-- https://startbootstrap.com/solution/contact-forms-->
-        <!-- to get an API token!-->
-        
-        <form enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'modperfil'%}" method="post"> {% csrf_token %}
-            <!-- Asunto-->
-            
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name">Nombre</label>
-                {{miFormulario.first_name}}
+{% load static %}
+<link href="{% static 'css\styles.css' %}" rel="stylesheet" />
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="{{url}}"><span class="font-weight-bold">{{user.first_name}} {{user.last_name}}</span><span class="text-black-50">{{user.email}}</span><span> </span><span class="text-black-50">Registro {{user.date_joined}}</span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4 class="text-right">Ajustes del Perfil</h4>
                 </div>
-            </div>
-            <!-- descripcion-->
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name">Apellido</label>
-                {{miFormulario.last_name}}
+                <form enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'modperfil'%}" method="post"> {% csrf_token %}
+                    <div class="row mt-2">
+                        <div class="col-md-6"><label class="labels">Nombre de Usuario&nbsp;</label>{{miFormulario.username}}</div>
+                        <div class="col-md-12"><label class="labels"></label></div>
+                    </div>
+                <div class="row mt-2">
+                    <div class="col-md-6"><label class="labels">Nombre de Usuario&nbsp;</label>{{miFormulario.first_name}}</div>
+                    <div class="col-md-6"><label class="labels">Apellido&nbsp;</label>{{miFormulario.last_name}}</div>
                 </div>
-            </div>
-            <!-- Contenido-->
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name">Email</label>
-                {{miFormulario.email}}
+                <div class="row mt-3">
+                    <div class="col-md-6"><label class="labels">Email&nbsp;&nbsp;</label>{{miFormulario.email}}</div>
+                    <div class="col-md-6"><label class="labels">Contraseña&nbsp;&nbsp;</label>{{miFormulario.password1}}</div>
+                    <div class="col-md-12"><label class="labels"></label></div>
+                    <div class="col-md-6"><label class="labels">Repetir Contraseña&nbsp;&nbsp;</label>{{miFormulario.password2}}</div>
+                    <div class="col-md-12"><label class="labels"></label></div>
+                    <div class="col-md-6"><label class="labels">Avatar&nbsp;&nbsp;</label>{{miAvatar}}</div>
+                    
                 </div>
+                
             </div>
-            <!-- Imagen-->
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name">Contraseña</label>
-                {{miFormulario.password1}}
-                </div>
-            </div>
-            <!-- Autor-->
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name">Contraseña</label>
-                {{miFormulario.password2}}
-                </div>
-            </div>
-            <div class="form-floating mb-3">
-                <div class="form-group">
-                <label for="name"></label>
-                {{miAvatar}}
-                </div>
-            </div>
-            <button class="btn btn-secondary btn-sm px-4 me-sm-3" method="post">Actualizar</button>
-            <br></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary btn-sm px-4 me-sm-3" method="post">Actualizar</button>
         </form>
-        
+        </div>
+        <div class="col-md-4">
+            <div class="p-3 py-5">
+                <div class="d-flex justify-content-between align-items-center experience"><span></span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"><br>
+                <div class="col-md-12"><label class="labels">En esta seccion podras modificar tus datos, tene en cuenta que la informacion modificada afecta como te vas a ver dentro del blog (Nombre, Avatar, Usuario)</label><br>
+                
+            </div>
+        </div>
     </div>
 </div>
 </div>
 </div>
-</div>   
 {% endblock navigation %}
-
