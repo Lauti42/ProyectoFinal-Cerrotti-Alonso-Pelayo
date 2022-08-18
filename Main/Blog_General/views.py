@@ -50,9 +50,9 @@ def NewPostSave(request):
         imagen = request.POST['imagen']
         autor = request.POST['autor']
         descripcion = request.POST['descripcion']
-        
+        avatar = Avatar.objects.filter(user=request.user.id).last()
         #Guardando los datos en la DB
-        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, descripcion=descripcion)
+        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, descripcion=descripcion, avatar=avatar)
         Entrys.save()
         
     return render(request, 'indexBase.html',)

@@ -30,6 +30,13 @@ class Entry(models.Model):
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
     likes = models.ManyToManyField(User, related_name='blog_posts')
+    avatar = models.URLField(blank=True, null=True)
+
+    def avatarPost(self):
+        if self.avatar:
+            return Avatar.objects.filter(user=self.avatar).last()
+        else:
+            return None
 
 
     def __str__(self):

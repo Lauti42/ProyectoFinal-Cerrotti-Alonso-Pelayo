@@ -97,7 +97,9 @@
                     <div class="row gx-5">
                         <div class="col-lg-3">
                             <div class="d-flex align-items-center mt-lg-5 mb-4">
-                                <img class="img-fluid rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." />
+                                
+                                <img class="img-fluid rounded-circle" src="{{post.avatarPost}}" alt="..." />{{post.avatar}}
+                                
                                 <div class="ms-3">
                                     <div class="fw-bold">{{post.autor}}</div>
                                     <div class="text-muted"></div>
@@ -125,11 +127,11 @@
                                     
                                 </section>
 
-                                <br/><br/>
+                                
                                 <form action="{% url 'like_post' post.pk %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary btn-sm">Like</button>  - {{ total_likes }} likes
-
+                                    <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" data-bs-toggle="button">Like</button>  - {{ total_likes }} Me Gusta
+                                    <br></br>
 
                                 </form>
                             
@@ -156,7 +158,7 @@
                                         <!-- Comment with nested comments-->
                                         {% if comments %}
                                         <br></br>
-                                        <strong class="text-secondary">{{ object.number_of_comments }} Comment {{ object.number_of_comments|pluralize }}</strong>
+                                        <strong class="text-secondary">{{ object.number_of_comments }} Comentario{{ object.number_of_comments|pluralize }}</strong>
                                         <br></br>
                                         {% for comment in comments %}
                                         <div class="d-flex mb-4">
@@ -180,7 +182,7 @@
                 </div>
                 
                 {% else %}
-                    <strong class="text-secondary">No comments yet...</strong>
+                    <strong class="text-secondary">Aun no hay comentarios. Podes ser el Primero!</strong>
                 {% endif %}
             </section>
         <!-- Footer-->
