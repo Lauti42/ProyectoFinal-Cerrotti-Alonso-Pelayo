@@ -1,6 +1,6 @@
 from socket import fromshare
 from django import forms
-from .models import Entry, Comentario
+from .models import Comentario
 from django.db import models
 
 class NewCommentForm(forms.ModelForm):

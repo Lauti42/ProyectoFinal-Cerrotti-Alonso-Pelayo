@@ -23,7 +23,7 @@
         <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'NewPostSave'%}" method="post"> {% csrf_token %}
             <!-- Asunto-->
             <div class="form-floating mb-3">
-                <input class="form-control" id="name" type="text" name="nombre" placeholder="Ingresa el Asunto del Post" data-sb-validations="required" />
+                <input class="form-control" id="titulo" type="text" name="titulo" placeholder="Ingresa el Asunto del Post" data-sb-validations="required" />
                 <label for="name">Titulo</label>
                 
             </div>
@@ -46,11 +46,11 @@
                 
             </div>
             <!-- Autor-->
-            <div class="form-floating mb-3">
+            <!--<div class="form-floating mb-3">
                 <input class="form-control" id="name" type="text" name="autor" placeholder="Por favor escribe el Autor" data-sb-validations="required" />
                 <label for="name">Autor</label>
                 
-            </div>
+            </div>-->
             <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Postear">Postear</button>
         </form>
     </div>

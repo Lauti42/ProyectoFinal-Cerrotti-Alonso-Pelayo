@@ -1,6 +1,6 @@
 from enum import auto
 from django.shortcuts import render, get_object_or_404, redirect
-from Blog_General.models import Entry, Comentario
+from Blog_General.models import Publicacion, Comentario
 from django.views.generic.detail import DetailView
 from django.core.paginator import Paginator
 from .forms import NewCommentForm
@@ -8,11 +8,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from RegistroUsuarios.models import Avatar
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.contrib.auth.models import User
 # Create your views here.
 
 
 class PostDetalle(DetailView):
-    model = Entry 
+    model = Publicacion 
     context_object_name = 'post'
     template_name = 'GeneralPost.html'
     
@@ -22,7 +23,7 @@ class PostDetalle(DetailView):
 
         comments_connected = Comentario.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
         data['comments']= comments_connected
-        stuff= get_object_or_404(Entry, id=self.kwargs['pk'])
+        stuff= get_object_or_404(Publicacion, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
         data['total_likes']= total_likes
 
@@ -45,19 +46,19 @@ def NewPostSave(request):
     if request.method == 'POST':
         print("POST")
      #Obteniendo datos del registro (Form)
-        nombre = request.POST['nombre']
+        titulo = request.POST['titulo']
         contenido = request.POST['contenido']
         imagen = request.POST['imagen']
-        autor = request.POST['autor']
+        user = User.objects.get(id=request.user.id)
         descripcion = request.POST['descripcion']
-        avatar = Avatar.objects.filter(user=request.user.id).last()
+        
         #Guardando los datos en la DB
-        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor, descripcion=descripcion, avatar=avatar)
-        Entrys.save()
+        publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
+        publicacion.save()
         
     return render(request, 'indexBase.html',)
 
-
+ 
 def NewPost(request):
     form = AuthenticationForm() 
     return render(request, 'makeanewpost.html', {'form': form})
@@ -65,7 +66,7 @@ def NewPost(request):
 
 def blog_general_index(request):
 
-    listado_posts= Entry.objects.all().order_by('-id')
+    listado_posts= Publicacion.objects.all().order_by('-id')
     paginator= Paginator(listado_posts, 6)
     pagina= request.GET.get('page') or 1
     posts= paginator.get_page(pagina)
@@ -84,7 +85,7 @@ def verpost(request):
 
 def darLike(request, pk):
 
-    post = get_object_or_404(Entry, id=request.POST.get('post_id'))
+    post = get_object_or_404(Publicacion, id=request.POST.get('post_id'))
     post.likes.add(request.user)
     return HttpResponseRedirect(reverse('verpost', args=[str(pk)]))
 

@@ -104,9 +104,9 @@
                                         <div class="col-lg-6 col-xl-5 py-lg-5">
                                             <div class="p-4 p-md-5">
                                                 <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                                <div class="h2 fw-bolder">{{posteo.nombre}}</div>
+                                                <div class="h2 fw-bolder">{{posteo.titulo}}</div>
                                                 <p>{{posteo.descripcion}}</p>
-                                                <a class="stretched-link text-decoration-none" href="#!">
+                                                <a class="stretched-link text-decoration-none" href="{% url 'verpost' posteo.id %}">
                                                     Read more
                                                      <i class="bi bi-arrow-right"></i>
                                                 </a>
@@ -138,15 +138,15 @@
                                 <img class="card-img-top" src="{{posteo.imagen}}"  width="500" height="300" alt="..." />
                                 <div class="card-body p-4">
                                     <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <a class="text-decoration-none link-dark stretched-link" href="{% url 'verpost' posteo.id %}"><div class="h5 card-title mb-3">{{posteo.nombre}}</div></a>
+                                    <a class="text-decoration-none link-dark stretched-link" href="{% url 'verpost' posteo.id %}"><div class="h5 card-title mb-3">{{posteo.titulo}}</div></a>
                                     <p class="card-text mb-0">{{posteo.descripcion}}</p>
                                 </div>
                                 <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
                                     <div class="d-flex align-items-end justify-content-between">
                                         <div class="d-flex align-items-center">
-                                            <img class="rounded-circle me-3" src="https://dummyimage.com/40x40/ced4da/6c757d" alt="..." />
+                                            <img class="rounded-circle me-3" src="{{posteo.AvatarPublicacion}}" alt="user" class="rounded-circle" width="50" height="50" />
                                             <div class="small">
-                                                <div class="fw-bold">{{posteo.autor}}</div>
+                                                <div class="fw-bold">{{posteo.user}}</div>
                                                 <div class="text-muted">{{posteo.fecha}}</div>
                                             </div> 
                                         </div>

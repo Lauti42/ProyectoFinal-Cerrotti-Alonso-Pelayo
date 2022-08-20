@@ -6,7 +6,8 @@ from RegistroUsuarios.models import Avatar
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Entry(models.Model):
+
+class Publicacion(models.Model):
 
     options= (
         ('draft', 'Draft'),
@@ -18,41 +19,40 @@ class Entry(models.Model):
         ('no', 'No'),
     )
 
-
-
-    nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(max_length = 150, default="Some String")
-    contenido = models.TextField(max_length=1000)
-    imagen = models.URLField()
-    autor = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
+    descripcion = models.TextField(max_length = 200, default="Some String")
+    contenido = models.TextField(max_length=3500)
+    imagen = models.URLField(max_length=3000, blank=True, null=True)
     fecha = models.DateField(auto_now_add=True)
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
-    likes = models.ManyToManyField(User, related_name='blog_posts')
+    likes = models.ManyToManyField(User, related_name='entry_likes')
     avatar = models.URLField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) 
 
-    def avatarPost(self):
-        if self.avatar:
-            return Avatar.objects.filter(user=self.avatar).last()
+    def AvatarPublicacion(self):
+        if self.user:
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else None
         else:
             return None
 
 
     def __str__(self):
-        return self.nombre + " - " + self.autor + " - " + str(self.fecha)
+        return self.titulo + " - "+ str(self.fecha)
+
 
     def total_likes(self):
         return self.likes.count()
 
-    
+
     @property
     def number_of_comments(self):
         return Comentario.objects.filter(blogpost_connected=self).count()
 
 
 class Comentario(models.Model):
-    blogpost_connected = models.ForeignKey(Entry, related_name="comments", on_delete=models.CASCADE)
+    blogpost_connected = models.ForeignKey(Publicacion, related_name="comments", on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
