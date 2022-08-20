@@ -127,14 +127,14 @@
                                     
                                 </section>
 
-                                
+                                {% if user.is_authenticated %}
                                 <form action="{% url 'like_post' post.pk %}" method="POST">
                                     {% csrf_token %}
-                                    <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" data-bs-toggle="button">Like</button>  - {{ total_likes }} Me Gusta
+                                    <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" >Like</button>  - {{ total_likes }} Me Gusta
                                     <br></br>
 
                                 </form>
-                            
+                                {% endif %}
                             </article>
                             <section>
                                 <div class="card bg-light">
