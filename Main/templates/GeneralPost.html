@@ -126,16 +126,35 @@
                                     <p class="fs-5 mb-4">{{post.contenido}}</p>
                                     
                                 </section>
-
-                                {% if user.is_authenticated %}
                                 <form action="{% url 'like_post' post.pk %}" method="POST">
                                     {% csrf_token %}
                                     <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" >Like</button>  - {{ total_likes }} Me Gusta
                                     <br></br>
-
                                 </form>
+
+
+                                {% if user.is_authenticated %}
+                                {% if user == post.user %}
+                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Eliminar
+                                </button>
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea eliminar este Posteo?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                        <div class="modal-body">
+                                            <form action="{% url 'eliminarPost' post.pk %}" method="POST">{% csrf_token %}
+                                                <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" >Eliminar</button>
+                                            </form>
+                                    
                                 {% endif %}
+                                {% endif %}
+                                
                             </article>
+                            <br></br>
                             <section>
                                 <div class="card bg-light">
                                     <div class="card-body">
@@ -180,7 +199,7 @@
                         </div>
                     </div>
                 </div>
-                
+                 
                 {% else %}
                     <strong class="text-secondary">Aun no hay comentarios. Podes ser el Primero!</strong>
                 {% endif %}

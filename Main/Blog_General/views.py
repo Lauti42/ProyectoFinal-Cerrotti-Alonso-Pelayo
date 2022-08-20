@@ -90,3 +90,20 @@ def darLike(request, pk):
     return HttpResponseRedirect(reverse('verpost', args=[str(pk)]))
 
 
+def eliminarPost(request, pk):
+    
+    if request.method == 'POST':
+    
+        post = get_object_or_404(Publicacion, id=pk)
+       
+        if request.user == post.user:
+            post.delete()
+            print(pk)
+            return render(request,'Blog_Generalindex.html')
+        else:
+            print("No autorizado")
+            return render(request,'Blog_Generalindex.html')
+    else:
+        return render(request,'Blog_Generalindex.html')
+    
+   
