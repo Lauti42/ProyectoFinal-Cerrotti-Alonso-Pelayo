@@ -2,6 +2,7 @@ import re
 from urllib import response
 from django.shortcuts import render
 from django.http import HttpResponse
+from Main.settings import BASE_DIR, MEDIA_ROOT, MEDIA_URL
 from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
 from RegistroUsuarios.forms import PreferenciasFormulario
 from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
@@ -10,6 +11,7 @@ from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
 from django.contrib.auth.decorators import login_required
 from RegistroUsuarios.models import Avatar
 from Blog_General.models import Publicacion
+import os
 # Create your views here.
 
 
@@ -97,10 +99,10 @@ def editar_perfil(request):
         miFormulario = UserEditForm(request.POST, instance=request.user)
         formAvatar = AvatarFormulario(request.POST, request.FILES)
 
-        if miFormulario.is_valid() and formAvatar.is_valid():
+        if miFormulario.is_valid():
              
             data = miFormulario.cleaned_data
-            dataAvatar = formAvatar.cleaned_data
+            
 
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
@@ -110,11 +112,22 @@ def editar_perfil(request):
             usuario.set_password(usuario.password) 
             usuario.save()
 
+            if formAvatar.is_valid():
+                dataAvatar = formAvatar.cleaned_data
+                print(dataAvatar)
+                if dataAvatar['imagen'] == None and Avatar.objects.filter(user=request.user.id).last():
+                    print("entramos a sin imagen pero con una anterior")
+                    avatar = Avatar.objects.filter(user=request.user.id).last()
+                    avatar.save()
+                elif dataAvatar['imagen'] == None and Avatar.objects.filter(user=request.user.id).last() == None:
+                    print("entramos a sin imagen y sin una anterior")
+                    avatar = Avatar(user=request.user, imagen=os.path.join(BASE_DIR, 'img/default.jpg'))
+                    avatar.save()
+                elif dataAvatar['imagen'] != None:
+                    print("entramos con imagen")
+                    avatar = Avatar(user=request.user, imagen=dataAvatar["imagen"])
+                    avatar.save()
             
-            avatar = Avatar(user=request.user, imagen=dataAvatar['imagen'])
-            avatar.save()  
-            
-
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
 
