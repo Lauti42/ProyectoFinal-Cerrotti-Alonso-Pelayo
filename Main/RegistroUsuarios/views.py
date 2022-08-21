@@ -27,7 +27,7 @@ def registro(request):
        
 
         if formreg.is_valid(): 
-            print("es valido")
+            
             username = formreg.cleaned_data['username']
             formreg.save()
             return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
@@ -59,9 +59,11 @@ def preferencias(request):
         return render(request, "preferenciasenviadas.html", {'form': form})
 
 def login_request(request):
-    print("entramos a login request")
+    
+    Publicaciones = Publicacion.objects.filter(muestra_inferior= 'si')
     if request.method == 'POST':
         form= AuthenticationForm(request, data = request.POST)
+        
 
         if form.is_valid():
             #email= form.cleaned_data.get('email')
@@ -73,17 +75,17 @@ def login_request(request):
             if user:
                 login(request, user)
                 print("entramos a bienvenido")
-                return render(request, 'indexBase.html', {'mensaje': f'Bienvenido {usuario}'})
+                return render(request, 'indexBase.html', {'mensaje': f'Bienvenido {usuario}', 'posteos': Publicaciones})
 
             else:
                 print("entramos a error")
-                return render(request, 'Errores.html', {'mensaje': 'Error, datos incorrectos'})
-
-        return render(request, 'Errores.html', {'mensaje': 'Error, formulario erroneo'})
+                return render(request, 'Errores.html', {'mensaje': 'El nombre de usuario o la contraseña son incorrectos', 'posteos': Publicaciones})
+        
+        return render(request, 'Errores.html', {'mensaje': 'El nombre de usuario o la contraseña son incorrectos', 'posteos': Publicaciones})
 
     else:  
-
-       return render(request, 'indexBase.html')
+        
+        return render(request, 'indexBase.html', {'posteos': Publicaciones, 'form': AuthenticationForm()})
 
                 
 @login_required

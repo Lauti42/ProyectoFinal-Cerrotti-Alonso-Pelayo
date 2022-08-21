@@ -33,7 +33,7 @@
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/index" >Home</a></li> 
                             <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>
-                            <li class="nav-item"><a class="nav-link" href="{% url 'buscarpref'%}">Buscar Preferencias</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'buscarpref'%}">Buscar preferencias</a></li>
                             
                              <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
                             
@@ -153,14 +153,15 @@
 
                 {% endblock base %}
                 {% if mensaje %}
-                <aside class="bg-success bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+                <aside class="bg-light bg-gradient rounded-2 p-4 p-sm-5 mt-1">
                     <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                        <div class="mb-4 mb-xl-0">
-                            <div class="fs-3 fw-bold text-white">{{mensaje}}!</div>
-                            <div class="text-white-50">Puedes continuar navegando</div>
+                        <div class="mb-3 mb-xl-0">
+                            <div class="fs-3 fw-bold text-dark">{{mensaje}}!</div>
+                            <div class="text-dark-50">Puedes continuar navegando</div>
                 </aside>
                         </div>
                 {% endif %}
+               
             <!-- Blog preview section-->
             <section class="py-5">
                 <div class="container px-5 my-5">
