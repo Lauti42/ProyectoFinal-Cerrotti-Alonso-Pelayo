@@ -1,4 +1,5 @@
 from enum import auto
+from mimetypes import init
 from django.shortcuts import render, get_object_or_404, redirect
 from Blog_General.models import Publicacion, Comentario
 from django.views.generic.detail import DetailView
@@ -9,6 +10,9 @@ from RegistroUsuarios.models import Avatar
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from Blog_General.models import Publicacion
+from Blog_General.forms import PublicacionForm
 # Create your views here.
 
 
@@ -84,9 +88,11 @@ def verpost(request):
 
 
 def darLike(request, pk):
-
-    post = get_object_or_404(Publicacion, id=request.POST.get('post_id'))
-    post.likes.add(request.user)
+    if request.user.is_authenticated:
+        post = Publicacion.objects.get(id=pk)
+        post.likes.add(request.user)
+        post.save()
+        
     return HttpResponseRedirect(reverse('verpost', args=[str(pk)]))
 
 
@@ -106,4 +112,25 @@ def eliminarPost(request, pk):
     else:
         return render(request,'Blog_Generalindex.html')
     
-   
+
+
+def editPost(request, id):
+
+    post = Publicacion.objects.get(id=id)
+    
+    if request.method == 'POST':
+        
+        miPost = PublicacionForm(request.POST)
+    
+        if miPost.is_valid():
+
+            post.titulo = miPost.cleaned_data['titulo']
+            post.contenido = miPost.cleaned_data['contenido']
+            post.imagen = miPost.cleaned_data['imagen']
+            post.descripcion = miPost.cleaned_data['descripcion']
+            post.save()
+            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)]))
+    else:
+
+        miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
+        return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id})
