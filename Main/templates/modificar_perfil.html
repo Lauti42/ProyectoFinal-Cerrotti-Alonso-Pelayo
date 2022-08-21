@@ -2,46 +2,33 @@
 
 {% block navigation %}
 {% load static %}
+<style> 
+    div.b {
+      white-space: nowrap; 
+      width: 150px; 
+      overflow: hidden;
+      text-overflow: ellipsis; 
+      
+    }
+</style>
+
+
+
 <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
 <div class="container rounded bg-white mt-5 mb-5">
+    
     <div class="row">
         <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" width="150" height="150" src="{{url}}"><br><span class="font-weight-bold">{{user.first_name}} {{user.last_name}}</span><span class="text-black-50">{{user.email}}</span><span> </span><span class="text-black-50">Registro {{user.date_joined}}</span><span> </span></div>
         </div>
         <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Ajustes del Perfil</h4>
-                </div>
-                <form enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'modperfil'%}" method='POST'> 
-                    {% csrf_token %}
-                    <div class="row mt-2">
-                        <div class="col-md-6"><label class="labels">Nombre de Usuario&nbsp;</label>{{miFormulario.username}}</div>
-                        <div class="col-md-12"><label class="labels"></label></div>
-                    </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Nombre de Usuario&nbsp;</label>{{miFormulario.first_name}}</div>
-                    <div class="col-md-6"><label class="labels">Apellido&nbsp;</label>{{miFormulario.last_name}}</div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Email&nbsp;&nbsp;</label>{{miFormulario.email}}</div>
-                    <div class="col-md-6"><label class="labels">Contraseña&nbsp;&nbsp;</label>{{miFormulario.password1}}</div>
-                    <div class="col-md-12"><label class="labels"></label></div>
-                    <div class="col-md-6"><label class="labels">Repetir Contraseña&nbsp;&nbsp;</label>{{miFormulario.password2}}</div>
-                    <div class="col-md-12"><label class="labels"></label></div>
-                    
-                    
-                </div>
-                &nbsp;&nbsp;&nbsp;&nbsp;<button class="btn btn-secondary btn-sm px-4 me-sm-3" type="submit">Actualizar</button>
-            </div>
-            
-        </form>
+            <br></br>
+            <form enctype="multipart/form-data" method="POST">{% csrf_token %}
 
-        <form enctype="multipart/form-data" action="{% url 'modavatar'%}" method='POST' >{% csrf_token %}
-            {{formAvatar}}<br>
-            
-            <button class="btn btn-secondary btn-sm px-4 me-sm-3" type="submit">Actualizar Avatar</button>
-        </form>
+                {{miFormulario.as_p}}
+                {{formAvatar}}<br>
+                <input class="btn btn-secondary" type="submit" value="Guardar">
+            </form>
 
         </div>
         <div class="col-md-4">
@@ -51,7 +38,26 @@
                 
             </div>
         </div>
-    </div>
+        <div class="col-md-15"><br>
+            {% if Posteos %}
+           <label class="labels">Estas son tus publicaciones:</label>
+              
+                {% for post in Posteos %}
+
+                <ul class="list-group">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <a class="btn btn-secondary bt-sm" href="{% url 'verpost' post.id %}">Ver</a>
+                        <div class="b">
+                        <span class="b">{{post.titulo}}</span>
+                        </div>
+                        <span>{{post.fecha}}</span>
+                        
+                    </li>
+                    
+                {% endfor %}
+            {% endif %}
+        </div>
+        
 </div>
 </div>
 </div>

@@ -9,6 +9,7 @@ from django.contrib.auth import login, logout, authenticate
 from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
 from django.contrib.auth.decorators import login_required
 from RegistroUsuarios.models import Avatar
+from Blog_General.models import Publicacion
 # Create your views here.
 
 
@@ -94,12 +95,13 @@ def editar_perfil(request):
     if request.method == 'POST':
 
         miFormulario = UserEditForm(request.POST, instance=request.user)
-        
+        formAvatar = AvatarFormulario(request.POST, request.FILES)
 
-        if miFormulario.is_valid():
+        if miFormulario.is_valid() and formAvatar.is_valid():
              
             data = miFormulario.cleaned_data
-        
+            dataAvatar = formAvatar.cleaned_data
+
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
             usuario.email = data["email"]
@@ -109,27 +111,18 @@ def editar_perfil(request):
             usuario.save()
 
             
+            avatar = Avatar(user=request.user, imagen=dataAvatar['imagen'])
+            avatar.save()  
+            
+
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
 
-       
         miFormulario = UserEditForm(instance=request.user)
         formAvatar = AvatarFormulario()    
+        Posteos = Publicacion.objects.filter(user=request.user)
 
-    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "formAvatar": formAvatar})
+    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "formAvatar": formAvatar, "Posteos": Posteos})
 
 
-def actualizarAvatar(request):
-    if request.method == 'POST':
-        
-        formAvatar = AvatarFormulario(request.POST, request.FILES)
-
-        if formAvatar.is_valid():
-
-            data = formAvatar.cleaned_data
-            avatar = Avatar(user=request.user, imagen=data['imagen'])
-            avatar.save()
-
-            return render(request, "indexBase.html", {"mensaje": "Avatar actualizado con éxito..."})
-    
         
