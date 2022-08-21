@@ -135,13 +135,12 @@
 
                                 {% if user.is_authenticated %}
                                 {% if user == post.user %}
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Eliminar
-                                </button>
                                 <form action="{% url 'editPost' post.id %}" method="GET">
-                                    <button type="submit" class="btn btn-primary" >Editar</button>
+                                    <button type="submit" class="btn btn-secondary" >Editar</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Eliminar</button>
                                     <br></br>
                                 </form>
+                                
                                 
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog">
@@ -159,6 +158,7 @@
                                 {% endif %}
                                 
                             </article>
+                            
                             <br></br>
                             <section>
                                 <div class="card bg-light">
@@ -207,6 +207,7 @@
                  
                 {% else %}
                     <strong class="text-secondary">Aun no hay comentarios. Podes ser el Primero!</strong>
+                    
                 {% endif %}
             </section>
         <!-- Footer-->

@@ -133,4 +133,4 @@ def editPost(request, id):
     else:
 
         miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
-        return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id})
+        return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
