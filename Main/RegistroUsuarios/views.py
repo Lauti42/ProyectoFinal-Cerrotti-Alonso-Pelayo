@@ -94,12 +94,11 @@ def editar_perfil(request):
     if request.method == 'POST':
 
         miFormulario = UserEditForm(request.POST, instance=request.user)
-        miAvatar = AvatarFormulario(request.POST, request.FILES)
+        
 
-        if miFormulario.is_valid() and miAvatar.is_valid():
-
+        if miFormulario.is_valid():
+             
             data = miFormulario.cleaned_data
-            avatarData = miAvatar.cleaned_data
         
             usuario.first_name = data["first_name"]
             usuario.last_name = data["last_name"]
@@ -109,18 +108,28 @@ def editar_perfil(request):
             usuario.set_password(usuario.password) 
             usuario.save()
 
-            avatar = Avatar(user=request.user, imagen=avatarData['imagen'])
-            avatar.save()
-
-            #Avatar load:
             
-
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
     else:
 
        
         miFormulario = UserEditForm(instance=request.user)
-        miAvatar = AvatarFormulario()
+        formAvatar = AvatarFormulario()    
 
-    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "miAvatar": miAvatar})
+    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "formAvatar": formAvatar})
 
+
+def actualizarAvatar(request):
+    if request.method == 'POST':
+        
+        formAvatar = AvatarFormulario(request.POST, request.FILES)
+
+        if formAvatar.is_valid():
+
+            data = formAvatar.cleaned_data
+            avatar = Avatar(user=request.user, imagen=data['imagen'])
+            avatar.save()
+
+            return render(request, "indexBase.html", {"mensaje": "Avatar actualizado con éxito..."})
+    
+        
