@@ -3,7 +3,7 @@ from django import forms
 from .models import ComentarioG, Juegos
 
 class CreaJuegos(forms.ModelForm):
-
+ 
     class Meta:
         model = Juegos
 
@@ -15,6 +15,7 @@ class CreaJuegos(forms.ModelForm):
             'plataforma',
             'urlimagen',
             'descripcion',
+            'contenido',
         ]
         labels = {
             'nombre': 'Nombre',
@@ -24,15 +25,17 @@ class CreaJuegos(forms.ModelForm):
             'plataforma': 'Plataforma',
             'urlimagen': 'URL de la imagen',
             'descripcion': 'Descripción',
+            'contenido': 'contenido',
         }
         widgets = {
             'nombre': forms.TextInput(attrs={'class':'form-control'}),
             'anodecreacion': forms.TextInput(attrs={'class':'form-control'}),
-            'desarrollador': forms.Select(attrs={'class':'form-control', 'default': 'Elija el desarrollador'}),
-            'genero': forms.Select(attrs={'class':'form-control'}),
-            'plataforma': forms.Select(attrs={'class':'form-control'}),
-            'urlimagen': forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Imagen de 400x200'}),
-            'descripcion': forms.Textarea(attrs={'rows': 5}),
+            'desarrollador': forms.TextInput(attrs={'class':'form-control',}),
+            'genero': forms.TextInput(attrs={'class':'form-control'}),
+            'plataforma':forms.TextInput(attrs={'class':'form-control',}),
+            'urlimagen': forms.TextInput(attrs={'class':'form-control'}),
+            'descripcion': forms.Textarea(attrs={'class':'form-control','style':'height:250px;',}),
+            'contenido': forms.Textarea(attrs={'class':'form-control','style':'height:250px;',}),
         }
 class NewCommentFormG(forms.ModelForm):
     class Meta:

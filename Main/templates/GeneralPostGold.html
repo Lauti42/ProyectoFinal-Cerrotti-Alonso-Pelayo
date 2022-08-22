@@ -1,0 +1,115 @@
+{% extends 'indexBase.html' %}
+{% load static %}
+{% block navigation %}
+<body>
+        <!-- Page Content-->
+        <section class="py-5">
+            <div class="container px-5 my-5">
+                <div class="row gx-5">
+                    <div class="col-lg-3">
+                        <div class="d-flex align-items-center mt-lg-5 mb-4">
+                            <img class="rounded-circle" src="{{juegos.AvatarJuegos}}" alt="..." width="65" height="65"/>
+                            <div class="ms-3">
+                                <div class="fw-bold">{{juegos.user}}</div>
+                                <div class="text-muted"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <!-- Post content--> 
+                        <article>
+                            <!-- Post header-->
+                            <header class="mb-4">
+                                <!-- Post title-->
+                                <h1 class="fw-bolder mb-1">{{juegos.nombre}}</h1>
+                                <!-- Post meta content-->
+                                <div class="text-muted fst-italic mb-2">Juego creado en {{juegos.anodecreacion}}</div>
+                                <!-- Post categories-->
+                                <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
+                                <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
+                            </header>
+                            <!-- Preview image figure-->
+                            <figure class="mb-4"><img class="img-fluid rounded" src="{{juegos.urlimagen}}" width="400" height="100" alt="..." /></figure>
+                            <!-- Post content-->
+                            <section class="mb-5">
+                                <p class="fs-5 mb-4">{{juegos.contenido}}</p>
+                                
+                            </section>
+                            
+                        </article>
+                        <!-- Comments section--> 
+                        <section>
+                            <div class="card bg-light">
+                                <div class="card-body">
+                                    <!-- Comment form-->
+                                    <h2>Deja tu comentario!!</h2>
+                                    <div id="comments_section">
+                                        <form method="POST">{% csrf_token %} 
+                                            {% if user.is_authenticated %}            
+                                            <div class="form-group">
+                                                {{ comment_form }}
+                                            <button class="btn btn-secondary" type="submit">Add comment <i class="fas fa-comments"></i></button>
+                                            </div>
+                                            </form>
+                                            <br></br>
+                                            {% else %}
+                                            <br></br>
+                                            <button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Ingresar para dejar un Comentario</button>
+                            
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                                    
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form action="{% url 'login'%}" method="post"> {% csrf_token %}
+                                                    
+                                                        <div class="input-group mb-3">
+                                                            {% for field in formAuth %}
+                                                                
+                                                                <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                                                
+                                                                <label class="col-sm-6 col-form-label">{{field}}</label>
+                                                            {% endfor %}
+                                                        
+                                                    <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
+                                                    </form>
+                                                </div>
+                                            {% endif %}
+                                            
+                                    <!-- Comment with nested comments-->
+                                    {% if comments %}
+                                    
+                                    <strong class="text-secondary">{{ object.number_of_comments }} Comentarios{{ object.number_of_comments|pluralize }}</strong>
+                                    <br></br>
+                                    {% for comment in comments %}
+                                    <div class="d-flex mb-4">
+                                        <!-- Parent comment-->
+                                        
+                                         <div class="flex-shrink-0"><img src="{{comment.imagenComentario}}" alt="user" class="rounded-circle" width="50" height="50"></div>
+                                        
+                                        <div class="ms-3">
+                                            <div class="fw-bold">{{ comment.user }}</div>
+                                            <small class="text-muted">{{ comment.date_added }}</small>
+                                            <p>{{ comment.body|safe }}</p>       
+                                        </div>
+                                        
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+             
+            {% else %}
+                <strong class="text-secondary">Aun no hay comentarios. Podes ser el Primero!</strong>
+                
+            {% endif %}
+        </section>
+    <!-- Footer-->
+{% endblock navigation %}

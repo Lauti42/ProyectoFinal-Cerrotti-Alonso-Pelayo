@@ -7,6 +7,12 @@ from RegistroUsuarios.models import Avatar
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.contrib.auth.forms import AuthenticationForm
+from Blog_General.models import Publicacion
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 # ---------------------MODELO DESARROLLADOR-------------------
 class DesarrolladorList(ListView):
@@ -180,8 +186,8 @@ class JuegosDetail(DetailView):
         comments_connected = ComentarioG.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
         data['comments']= comments_connected
         stuff= get_object_or_404(Juegos, id=self.kwargs['pk'])
-        # total_likes = stuff.total_likes()
-        # data['total_likes']= total_likes
+        total_likes = stuff.total_likes()
+        data['total_likes']= total_likes
 
         if self.request.user.is_authenticated:
             data['comment_form']= NewCommentFormG(instance=self.request.user)
@@ -197,11 +203,96 @@ class JuegosDetail(DetailView):
         return self.get(self, request, *args, **kwargs)
 
 
-class JuegosCreate(LoginRequiredMixin, CreateView):
-    model = Juegos
-    form_class = CreaJuegos
-    template_name = "crea-juego.html"
-    success_url = "/juegos/"
+def blog_general_indexG(request):
+
+    listado_posts= Juegos.objects.all().order_by('-id')
+    paginator= Paginator(listado_posts, 6)
+    pagina= request.GET.get('page') or 1
+    posts= paginator.get_page(pagina)
+    pagina_actual= int(pagina)
+    paginas= range(1, posts.paginator.num_pages + 1)
+
+
+    
+    return render(request, 'Blog_GeneralindexG.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
+
+def NewPostG(request):
+    form = AuthenticationForm() 
+    return render(request, 'makeanewpostG.html', {'form': form})
+
+def NewPostSaveG(request):
+    if request.method == 'POST':
+        print("POST")
+     #Obteniendo datos del registro (Form)
+        nombre = request.POST['nombre']
+        anodecreacion = request.POST['anodecreacion']
+        desarrollador = request.POST['desarrollador']
+        user = User.objects.get(id=request.user.id)
+        genero = request.POST['genero']
+        plataforma = request.POST['plataforma']
+        descripcion = request.POST['descripcion']
+        contenido = request.POST['contenido']
+        urlimagen = request.POST['urlimagen']
+
+        #Guardando los datos en la DB
+        publicacion = Juegos(nombre=nombre, anodecreacion=anodecreacion, desarrollador=desarrollador, user=user, genero=genero,plataforma=plataforma,descripcion=descripcion,urlimagen=urlimagen,contenido=contenido)
+        publicacion.save()
+        posteos = Publicacion.objects.filter(muestra_inferior='si')
+
+    return render(request, 'indexBase.html',{'posteos':posteos})
+
+
+def eliminarPostG(request, pk):
+    
+    if request.method == 'POST':
+    
+        post = get_object_or_404(Juegos, id=pk)
+       
+        if request.user == post.user:
+            post.delete()
+            print(pk)
+            return render(request,'Blog_GeneralindexG.html')
+        else:
+            
+            return render(request,'Blog_GeneralindexG.html')
+    else:
+        return render(request,'Blog_GeneralindexG.html')
+    
+
+def editPostG(request, id):
+
+    post = Juegos.objects.get(id=id)
+    
+    if request.method == 'POST':
+        
+        miPost = CreaJuegos(request.POST)
+    
+        if miPost.is_valid():
+
+            post.nombre = miPost.cleaned_data['nombre']
+            post.anodecreacion = miPost.cleaned_data['anodecreacion']
+            post.genero = miPost.cleaned_data['genero']
+            post.plataforma = miPost.cleaned_data['plataforma']
+            post.urlimagen = miPost.cleaned_data['urlimagen']
+            post.descripcion = miPost.cleaned_data['descripcion']
+            post.contenido = miPost.cleaned_data['contenido']
+            post.save()
+            print("guardado")
+            return HttpResponseRedirect(reverse('DetalleJuego', args=[str(post.id)]))
+    else:
+
+        miPost = CreaJuegos(initial={'nombre': post.nombre, 'anodecreacion': post.anodecreacion, 'genero': post.genero, 'plataforma': post.plataforma, 'urlimagen':post.urlimagen, 'descripcion':post.descripcion, 'contenido':post.contenido})        
+        return render(request,'editarPosteoG.html', {'miPost': miPost, 'juegos_id': id, 'nombre': post.nombre})
+
+
+def darLikes(request, pk):
+    if request.user.is_authenticated:
+        post = Juegos.objects.get(id=pk)
+        post.likes.add(request.user)
+        post.save()
+        
+    return HttpResponseRedirect(reverse('DetalleJuego', args=[str(pk)]))
+
 
 class JuegosUpdate(UpdateView):
     model = Juegos
@@ -231,10 +322,3 @@ def buscar(request):
     return HttpResponse (respuesta)
 
 
-def all_games(request):
-
-    post= Juegos.objects.all()
-    # post_sup= Entry.objects.filter(muestra_superior= 'si')
-   
-    
-    return render(request, 'Blog_GeneralindexG.html', {'post': post})

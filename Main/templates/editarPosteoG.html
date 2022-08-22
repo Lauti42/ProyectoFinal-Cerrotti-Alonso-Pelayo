@@ -1,0 +1,91 @@
+{% extends 'indexBase.html' %}
+
+{% block navigation %}
+
+<div class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <h2 class="display-10 fw-bolder text-white mb-2">Editando posteo: {{nombre}}</h2>
+    </div>
+</div>
+
+<br></br>
+<br></br>
+
+
+<div class="row gx-5 justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- * * SB Forms Contact Form * *-->
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- This form is pre-integrated with SB Forms.-->
+        <!-- To make this form functional, sign up at-->
+        <!-- https://startbootstrap.com/solution/contact-forms-->
+        <!-- to get an API token!-->
+        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'editPostG' juegos_id %}" method="post"> {% csrf_token %}
+            <!-- Asunto-->
+            
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Nombre</label><br><br>
+                {{miPost.nombre}}
+                
+                
+            </div>
+            <!-- descripcion-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Descripción</label><br><br>
+                {{miPost.descripcion}}
+                
+                
+            </div>
+            <!-- Contenido-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Contenido</label><br><br>
+                {{miPost.contenido}}
+                
+
+            </div> 
+            <!-- Imagen-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Imagen url</label><br><br>
+                {{miPost.urlimagen}}
+                
+                
+            </div>
+            
+            <div class="form-floating mb-3">
+                
+                <label class="fw-bold">Desarrollador</label><br><br>
+                {{miPost.desarrollador}}
+
+            </div>
+            <div class="form-floating mb-3">
+                
+                <label class="fw-bold">Genero</label><br><br>
+                {{miPost.genero}}
+
+            </div>
+            <div class="form-floating mb-3">
+                
+                <label class="fw-bold">Plataforma</label><br><br>
+                {{miPost.plataforma}}
+
+            </div>
+            <div class="form-floating mb-3">
+                
+                <label class="fw-bold">Año de Creacion</label><br><br>
+                {{miPost.anodecreacion}}
+
+            </div>
+            
+            <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Postear">Postear</button>
+            
+        </form>
+
+    </div>
+</div>
+</div>
+
+
+
+{% endblock navigation %}
+

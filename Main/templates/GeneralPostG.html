@@ -1,111 +1,285 @@
-{% extends 'indexBase.html' %}
-{% load static %}
-{% block navigation %}
-<body>
-        <!-- Page Content-->
-        <section class="py-5">
-            <div class="container px-5 my-5">
-                <div class="row gx-5">
-                    <div class="col-lg-3">
-                        <div class="d-flex align-items-center mt-lg-5 mb-4">
-                            <img class="rounded-circle" src="{{juegos.AvatarJuegos}}" alt="..." width="65" height="65"/>
-                            <div class="ms-3">
-                                <div class="fw-bold">{{juegos.user}}</div>
-                                <div class="text-muted"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <!-- Post content--> 
-                        <article>
-                            <!-- Post header-->
-                            <header class="mb-4">
-                                <!-- Post title-->
-                                <h1 class="fw-bolder mb-1">{{juegos.nombre}}</h1>
-                                <!-- Post meta content-->
-                                <div class="text-muted fst-italic mb-2">{{juegos.anodecreacion}}</div>
-                                <!-- Post categories-->
-                                <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
-                                <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
-                            </header>
-                            <!-- Preview image figure-->
-                            <figure class="mb-4"><img class="img-fluid rounded" src="{{juegos.urlimagen}}" width="400" height="100" alt="..." /></figure>
-                            <!-- Post content-->
-                            <section class="mb-5">
-                                <p class="fs-5 mb-4">{{juegos.descripcion}}</p>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        {% load static %}
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Modern Business - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
+    </head>
+    <body class="d-flex flex-column">
+        <main class="flex-shrink-0"> 
+            <!-- Navigation-->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container px-5">
+                    <a class="navbar-brand" href="http://127.0.0.1:8000/index">HOME</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item"><a class="nav-link" href="{% url 'index'%}" >Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'about'%}">About</a></li>
+                             <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
+                            <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/pricing">Pricing</a></li>-->
+                            <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/faq">FAQ</a></li>-->
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
                                 
-                            </section>
-                        </article>
-                        <!-- Comments section--> 
-                        <section>
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <!-- Comment form-->
-                                    <h2>Deja tu comentario!!</h2>
-                                    <div id="comments_section">
-                                        <form method="POST">{% csrf_token %} 
-                                            {% if user.is_authenticated %}            
-                                            <div class="form-group">
-                                                {{ comment_form }}
-                                            <button class="btn btn-secondary" type="submit">Add comment <i class="fas fa-comments"></i></button>
-                                            </div>
-                                            </form>
-                                            <br></br>
-                                            {% else %}
-                                            <br></br>
-                                            <button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Ingresar para dejar un Comentario</button>
-                            
-                                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                    <li><a class="dropdown-item" href="{% url 'blog_general_index'%}">Blog Home</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'juegos'%}">Blog Juegos</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'NewPost'%}">Blog Post</a></li>
+                                     
+                                    
+                                    
+                                </ul>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                &nbsp;&nbsp;<a id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="{{url}}" alt="user" class="rounded-circle" width="37" height="37"></a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
+                                    <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesion</a></li>
+                                </ul>
+                            </li>
+                                {% else %}
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Iniciar</button>
+                                {% endif %}
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                        
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <form action="{% url 'login'%}" method="post"> {% csrf_token %}
+                                        
+                                            <div class="input-group mb-3">
+                                                {% for field in formAuth %}
+                                                     
+                                                    <label class="col-sm-6 col-form-label">{{field.label}}</label>
                                                     
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form action="{% url 'login'%}" method="post"> {% csrf_token %}
-                                                    
-                                                        <div class="input-group mb-3">
-                                                            {% for field in formAuth %}
-                                                                
-                                                                <label class="col-sm-6 col-form-label">{{field.label}}</label>
-                                                                
-                                                                <label class="col-sm-6 col-form-label">{{field}}</label>
-                                                            {% endfor %}
-                                                        
-                                                    <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
-                                                    </form>
-                                                </div>
-                                            {% endif %}
-                                            <br></br>
-                                    <!-- Comment with nested comments-->
-                                    {% if comments %}
-                                    <br></br>
-                                    <strong class="text-secondary">{{ object.number_of_comments }} Comentario{{ object.number_of_comments|pluralize }}</strong>
-                                    <br></br>
-                                    {% for comment in comments %}
-                                    <div class="d-flex mb-4">
-                                        <!-- Parent comment-->
-                                        
-                                        <div class="flex-shrink-0"><img src="{{comment.imagenComentario}}" alt="user" class="rounded-circle" width="50" height="50"></div>
-                                        
-                                        <div class="ms-3">
-                                            <div class="fw-bold">{{ comment.user }}</div>
-                                            <small class="text-muted">{{ comment.date_added }}</small>
-                                            <p>{{ comment.body|safe }}</p>       
-                                        </div>
-                                        
+                                                    <label class="col-sm-6 col-form-label">{{field}}</label>
+                                                {% endfor %}
+                                            
+                                        <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      </div>
                                     </div>
-                                    {% endfor %}
-                                    {% endif %}
+                                  </div>
+                                </div>
+                            </li>
+                            </ul>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                    
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{% url 'login'%}" method="post"> {% csrf_token %}
+                                    
+                                        <div class="input-group mb-3">
+                                            {% for field in form %}
+                                                 
+                                                <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                                
+                                                <label class="col-sm-6 col-form-label">{{field}}</label>
+                                            {% endfor %}
+                                        
+                                    <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
+                                    </form>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <!-- Page Content-->
+            <section class="py-5">
+                <div class="container px-5 my-5">
+                    <div class="row gx-5">
+                        <div class="col-lg-3">
+                            <div class="d-flex align-items-center mt-lg-5 mb-4">
+                                
+                                <img class="rounded-circle" src="{{juegos.AvatarJuegos}}" alt="user" class="rounded-circle" width="75" height="75" />
+                                
+                                <div class="ms-3">
+                                    <div class="fw-bold">{{juegos.user}}</div>
+                                    <div class="text-muted"></div>
                                 </div>
                             </div>
-                        </section>
+                        </div>
+                        <div class="col-lg-9">
+                            <!-- Post content-->
+                            <article>
+                                <!-- Post header-->
+                                <header class="mb-4">
+                                    <!-- Post title-->
+                                    <h1 class="fw-bolder mb-1">{{juegos.nombre}}</h1>
+                                    <!-- Post meta content-->
+                                    <div class="text-muted fst-italic mb-2">{{juegos.anodecreacion}}</div>
+                                    <!-- Post categories-->
+                                    <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
+                                    <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
+                                </header>
+                                <!-- Preview image figure-->
+                                <figure class="mb-4"><img class="img-fluid rounded" src="{{juegos.urlimagen}}" width="400" height="100" alt="..." /></figure>
+                                <!-- Post content-->
+                                <section class="mb-5">
+                                    <p class="fs-5 mb-4">{{juegos.contenido}}</p>
+                                    
+                                </section>
+                                <form action="{% url 'likes_posts' juegos.pk %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit", name="post_id", value="{{juegos.id}}", class="btn btn-primary" >Like</button>  - {{ total_likes }} Me Gusta
+                                    <br></br>
+                                </form>
+
+
+                                {% if user.is_authenticated %}
+                                {% if user == juegos.user %}
+                                <form action="{% url 'editPostG' juegos.id %}" method="GET">
+                                    <button type="submit" class="btn btn-secondary" >Editar</button>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Eliminar</button>
+                                    <br></br>
+                                </form>
+                                
+                                
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea eliminar este Posteo?</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                          </div>
+                                        <div class="modal-body">
+                                            <form action="{% url 'eliminarPostG' juegos.pk %}" method="POST">{% csrf_token %}
+                                                <button type="submit", name="post_id", value="{{juegos.id}}", class="btn btn-primary" >Eliminar</button>
+                                            </form>
+                                    
+                                {% endif %} 
+                                {% endif %}
+                                
+                            </article>
+                            
+                            <br></br>
+                            <section>
+                                <div class="card bg-light">
+                                    <div class="card-body">
+                                        <!-- Comment form-->
+                                        <h2>Deja tu comentario!!</h2>
+                                        <div id="comments_section">
+                                            <form method="POST">{% csrf_token %} 
+                                                {% if user.is_authenticated %}            
+                                                <div class="form-group">
+                                                    {{ comment_form }}
+                                                <button class="btn btn-secondary" type="submit">Add comment <i class="fas fa-comments"></i></button>
+                                                </div>
+                                                </form>
+                                                <br></br>
+                                                {% else %}
+                                                <br></br>
+                                                <button href="{% url 'login'%}" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Ingresar para dejar un Comentario</button>
+                                
+                                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Ingresar</h5>
+                                                        
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="{% url 'login'%}" method="post"> {% csrf_token %}
+                                                        
+                                                            <div class="input-group mb-3">
+                                                                {% for field in formAuth %}
+                                                                    
+                                                                    <label class="col-sm-6 col-form-label">{{field.label}}</label>
+                                                                    
+                                                                    <label class="col-sm-6 col-form-label">{{field}}</label>
+                                                                {% endfor %}
+                                                            
+                                                        <button class="btn btn-primary" type="submit" value="Login">Ingresar</button>
+                                                        </form>
+                                                    </div>
+                                                {% endif %}
+                                                <br></br>
+                                        <!-- Comment with nested comments-->
+                                        {% if comments %}
+                                        <br></br>
+                                        <strong class="text-secondary">{{ object.number_of_comments }} Comentario{{ object.number_of_comments|pluralize }}</strong>
+                                        <br></br>
+                                        {% for comment in comments %}
+                                        <div class="d-flex mb-4">
+                                            <!-- Parent comment-->
+                                            
+                                            <div class="flex-shrink-0"><img src="{{comment.imagenComentario}}" alt="user" class="rounded-circle" width="50" height="50"></div>
+                                            
+                                            <div class="ms-3">
+                                                 <div class="fw-bold">{{ comment.user }}</div>
+                                                <small class="text-muted">{{ comment.date_added }}</small>
+                                                <p>{{ comment.body|safe }}</p>       
+                                            </div>
+                                            
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+                 
+                {% else %}
+                    <strong class="text-secondary">Aun no hay comentarios. Podes ser el Primero!</strong>
+                    
+                {% endif %}
+            </section>
+        <!-- Footer-->
+        <br></br>
+        <footer class="bg-dark py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2022</div></div>
+                    <div class="col-auto">
+                        <a class="link-light small" href="#!">Privacy</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Terms</a>
+                        <span class="text-white mx-1">&middot;</span>
+                        <a class="link-light small" href="#!">Contact</a>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-</body>
-{% endblock navigation %}
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        
+    </body>
+</html>

@@ -39,13 +39,16 @@ class Juegos(models.Model):
 
     nombre = models.CharField(max_length=50)
     anodecreacion = models.IntegerField()
-    desarrollador = models.ForeignKey(Desarrollador, on_delete=models.CASCADE)
-    genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
-    plataforma = models.ForeignKey(Plataformas, on_delete=models.CASCADE)
-    urlimagen = models.CharField(max_length=200)
+    desarrollador = models.CharField(max_length=50)
+    genero = models.CharField(max_length=50)
+    plataforma = models.CharField(max_length=50)
+    urlimagen = models.CharField(max_length=50)
     descripcion = models.TextField(max_length=500)
+    contenido = models.TextField(max_length=3000, null=True)
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
+    muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     avatar = models.URLField(blank=True, null=True)
+    likes = models.ManyToManyField(User, related_name='juegos_likes')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) 
 
     def AvatarJuegos(self):
@@ -56,6 +59,9 @@ class Juegos(models.Model):
 
     def __str__(self) -> str:
         return f'{self.nombre} ({self.anodecreacion})'
+    
+    def total_likes(self):
+        return self.likes.count()
     
    
 class ComentarioG(models.Model):

@@ -1,16 +1,17 @@
 from django.urls import path 
 
-from .views import DesarrolladorCreate, DesarrolladorDetail, DesarrolladorUpdate, Desarrolladordelete, GeneroCreate, GeneroDetail, GeneroUpdate, Generodelete, JuegosCreate, JuegosDetail, JuegosUpdate, Juegosdelete, PlataformasCreate, PlataformasDetail, PlataformasUpdate, Plataformasdelete, buscar, buscardesarrollador, buscargenero, buscarplataforma, all_games, iniciojuegos
+from .views import DesarrolladorCreate, DesarrolladorDetail, DesarrolladorUpdate, Desarrolladordelete, NewPostG, GeneroDetail, GeneroUpdate, Generodelete,GeneroCreate, JuegosDetail, JuegosUpdate, Juegosdelete, PlataformasCreate, PlataformasDetail, PlataformasUpdate, Plataformasdelete, buscar, buscardesarrollador, buscargenero, buscarplataforma,NewPostSaveG,blog_general_indexG,darLikes,editPostG,eliminarPostG
 
 urlpatterns = [
 
-    path('', iniciojuegos, name='juegos'),
-    path('detalle-juego/<pk>', JuegosDetail.as_view(), name= "DetalleJuego"),
-    path('crea-juegos/', JuegosCreate.as_view(), name="CreaJuego"),
-    path('edita-juego/<pk>', JuegosUpdate.as_view(), name="EditaJuego"),
-    path('eliminar-juegos/<pk>', Juegosdelete.as_view(), name="EliminarJuego"),
+    path('', blog_general_indexG, name='juegos'), #Renderiza el index de Blogs Games (Terminado)
+    path('detalle-juego/<pk>', JuegosDetail.as_view(), name="DetalleJuego"), # Muestra cada post Games individualmente (Terminado)
+    path('crea-juegos/', NewPostG, name="NewPostG"), # Formulario para subir un nuevo PostGames (Terminado)
+    path('edita-juego/<id>', editPostG, name="editPostG"),
+    path('eliminar-juegos/<pk>', eliminarPostG, name="eliminarPostG"), # Eliminar posteo
     path('buscar-juego', buscar, name="Buscar"),
-    path('todos-los-juegos', all_games, name="all_games"),
+    path('likes/<int:pk>', darLikes, name='likes_posts'),
+    path('juego_guardado' , NewPostSaveG, name="NewPostSaveG"), # Guarda el formulario de los posteos PostGames dentro del modelo. (Terminado)
 
     path('detalle-genero/<pk>', GeneroDetail.as_view(), name= "DetalleGenero"),
     path('crea-genero/', GeneroCreate.as_view(), name="CreaGenero"),

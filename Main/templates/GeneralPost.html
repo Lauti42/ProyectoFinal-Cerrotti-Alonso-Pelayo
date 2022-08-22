@@ -181,7 +181,7 @@
                                                 <button type="submit", name="post_id", value="{{post.id}}", class="btn btn-primary" >Eliminar</button>
                                             </form>
                                     
-                                {% endif %}
+                                {% endif %} 
                                 {% endif %}
                                 
                             </article>
@@ -241,7 +241,7 @@
                                             <div class="flex-shrink-0"><img src="{{comment.imagenComentario}}" alt="user" class="rounded-circle" width="50" height="50"></div>
                                             
                                             <div class="ms-3">
-                                                <div class="fw-bold">{{ comment.user }}</div>
+                                                 <div class="fw-bold">{{ comment.user }}</div>
                                                 <small class="text-muted">{{ comment.date_added }}</small>
                                                 <p>{{ comment.body|safe }}</p>       
                                             </div>
