@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'RegistroUsuarios',
     'SearchData',
-    'App_juegos',
     'Blog_General'
 ]
 

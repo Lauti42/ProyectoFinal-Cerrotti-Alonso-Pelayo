@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        
 
         {% load static %}
 
@@ -35,7 +36,7 @@
                                 
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                     <li><a class="dropdown-item" href="{% url 'blog_general_index'%}">Blog Home</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'juegos'%}">Blog Juegos</a></li>
+                                    
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="{% url 'NewPost'%}">Blog Post</a></li>
                                      
@@ -139,7 +140,9 @@
                                 <!-- Post header-->
                                 <header class="mb-4">
                                     <!-- Post title-->
-                                    <h1 class="fw-bolder mb-1">{{post.titulo}}</h1>
+                                    <section class="mb-5">
+                                    <h1 class="fs-5 mb-4 fw-bold">{{post.titulo}}</h1>
+                                    </section>
                                     <!-- Post meta content-->
                                     <div class="text-muted fst-italic mb-2">{{post.fecha}}</div>
                                     <!-- Post categories-->

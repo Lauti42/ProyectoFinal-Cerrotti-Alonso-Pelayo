@@ -15,14 +15,8 @@
                                 <div class="card-body">
                                     <form action="{% url 'registrado'%}" method="post">{% csrf_token %}
                                     <div class="input-group mb-3">
-                                        {% for field in formreg %}
-                                             
-                                            <label class="col-sm-6 col-form-label">{{field.label}}</label>
-                                            
-                                            <label class="col-sm-6 col-form-label">{{field}}</label>
-                                        {% endfor %}
-                                    
-                                    
+                                        {{formreg}]
+                                        
                                     </div>
                                     <input class="btn btn-secondary" type="submit" value="Registrar" role="button"></a>
                                 

@@ -35,9 +35,9 @@ def registro(request):
     else:
 
         formreg = UserCreationForm()
-        form = AuthenticationForm()
+        #form = AuthenticationForm()
         
-    return render(request, 'registrarse.html', {'formreg': formreg, 'form': form})  
+    return render(request, 'registrarse.html', {'formreg': formreg})  
 
 
 
