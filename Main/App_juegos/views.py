@@ -1,9 +1,12 @@
 from django.shortcuts import render
-from .models import Desarrollador, Genero, Juegos, Plataformas
-
+from .models import Desarrollador, Genero, Juegos, Plataformas, ComentarioG 
+from .forms import CreaJuegos, NewCommentFormG
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
 from django.http import HttpResponse
 from RegistroUsuarios.models import Avatar
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 # ---------------------MODELO DESARROLLADOR-------------------
 class DesarrolladorList(ListView):
@@ -17,7 +20,7 @@ class DesarrolladorDetail(DetailView):
     template_name = "detalle-desarrollador.html"
     context_object_name= 'desarrollador'
 
-class DesarrolladorCreate(CreateView):
+class DesarrolladorCreate(LoginRequiredMixin, CreateView):
     model = Desarrollador
     template_name = "crea-desarrollador.html"
     fields = ["nombre", "pais"]
@@ -55,7 +58,7 @@ def buscardesarrollador(request):
 # ---------------------MODELO GENERO-------------------
 class GeneroList(ListView):
     
-    model = Genero
+    model = Juegos
     template_name = "lista-generos.html"
     context_object_name= 'generos'
 
@@ -64,7 +67,7 @@ class GeneroDetail(DetailView):
     template_name = "detalle-genero.html"
     context_object_name= 'generos'
 
-class GeneroCreate(CreateView):
+class GeneroCreate(LoginRequiredMixin, CreateView):
     model = Genero
     template_name = "crea-genero.html"
     fields = ["nombre"]
@@ -114,7 +117,7 @@ class PlataformasDetail(DetailView):
     template_name = "detalle-plataforma.html"
     context_object_name= 'plataformas'
 
-class PlataformasCreate(CreateView):
+class PlataformasCreate(LoginRequiredMixin, CreateView):
     model = Plataformas
     template_name = "crea-plataforma.html"
     fields = ["nombre", "link"]
@@ -155,18 +158,49 @@ class JuegosList(ListView):
     model = Juegos
     template_name = "iniciojuegos.html"
     context_object_name= 'juegos'
-    
 
+def iniciojuegos(self):
+
+    juegos = Juegos.objects.all()
+    generos = Genero.objects.all()
+    desarrolladores = Desarrollador.objects.all()
+    plataformas = Plataformas.objects.all()
+
+    return render(self, "iniciojuegos.html", {"juegos": juegos, "generos": generos, "desarrolladores": desarrolladores, "plataformas": plataformas})
 
 class JuegosDetail(DetailView):
     model = Juegos
-    template_name = "GeneralPostG.html"
-    context_object_name= 'juegos'
+    context_object_name = 'juegos'
+    template_name = 'GeneralPostG.html'
+    
 
-class JuegosCreate(CreateView):
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+
+        comments_connected = ComentarioG.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
+        data['comments']= comments_connected
+        stuff= get_object_or_404(Juegos, id=self.kwargs['pk'])
+        # total_likes = stuff.total_likes()
+        # data['total_likes']= total_likes
+
+        if self.request.user.is_authenticated:
+            data['comment_form']= NewCommentFormG(instance=self.request.user)
+            
+        return data
+
+    def post(self, request, *args, **kwargs):
+        new_comment= ComentarioG(body= request.POST.get('body'), 
+            user= self.request.user,
+            blogpost_connected= self.get_object())
+        
+        new_comment.save()
+        return self.get(self, request, *args, **kwargs)
+
+
+class JuegosCreate(LoginRequiredMixin, CreateView):
     model = Juegos
+    form_class = CreaJuegos
     template_name = "crea-juego.html"
-    fields = ["nombre", "anodecreacion", "desarrollador", "genero", "plataforma", "urlimagen", "descripcion"]
     success_url = "/juegos/"
 
 class JuegosUpdate(UpdateView):

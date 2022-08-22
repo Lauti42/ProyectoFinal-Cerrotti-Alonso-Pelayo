@@ -41,29 +41,41 @@
                                 </div>
                             </div>
                         </div>
-        
+                    </div>
         
             
-            <ul>
-                <br><br>            
-            {% for genero in object_list %}
-            
-                <li>
-                    <a class="display-7 fw-bolder text-dark mb-3" href="{% url 'DetalleGenero' genero.id %}">{{genero.nombre}}</a>
-                </li>
-                
-                <a class="btn btn-primary btn-sm" href="{% url 'EditaGenero' genero.id %}">Editar</a> <a class="btn btn-secondary  btn-sm" href="{% url 'EliminarGenero' genero.id %}">Eliminar</a>
-                <br><br>
-                
-
-            {% endfor %}
-                <br><br>
-                <li>
-                    <a class="btn btn-primary btn-lg px-1 me-sm-3" href="{% url 'CreaGenero' %}">Agregar otro genero</a>
-                </li>
-                
-        </ul>
-        
+                    <ul>
+                        <br><br>     
+                    
+                        <ul class="nav nav-pills">
+                            <li class="nav-item">
+                              <a class="nav-link active" aria-current="page" href="#">Active</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+                              <ul class="dropdown-menu">
+                                {% for genero in object_list %}
+                                <li><a class="dropdown-item" href="#">{{genero.genero}}</a></li>
+                                {% endfor %}
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Separated link</a></li>
+                              </ul>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#">Link</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link disabled">Disabled</a>
+                            </li>
+                          </ul>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        </section>
         <br><br>
     </body>
 {% endblock navigation %}

@@ -15,16 +15,42 @@
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
                     <img src="https://i.pinimg.com/originals/15/e7/e3/15e7e300166c962d3b8a22f60b5cac9e.gif" style="border: 12px solid rgba(63, 63, 63, 0.247);" width="560" height="350" alt="">
-                    
                 </div>
         </div>
+        <ul class="nav nav-pills">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Géneros</a>
+              <ul class="dropdown-menu">
+                {% for genero in generos %}
+                <li><a class="dropdown-item" href="#">{{genero.nombre}}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Desarrolladores</a>
+                <ul class="dropdown-menu">
+                  {% for desarrollador in desarrolladores %}
+                  <li><a class="dropdown-item" href="#">{{desarrollador.nombre}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Plataformas</a>
+                <ul class="dropdown-menu">
+                  {% for plataforma in plataformas %}
+                  <li><a class="dropdown-item" href="#">{{plataforma.nombre}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
+          </ul>
     </header>
     <body>
+        
          <!-- Prueba de card -->
          <section class="py-5">
             <div class="container px-5">
                 
-                {% for juego in object_list %}
+                {% for juego in juegos %}
 
                     
                         <div class="card border-0 shadow rounded-3 overflow-hidden">
@@ -55,39 +81,7 @@
         </section>
 
         
-        <section class="py-5">
-            <div class="container px-5 my-5">
-                <div class="row gx-5">
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://us.123rf.com/450wm/greyjj/greyjj1802/greyjj180200071/95914618-iconos-de-vector-de-g%C3%A9neros-de-videojuegos-en-estilo-de-contorno-lleno.jpg?ver=6" alt="Entrada a Géneros"/>
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaGenero' %}"><h5 class="card-title mb-3">Géneros</h5></a>
-                                <p class="card-text mb-0">Ingresar a la vista del menu de Generos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://i0.wp.com/www.gameoverla.com/wp-content/uploads/2020/06/gamersOverla-26.jpg?fit=1200%2C917&ssl=1" alt="Entrada a Desarrolladores"/>
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaDesarrollador' %}"><h5 class="card-title mb-3">Desarrolladores</h5></a>
-                                <p class="card-text mb-0">Ingresar a la vista del menu de desarrolladores de videojuegos.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 mb-5">
-                        <div class="card h-100 shadow border-0">
-                            <img class="card-img-top" src="https://i0.wp.com/videojuegos.enriqueortegaburgos.com/wp-content/uploads/2021/08/featured-image-for-game-stores-890x450-1.png?fit=890%2C450&ssl=1" alt="Entrada a plataformas"/>
-                            <div class="card-body p-4">
-                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'ListaPlataforma' %}"><h5 class="card-title mb-3">Plataformas</h5></a>
-                                <p class="card-text mb-0">Ingresar a la vista del menu de las plataformas de juegos.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5" >
         <section class="py-1" id="features">
             <div class="container px-1 my-5">
