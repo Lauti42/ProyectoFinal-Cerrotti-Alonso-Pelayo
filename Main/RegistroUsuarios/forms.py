@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
 from RegistroUsuarios.models import Avatar
+from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.validators import UnicodeUsernameValidator
 class PreferenciasFormulario(forms.Form):
 
     lenguaje = forms.CharField()
@@ -13,68 +16,32 @@ class AvatarFormulario(forms.Form):
 
     avatar = forms.ImageField()
 
+username_validator = UnicodeUsernameValidator()
 
 class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(label=_('.'),max_length=12, min_length=4, required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Nombre'}))
+    last_name = forms.CharField(label=_('.'),max_length=12, min_length=4, required=True,
+                               widget=(forms.TextInput(attrs={'class': 'form-control','placeholder':'Apellido'})))
+    email = forms.EmailField(label=_('.'),max_length=50,
+                             widget=(forms.TextInput(attrs={'class': 'form-control','placeholder':'Email'})))
+    password1 = forms.CharField(label=_('.'),
+                                widget=(forms.PasswordInput(attrs={'class': 'form-control','placeholder':'Contraseña'})),
+                                help_text=_('Al menos 8 caracteres alfanumericos'))
+    password2 = forms.CharField(label=_('.'), widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'Repetir Contraseña'}),
+                                help_text=_('Ingresa de nuevo tu contraseña para Confirmar'))
+    username = forms.CharField(
+        label=_('.'),
+        max_length=150,
+        help_text=_(''),
+        validators=[username_validator],
+        error_messages={'unique': _("El nombre de usuario ingresado ya existe")},
+        widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Usuario'})
+    )
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = User
-        fields = ('username','email', 'password1', 'password2', )
-        widgets = {
-            'username': forms.TextInput(
-            attrs={
-                'type': 'text',
-                'class': 'form-control',
-                'placeholder': 'Usuario',
-                'required': 'true',
-                'data-sb-validations':'required',
-                'data-sb-errors':'Nombre requerido',
-                'data-sb-required-message':'Nombre requerido',
-                'width': 38,
-                'height': 100,
-                'cols': '115',
-                'rows': '3',
-            }
-            ),
-                'email': forms.EmailInput(
-                attrs={
-                    'type': 'email',
-                    'class': 'form-control',
-                    'placeholder': 'Email',
-                    'required': 'true',
-                    'data-sb-validations':'required|email',
-                    'data-sb-errors':'Email no válido',
-                    'data-sb-required-message':'Email requerido',
-                    'width': 38,
-                    'height': 100,
-                    'cols': '115',
-                    'rows': '3',
-                    
-                }
-            ),
-            'password1': forms.PasswordInput(
-                attrs={
-                    'type': 'password',
-                    'class': 'form-control',
-                    'placeholder': 'Contraseña',
-                    'required': 'true',
-                    'data-sb-validations':'required',
-                    'data-sb-errors':'Contraseña requerida',
-                    'data-sb-required-message':'Contraseña requerida',
-                }
-            ),
-            'password2': forms.PasswordInput(
-                attrs={
-                    'type': 'password',
-                    'class': 'form-control',
-                    'placeholder': 'Contraseña',
-                    'required': 'true',
-                    'data-sb-validations':'required',
-                    'data-sb-errors':'Contraseña requerida',
-                    'data-sb-required-message':'Contraseña requerida',
-                }
-            ),
-            
-        }
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
         
 
 

@@ -60,8 +60,8 @@ def NewPostSave(request):
             #Guardando los datos en la DB
             publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
             publicacion.save()
-        
-    return render(request, 'indexBase.html',)
+            posteos = Publicacion.objects.filter(muestra_inferior="si")
+    return render(request, 'indexBase.html',{'posteos':posteos})
 
 @login_required
 def NewPost(request):
