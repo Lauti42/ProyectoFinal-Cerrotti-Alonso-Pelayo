@@ -48,22 +48,24 @@ class PostDetalle(DetailView):
 
 def NewPostSave(request):
     if request.method == 'POST':
-        print("POST")
-     #Obteniendo datos del registro (Form)
-        titulo = request.POST['titulo']
-        contenido = request.POST['contenido']
-        imagen = request.POST['imagen']
-        user = User.objects.get(id=request.user.id)
-        descripcion = request.POST['descripcion']
-        
-        #Guardando los datos en la DB
-        publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
-        publicacion.save()
+        if request.user.is_authenticated:
+            print("POST")
+        #Obteniendo datos del registro (Form)
+            titulo = request.POST['titulo']
+            contenido = request.POST['contenido']
+            imagen = request.POST['imagen']
+            user = User.objects.get(id=request.user.id)
+            descripcion = request.POST['descripcion']
+            
+            #Guardando los datos en la DB
+            publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
+            publicacion.save()
         
     return render(request, 'indexBase.html',)
 
- 
+@login_required
 def NewPost(request):
+    
     form = AuthenticationForm() 
     return render(request, 'makeanewpost.html', {'form': form})
 

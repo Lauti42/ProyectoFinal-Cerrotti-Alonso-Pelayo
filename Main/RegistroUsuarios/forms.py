@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
 from RegistroUsuarios.models import Avatar
 class PreferenciasFormulario(forms.Form):
@@ -12,6 +12,71 @@ class PreferenciasFormulario(forms.Form):
 class AvatarFormulario(forms.Form):
 
     avatar = forms.ImageField()
+
+
+class SignUpForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ('username','email', 'password1', 'password2', )
+        widgets = {
+            'username': forms.TextInput(
+            attrs={
+                'type': 'text',
+                'class': 'form-control',
+                'placeholder': 'Usuario',
+                'required': 'true',
+                'data-sb-validations':'required',
+                'data-sb-errors':'Nombre requerido',
+                'data-sb-required-message':'Nombre requerido',
+                'width': 38,
+                'height': 100,
+                'cols': '115',
+                'rows': '3',
+            }
+            ),
+                'email': forms.EmailInput(
+                attrs={
+                    'type': 'email',
+                    'class': 'form-control',
+                    'placeholder': 'Email',
+                    'required': 'true',
+                    'data-sb-validations':'required|email',
+                    'data-sb-errors':'Email no válido',
+                    'data-sb-required-message':'Email requerido',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    
+                }
+            ),
+            'password1': forms.PasswordInput(
+                attrs={
+                    'type': 'password',
+                    'class': 'form-control',
+                    'placeholder': 'Contraseña',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Contraseña requerida',
+                    'data-sb-required-message':'Contraseña requerida',
+                }
+            ),
+            'password2': forms.PasswordInput(
+                attrs={
+                    'type': 'password',
+                    'class': 'form-control',
+                    'placeholder': 'Contraseña',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Contraseña requerida',
+                    'data-sb-required-message':'Contraseña requerida',
+                }
+            ),
+            
+        }
+        
+
 
 class UserEditForm(UserChangeForm):
 

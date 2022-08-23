@@ -11,6 +11,7 @@ from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
 from django.contrib.auth.decorators import login_required
 from RegistroUsuarios.models import Avatar
 from Blog_General.models import Publicacion
+from RegistroUsuarios.forms import SignUpForm
 import os
 # Create your views here.
 
@@ -20,10 +21,10 @@ def registrarse(request):
     return render(request, 'registrarse.html')
 
 def registro(request):
-    if request.method == 'POST':
+    if request.method == 'POST': 
         print("POST")
 
-        formreg = UserCreationForm(request.POST)
+        formreg = SignUpForm(request.POST)
        
 
         if formreg.is_valid(): 
@@ -34,7 +35,7 @@ def registro(request):
 
     else:
 
-        formreg = UserCreationForm()
+        formreg = SignUpForm()
         #form = AuthenticationForm()
         
     return render(request, 'registrarse.html', {'formreg': formreg})  

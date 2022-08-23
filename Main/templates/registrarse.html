@@ -13,11 +13,19 @@
                         <div class="col-lg-8 col-xl-12">
                             <div class="card" style="width: 25rem;">
                                 <div class="card-body">
-                                    <form action="{% url 'registrado'%}" method="post">{% csrf_token %}
-                                    <div class="input-group mb-3">
-                                        {{formreg}]
+                                    <form id="contactForm" action="{% url 'registrado'%}" method="post">{% csrf_token %}
                                         
-                                    </div>
+                                        {% for field in formreg %}
+                                            {{field.label}}
+                                            <br>
+                                            {{field}}
+                                            <br>
+                                            {{field.help_text}}
+                                            <br>
+                                            <br>
+                                        {% endfor %}
+                                            
+                                    
                                     <input class="btn btn-secondary" type="submit" value="Registrar" role="button"></a>
                                 
                             </div>
