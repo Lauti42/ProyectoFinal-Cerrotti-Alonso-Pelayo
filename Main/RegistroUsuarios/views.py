@@ -13,6 +13,8 @@ from RegistroUsuarios.models import Avatar
 from Blog_General.models import Publicacion
 from RegistroUsuarios.forms import SignUpForm
 import os
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
 
 
@@ -21,24 +23,26 @@ def registrarse(request):
     return render(request, 'registrarse.html')
 
 def registro(request):
-    if request.method == 'POST': 
-        print("POST")
+    if not request.user.is_authenticated:
+        if request.method == 'POST': 
+            print("POST")
 
-        formreg = SignUpForm(request.POST)
-       
-
-        if formreg.is_valid(): 
-            
-            username = formreg.cleaned_data['username']
-            formreg.save()
-            return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
-
-    else:
-
-        formreg = SignUpForm()
-        #form = AuthenticationForm()
+            formreg = SignUpForm(request.POST)
         
-    return render(request, 'registrarse.html', {'formreg': formreg})  
+
+            if formreg.is_valid(): 
+                
+                username = formreg.cleaned_data['username']
+                formreg.save()
+                return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
+
+        else:
+
+            formreg = SignUpForm()
+            #form = AuthenticationForm()
+        return render(request, 'registrarse.html', {'formreg': formreg}) 
+    else:
+        return HttpResponseRedirect(reverse('logout'))
 
 
 
@@ -124,7 +128,7 @@ def editar_perfil(request):
                     avatar.save()
                 elif dataAvatar['imagen'] == None and Avatar.objects.filter(user=request.user.id).last() == None:
                     print("entramos a sin imagen y sin una anterior")
-                    avatar = Avatar(user=request.user, imagen=os.path.join(BASE_DIR, 'img/default.jpg'))
+                    avatar = Avatar(user=request.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg'))
                     avatar.save()
                 elif dataAvatar['imagen'] != None:
                     print("entramos con imagen")

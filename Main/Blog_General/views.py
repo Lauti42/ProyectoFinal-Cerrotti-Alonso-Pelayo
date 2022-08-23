@@ -1,5 +1,6 @@
 from enum import auto
 from mimetypes import init
+import re
 from django.shortcuts import render, get_object_or_404, redirect
 from Blog_General.models import Publicacion, Comentario
 from django.views.generic.detail import DetailView
@@ -106,12 +107,11 @@ def eliminarPost(request, pk):
        
         if request.user == post.user:
             post.delete()
-            print(pk)
-            return render(request,'Blog_Generalindex.html')
+            return HttpResponseRedirect(reverse('blog_general_index'))
         else:
-            print("No autorizado")
             return render(request,'Blog_Generalindex.html')
     else:
+        
         return render(request,'Blog_Generalindex.html')
     
 
@@ -136,3 +136,23 @@ def editPost(request, id):
 
         miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
         return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
+
+def buscarPost(request):
+    if request.GET["titulo"]:
+
+        titulo = request.GET["titulo"]
+        if titulo != None:
+            publicacionBody = Publicacion.objects.filter(contenido__contains=titulo)
+            rango = len(publicacionBody)
+            print(rango)
+            
+            if len(publicacionBody) == 0:
+                ceroData = "No se obtuvieron reusultados"
+                return HttpResponseRedirect(reverse('blog_general_index'))
+            else:
+                return render(request, 'Blog_Generalindex.html', {'buesqueda_posteos': publicacionBody})
+        else:
+            return HttpResponseRedirect(reverse('blog_general_index'))
+
+    else:
+        return HttpResponseRedirect(reverse('blog_general_index'))

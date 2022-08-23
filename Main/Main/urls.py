@@ -35,7 +35,6 @@ urlpatterns = [
     path('about/', aboutview, name='about'),
     path('contact/', contactview, name='contact'),
     path('preferencias/', include('RegistroUsuarios.urls'),name='preferencias'),
-    path('buscar/', include('SearchData.urls',)),
     path('blog/', include('Blog_General.urls'),),
     path('logout/', LogoutView.as_view(template_name='indexBase.html'),{'posteos': Publicacion.objects.filter(muestra_inferior="si")}, name="logout"),
     
