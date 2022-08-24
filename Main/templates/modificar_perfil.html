@@ -38,25 +38,35 @@
                 
             </div>
         </div>
-        <div class="col-md-15"><br>
-            {% if Posteos %}
-           <label class="labels">Estas son tus publicaciones:</label>
-              
-                {% for post in Posteos %}
+        
+        
+             
+            <div class="col-md-15"><br>
+                {% if Posteos %}
 
-                <ul class="list-group">
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <a class="btn btn-secondary bt-sm" href="{% url 'verpost' post.id %}">Ver</a>
-                        <div class="b">
-                        <span class="b">{{post.titulo}}</span>
-                        </div>
-                        <span>{{post.fecha}}</span>
-                        
-                    </li>
+            
+               
+                
+                <label class="labels">Estas son tus publicaciones:</label>
+
+                <div style="width:400px;height:500px;line-height:3em;overflow:auto;padding:5px;">    
                     
-                {% endfor %}
-            {% endif %}
-        </div>
+                        {% for post in Posteos %}
+
+                        <ul class="list-group">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <a class="btn btn-secondary bt-sm" href="{% url 'verpost' post.id %}">Ver</a>
+                                <div class="b">
+                                <span class="b">{{post.titulo}}</span>
+                                </div>
+                                <span>{{post.fecha}}</span>
+                                
+                            </li>
+                            
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
         
 </div>
 </div>
