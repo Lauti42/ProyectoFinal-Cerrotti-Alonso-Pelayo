@@ -1,22 +1,14 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.contrib.auth.models import User
-from RegistroUsuarios.models import Avatar
-from django.contrib.auth import password_validation
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.validators import UnicodeUsernameValidator
-class PreferenciasFormulario(forms.Form):
+from django.utils.translation import gettext_lazy as _
 
-    lenguaje = forms.CharField()
-    backofront = forms.CharField()
-    pais = forms.CharField()
-    trabajo = forms.CharField() 
-
-class AvatarFormulario(forms.Form):
-
-    avatar = forms.ImageField()
+from RegistroUsuarios.models import Avatar
 
 username_validator = UnicodeUsernameValidator()
+
+# Formulario de Registro , establecemos los Placeholders, caracteres y formato
 
 class SignUpForm(UserCreationForm):
     first_name = forms.CharField(label=_('.'),max_length=12, min_length=4, required=True,
@@ -44,7 +36,7 @@ class SignUpForm(UserCreationForm):
         fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
         
 
-
+# Formulario de Edicion de perfil , establecemos los Placeholders, caracteres y formato
 class UserEditForm(UserChangeForm):
 
     password = forms.CharField(
@@ -131,6 +123,8 @@ class UserEditForm(UserChangeForm):
             raise forms.ValidationError("Las contraseñas no coinciden..")
         return password2
 
+
+# Traemos el formulario de Avatar para renderizarlo con formato en la web.
 class AvatarFormulario(forms.ModelForm):
 
     class Meta:

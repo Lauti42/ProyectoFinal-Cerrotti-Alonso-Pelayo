@@ -1,28 +1,28 @@
-from enum import auto
-from mimetypes import init
-import re
-from django.shortcuts import render, get_object_or_404, redirect
-from Blog_General.models import Publicacion, Comentario
-from django.views.generic.detail import DetailView
-from django.core.paginator import Paginator
-from .forms import NewCommentForm
-from django.contrib.auth.forms import AuthenticationForm
-from RegistroUsuarios.models import Avatar
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.contrib.auth.models import User
+
+
 from django.contrib.auth.decorators import login_required
-from Blog_General.models import Publicacion
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+from django.views.generic.detail import DetailView
+
 from Blog_General.forms import PublicacionForm
+from Blog_General.models import Comentario, Publicacion
+
+from .forms import NewCommentForm
+
 # Create your views here.
 
-
+# Esta vista renderiza cada objeto de Publicacion en vistas separadas.
 class PostDetalle(DetailView):
     model = Publicacion 
     context_object_name = 'post'
     template_name = 'GeneralPost.html'
     
-
+    # Pasamos como contexto la clase comentarios para renderizar los mismos junto con los Likes.
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
 
@@ -47,11 +47,11 @@ class PostDetalle(DetailView):
 
 
 
-def NewPostSave(request):
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            print("POST")
-        #Obteniendo datos del registro (Form)
+def NewPostSave(request): # Utilizamos esta funcion para guardar los datos obtenidos atravez de Post en la class Publicacion
+    if request.method == 'POST': # Consultamos Method
+        if request.user.is_authenticated: # Consultamos si esta logged
+            
+            #Obteniendo datos del registro (Form)
             titulo = request.POST['titulo']
             contenido = request.POST['contenido']
             imagen = request.POST['imagen']
@@ -64,63 +64,56 @@ def NewPostSave(request):
             posteos = Publicacion.objects.filter(muestra_inferior="si")
     return render(request, 'indexBase.html',{'posteos':posteos})
 
-@login_required
+@login_required # Definimos que para poder postear es necesario estar conectado.
 def NewPost(request):
     
     form = AuthenticationForm() 
-    return render(request, 'makeanewpost.html', {'form': form})
+    return render(request, 'makeanewpost.html', {'form': form}) #Renderizamos mañeanewpost.
 
 
-def blog_general_index(request):
+def blog_general_index(request): # Utilizamos esta def para establecer la paginacion segun la cantidad de objetos de Publicacion.
 
-    listado_posts= Publicacion.objects.all().order_by('-id')
-    paginator= Paginator(listado_posts, 6)
-    pagina= request.GET.get('page') or 1
+    listado_posts= Publicacion.objects.all().order_by('-id') # Obtenemos los objetos
+    paginator= Paginator(listado_posts, 6) # Determinamos la cantidad que queremos renderizar
+    pagina= request.GET.get('page') or 1 
     posts= paginator.get_page(pagina)
     pagina_actual= int(pagina)
-    paginas= range(1, posts.paginator.num_pages + 1)
+    paginas= range(1, posts.paginator.num_pages + 1) # Rango de paginas que se crearan.
 
-
-    
     return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
 
-def verpost(request):
-    print(request)
-    
-    return render(request, 'indexBase.html')
 
-
-def darLike(request, pk):
-    if request.user.is_authenticated:
-        post = Publicacion.objects.get(id=pk)
+def darLike(request, pk): # Contabilizamos los likes , recibe la request y el id de la pagina.
+    if request.user.is_authenticated: #Consultamos si esta logged
+        post = Publicacion.objects.get(id=pk) 
         post.likes.add(request.user)
-        post.save()
+        post.save()#Guardamos los likes dentro de Publicacion
         
-    return HttpResponseRedirect(reverse('verpost', args=[str(pk)]))
+    return HttpResponseRedirect(reverse('verpost', args=[str(pk)])) # Redireccionamos a el mismo blog
 
 
-def eliminarPost(request, pk):
+def eliminarPost(request, pk): #Eliminar posteo
     
     if request.method == 'POST':
     
         post = get_object_or_404(Publicacion, id=pk)
        
-        if request.user == post.user:
-            post.delete()
-            return HttpResponseRedirect(reverse('blog_general_index'))
+        if request.user == post.user: # Consultamos si el que intenta eliminar es el propietario del Post.
+            post.delete() # Eliminamos el post 
+            return HttpResponseRedirect(reverse('blog_general_index')) # Renderiza IndexBlog
         else:
-            return render(request,'Blog_Generalindex.html')
+            return render(request,'Blog_Generalindex.html') # Renderiza IndexBlog
     else:
         
-        return render(request,'Blog_Generalindex.html')
+        return render(request,'Blog_Generalindex.html') # Renderiza IndexBlog
     
 
 
-def editPost(request, id):
+def editPost(request, id): # Editar Posteo.
 
-    post = Publicacion.objects.get(id=id)
+    post = Publicacion.objects.get(id=id) #Obtenemos el objeto segun id
     
-    if request.method == 'POST':
+    if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Objet por los ingresados en la Request
         
         miPost = PublicacionForm(request.POST)
     
@@ -131,28 +124,31 @@ def editPost(request, id):
             post.imagen = miPost.cleaned_data['imagen']
             post.descripcion = miPost.cleaned_data['descripcion']
             post.save()
-            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)]))
-    else:
+            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)])) # Volvemos al blog editado
+    else: # De lo contrario pasamos los formularios correspondientes a editarPosteo.
 
         miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
         return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
 
-def buscarPost(request):
+
+def buscarPost(request): #Buscar Posteo
     if request.GET["titulo"]:
 
-        titulo = request.GET["titulo"]
-        if titulo != None:
+        titulo = request.GET["titulo"] #Obtenemos el titulo como parametro de busqueda.
+
+        if titulo != None: #Si se ingreso informacion obtendra todos los objetos dentro de Publicacion que correspondan al titulo.
+
             publicacionBody = Publicacion.objects.filter(contenido__contains=titulo)
-            rango = len(publicacionBody)
-            print(rango)
-            
-            if len(publicacionBody) == 0:
-                ceroData = "No se obtuvieron reusultados"
-                return HttpResponseRedirect(reverse('blog_general_index'))
+           
+            if len(publicacionBody) == 0: # Consultamos si se escribio algo en el form.
+                
+                return HttpResponseRedirect(reverse('blog_general_index')) # Lo devolvemos al IndexBlog
             else:
+                # Si hay resultados renderizamos los objetos obtenidos.
                 return render(request, 'Blog_Generalindex.html', {'buesqueda_posteos': publicacionBody})
         else:
+            # Si no se busco nada se vuelve a IndexBlog.
             return HttpResponseRedirect(reverse('blog_general_index'))
 
-    else:
+    else: # Si es POST renderizamos IndexBlog.
         return HttpResponseRedirect(reverse('blog_general_index'))

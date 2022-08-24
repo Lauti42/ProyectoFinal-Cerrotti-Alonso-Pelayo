@@ -1,9 +1,13 @@
-from socket import fromshare
+
+
 from django import forms
-from .models import Comentario
-from django.db import models
+
 from Blog_General.models import Publicacion
 
+from .models import Comentario
+
+
+# Damos formato al formulario de NewComment.
 class NewCommentForm(forms.ModelForm):
     class Meta:
         model= Comentario
@@ -21,6 +25,8 @@ class NewCommentForm(forms.ModelForm):
             )
         }
         
+
+# Damos formato al form de PublicacionForm        
 class PublicacionForm(forms.ModelForm):
     class Meta:
         model= Publicacion

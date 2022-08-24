@@ -1,88 +1,69 @@
-import re
-from urllib import response
-from django.shortcuts import render
-from django.http import HttpResponse
-from Main.settings import BASE_DIR, MEDIA_ROOT, MEDIA_URL
-from RegistroUsuarios.models import Registro_usuarios , Preferencias_Usuario
-from RegistroUsuarios.forms import PreferenciasFormulario
-from django.contrib.auth.forms import AuthenticationForm , UserCreationForm
-from django.contrib.auth import login, logout, authenticate
-from RegistroUsuarios.forms import AvatarFormulario , UserEditForm
-from django.contrib.auth.decorators import login_required
-from RegistroUsuarios.models import Avatar
-from Blog_General.models import Publicacion
-from RegistroUsuarios.forms import SignUpForm
 import os
+
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect
+from django.shortcuts import render
 from django.urls import reverse
+
+from Blog_General.models import Publicacion
+from Main.settings import MEDIA_URL
+from RegistroUsuarios.forms import AvatarFormulario, SignUpForm, UserEditForm
+from RegistroUsuarios.models import Avatar
+
 # Create your views here.
 
 
-def registrarse(request):
+def registrarse(request): # Renderizamos la vista de registro
     
     return render(request, 'registrarse.html')
 
-def registro(request):
-    if not request.user.is_authenticated:
-        if request.method == 'POST': 
-            print("POST")
+def registro(request): # Obtenemos los datos del usuario por metodo post.
+    if not request.user.is_authenticated: # Deslogueamos al usuario en caso de que este conectado antes del registro
+        if request.method == 'POST': # Aseguramos que el method utilizado sea Post.
+            
 
-            formreg = SignUpForm(request.POST)
+            formreg = SignUpForm(request.POST) # Enviamos la request al formulario y lo conservamos en una variable.
         
 
-            if formreg.is_valid(): 
+            if formreg.is_valid(): # Consultamos sobre la validacion del form.
                 
+                # Guardamos los datos obtenidos al formulario.
                 username = formreg.cleaned_data['username']
                 formreg.save()
-                return render(request, 'indexregistrado.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado'})
+                publicaciones = Publicacion.objects.filter(muestra_inferior="si")
+                return render(request, 'IndexBase.html', {'mensaje': f'Bienvenido {username}! tu usuario ha sido creado','posteos':publicaciones})
 
-        else:
+        else: #Si el method == GET necesitamos renderizar el form de registro en registrarse.html
 
             formreg = SignUpForm()
-            #form = AuthenticationForm()
+
         return render(request, 'registrarse.html', {'formreg': formreg}) 
     else:
         return HttpResponseRedirect(reverse('logout'))
 
 
-
-def preferencias(request):
-    if request.method == "POST":
-        print("POST")
-        #Obteniendo datos del registro (Form)
-        preferenciasUsuarioForm = PreferenciasFormulario(request.POST)    
-        
-        if preferenciasUsuarioForm.is_valid():
-
-            data = preferenciasUsuarioForm.cleaned_data
-            avatar = Avatar.objects.get(user=request.user.id)
-
-            #Guardando los datos en la DB
-            Pref = Preferencias_Usuario(lenguaje=data["lenguaje"], backOfront=["backofront"], pais=["pais"], trabajo=["trabajo"])
-            Pref.save()
-        form = AuthenticationForm()
-        return render(request, "preferenciasenviadas.html", {'form': form})
-
 def login_request(request):
     
-    Publicaciones = Publicacion.objects.filter(muestra_inferior= 'si')
+    Publicaciones = Publicacion.objects.filter(muestra_inferior= 'si') #Obtenemos todos los objetos de la Clase Publicacion con un Filtro activado
     if request.method == 'POST':
-        form= AuthenticationForm(request, data = request.POST)
+        form= AuthenticationForm(request, data = request.POST) 
         
 
         if form.is_valid():
-            #email= form.cleaned_data.get('email')
+            
             password = form.cleaned_data.get('password')
             usuario = form.cleaned_data.get('username')
 
-            user= authenticate(username= usuario, password= password)
+            user= authenticate(username= usuario, password= password) # Autenticamos el usuario
             
-            if user:
+            if user: #Si el usuario es True le damos ingreso al sitio y renderizamos el index con los objetos de publicacion obtenidos anteriormente.
                 login(request, user)
                 print("entramos a bienvenido")
                 return render(request, 'indexBase.html', {'mensaje': f'Bienvenido {usuario}', 'posteos': Publicaciones})
 
-            else:
+            else: # Si el usuario es False lo redirigimos a el HTML Errores con el mensaje correspondiente.
                 print("entramos a error")
                 return render(request, 'Errores.html', {'mensaje': 'El nombre de usuario o la contraseña son incorrectos', 'posteos': Publicaciones})
         
@@ -95,15 +76,12 @@ def login_request(request):
                 
 @login_required
 def editar_perfil(request):
-    
-    print('method:', request.method)
-    print('post:', request.POST)
 
     usuario = request.user
 
     if request.method == 'POST':
 
-        miFormulario = UserEditForm(request.POST, instance=request.user)
+        miFormulario = UserEditForm(request.POST, instance=request.user) # Enviamos a los formularios Avatar y UserEditForm los datos de la Request.
         formAvatar = AvatarFormulario(request.POST, request.FILES)
 
         if miFormulario.is_valid():
@@ -116,29 +94,39 @@ def editar_perfil(request):
             usuario.email = data["email"]
             usuario.password = data["password1"]
 
+            # Actualizamos los datos obtenidos en la request.
             usuario.set_password(usuario.password) 
             usuario.save()
 
+
+            '''
+            Necesitamos comprobar 3 cosas antes de cargar el avatar ya que el formulario puede 
+            devolver None (No cargo archivos).
+            1) No tenga Imagen cargada pero si una anterior (Traemos la ultima que tenia.)
+            2) No tenga Imagen cargada y tampoco una anterior (Cargamos una IMG defoult.jpg)
+            3) Tenga una anterior y la quiera actualizar (Cargamos la nueva imagen)
+    
+            '''
             if formAvatar.is_valid():
                 dataAvatar = formAvatar.cleaned_data
                 print(dataAvatar)
                 if dataAvatar['imagen'] == None and Avatar.objects.filter(user=request.user.id).last():
-                    print("entramos a sin imagen pero con una anterior")
+                    
                     avatar = Avatar.objects.filter(user=request.user.id).last()
                     avatar.save()
                 elif dataAvatar['imagen'] == None and Avatar.objects.filter(user=request.user.id).last() == None:
-                    print("entramos a sin imagen y sin una anterior")
+                    
                     avatar = Avatar(user=request.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg'))
                     avatar.save()
                 elif dataAvatar['imagen'] != None:
-                    print("entramos con imagen")
+                    
                     avatar = Avatar(user=request.user, imagen=dataAvatar["imagen"])
                     avatar.save()
             
-            return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."})
+            return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."}) #Devolvemos un mensaje de Exito
     else:
 
-        miFormulario = UserEditForm(instance=request.user)
+        miFormulario = UserEditForm(instance=request.user)         #Caso contrario , devolvemos los formularios correspondientes a modificar_perfil
         formAvatar = AvatarFormulario()    
         Posteos = Publicacion.objects.filter(user=request.user)
 
