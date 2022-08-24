@@ -24,6 +24,8 @@ from django.contrib.auth.views import LogoutView
 from django.conf import settings
 from django.conf.urls.static import static
 from Blog_General.models import Publicacion
+from django.conf.urls import handler404
+from .views import Error404View
 
 
 urlpatterns = [
@@ -40,5 +42,7 @@ urlpatterns = [
     
     
 ]
+
+handler404 = Error404View.as_view()
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
