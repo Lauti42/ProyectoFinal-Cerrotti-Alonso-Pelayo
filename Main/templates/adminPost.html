@@ -31,17 +31,18 @@
         </div>
         {% if drafts %}
 
-        <label class="labels">Estos son los Post sin Publicar</label>
+        
 
         <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">
-
+            
+            <h2 class="fw-bolder fs-5 mb-4">Los siguientes posteos estan a la espera de ser Publicados</h2>
             {% for draft in drafts %}
 
             <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' draft.id %}">Ver</a>
                     <form action="{% url 'editPost' draft.id %}" method="GET">
-                        <button class="btn btn-outline-success" type="submit">Editar</button>
+                        <button class="btn btn-outline-success" type="submit">Configurar y Publicar</button>
                     </form>
                     <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' draft.id %}">Eliminar</a>
 
@@ -56,6 +57,37 @@
                 </li>
 
                 {% endfor %}
+                {% endif %}
+                
+                {% if publicados %}   
+                <br>  
+                <h2 class="fw-bolder fs-5 mb-4">Debajo los posteos ya Publicados</h2>
+
+       
+
+            {% for publicado in publicados %}
+
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a class="btn btn-secondary bt-sm" href="{% url 'verpost' publicado.id %}">Ver</a>
+                    <form action="{% url 'editPost' publicado.id %}" method="GET">
+                        <button class="btn btn-outline-success" type="submit">Editar</button>
+                    </form>
+                    <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' publicado.id %}">Eliminar</a>
+
+
+                    <div class="b">
+                        <span class="b">{{publicado.titulo}}</span>
+
+                    </div>
+                    <span>{{publicado.fecha}}</span>
+                    <span class="b">{{publicado.user}}</span>
+
+                </li>
+
+                {% endfor %}
+                
+            
                 {% endif %}
 
 

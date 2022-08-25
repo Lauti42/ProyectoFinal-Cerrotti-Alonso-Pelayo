@@ -159,8 +159,9 @@ def buscarPost(request): #Buscar Posteo
 
 def adminPosts(request):
     draft = Publicacion.objects.filter(publicado="draft")
+    publicados = Publicacion.objects.filter(publicado="publicado")
     
-    return render(request, 'adminPost.html', {'drafts':draft})
+    return render(request, 'adminPost.html', {'drafts':draft,'publicados':publicados})
 
 
 
