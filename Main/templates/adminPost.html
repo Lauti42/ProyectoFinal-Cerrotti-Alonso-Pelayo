@@ -2,13 +2,13 @@
 
 {% block navigation %}
 {% load static %}
-<style> 
+<style>
     div.b {
-      white-space: nowrap; 
-      width: 150px; 
-      overflow: hidden;
-      text-overflow: ellipsis; 
-      
+        white-space: nowrap;
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
     }
 </style>
 
@@ -17,46 +17,48 @@
 <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
 
 <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-    
-    
+
+
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle" width="150" height="150" src="{{url}}"><br><span class="font-weight-bold">{{user.first_name}} {{user.last_name}}</span>
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle"
+                    width="150" height="150" src="{{url}}"><br><span class="font-weight-bold">{{user.first_name}}
+                    {{user.last_name}}</span>
+            </div>
+
+
+
         </div>
-             
-        
-        
-</div>
-{% if drafts %}
-                
-                <label class="labels">Estos son los Post sin Publicar</label>
+        {% if drafts %}
 
-                <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">    
-                    
-                        {% for draft in drafts %}
+        <label class="labels">Estos son los Post sin Publicar</label>
 
-                        <ul class="list-group">
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a class="btn btn-secondary bt-sm" href="{% url 'verpost' draft.id %}">Ver</a>
-                                <form action="{% url 'editPost' draft.id %}" method="GET">
-                                    <button class="btn btn-outline-success" type="submit">Editar</button>
-                                </form>
-                                <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' draft.id %}">Eliminar</a>
-                                
-                                
-                                <div class="b">
-                                <span class="b">{{draft.titulo}}</span>
-                                
-                                </div>
-                                <span>{{draft.fecha}}</span>
-                                <span class="b">{{draft.user}}</span>
-                                
-                            </li>
-                            
-                        {% endfor %}
-                    {% endif %}
-                    
+        <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">
 
-</div>
+            {% for draft in drafts %}
 
-{% endblock navigation %}
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <a class="btn btn-secondary bt-sm" href="{% url 'verpost' draft.id %}">Ver</a>
+                    <form action="{% url 'editPost' draft.id %}" method="GET">
+                        <button class="btn btn-outline-success" type="submit">Editar</button>
+                    </form>
+                    <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' draft.id %}">Eliminar</a>
+
+
+                    <div class="b">
+                        <span class="b">{{draft.titulo}}</span>
+
+                    </div>
+                    <span>{{draft.fecha}}</span>
+                    <span class="b">{{draft.user}}</span>
+
+                </li>
+
+                {% endfor %}
+                {% endif %}
+
+
+        </div>
+
+        {% endblock navigation %}

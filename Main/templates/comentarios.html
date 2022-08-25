@@ -3,7 +3,7 @@
 
   {% if user.is_authenticated %}
   <form method="POST">
-    {% csrf_token %} 
+    {% csrf_token %}
     <div class="form-group">
       {{ comment_form }}
       <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
@@ -14,12 +14,13 @@
   {% endif %}
 
   {% if comments %}
-  <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize }}</strong>
+  <strong class="text-secondary">{{ object.number_of_comments }} Comment{{ object.number_of_comments|pluralize
+    }}</strong>
   <hr>
   <ul>
     {% for comment in comments %}
-    <li>           
-     <div>
+    <li>
+      <div>
         <span>
           <strong class="text-info">{{ comment.name }} </strong>
           <small class="text-muted">{{ comment.date_added }}</small>
@@ -32,7 +33,7 @@
     {% endfor %}
   </ul>
   {% else %}
-    <strong class="text-secondary">No comments yet...</strong>
+  <strong class="text-secondary">No comments yet...</strong>
   {% endif %}
 
 </div>

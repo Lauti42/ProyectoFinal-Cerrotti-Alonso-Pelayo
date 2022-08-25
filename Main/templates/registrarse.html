@@ -1,49 +1,52 @@
 {% extends 'indexBase.html' %}
 
-
-
 {% block base %}
 
 <section class="py-1" id="features">
     <div class="container px-5 my-5">
         <div class="row gx-5">
-            <div class="col-lg-6 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Una vez registrado podras...</h2>
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <h2 class="fw-bolder mb-0">Una vez registrado podras...</h2>
                 <br></br>
-                    <div class="row gx-5 justify-content-center">
-                        <div class="col-lg-1 col-xl-12">
-                            <div style="width: 25rem;">
-                                <div class="card-body">
-                                    <form id="contactForm" action="{% url 'registrado'%}" method="post">{% csrf_token %}
-                                        
-                                        {{formreg}}
-                                        <br></br>
-                                    <input class="btn btn-secondary" type="submit" value="Registrarse" role="button"></a>
-                                
+                <div class="row gx-5 justify-content-center">
+                    <div class="col-lg-1 col-xl-12">
+                        <div style="width: 25rem;">
+                            <div class="card-body">
+                                <form id="contactForm" action="{% url 'registrado'%}" method="post">{% csrf_token %}
+
+                                    {{formreg}}
+                                    <br></br>
+                                    <input class="btn btn-secondary" type="submit" value="Registrarse"
+                                        role="button"></a>
+
                             </div>
-                                </div>
-                                    
-                            </form>
                         </div>
-                    </div> 
-                </div>   
-                
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-lg-6">
                 <br></br>
-               
+
                 <div class="row gx-4 row-cols-2 row-cols-md-1">
                     <div class="col mb-5 h-100">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-collection"></i></div>
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-collection"></i></div>
                         <h2 class="h5">Realizar publicaciones.</h2>
                         <p class="mb-0">Podras publicar tu trabajo, tus metas, tus Hobbys</p>
                     </div>
-                    
+
                     <div class="col mb-5 h-100">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-toggles2"></i></div>
                         <h2 class="h5">Flexibilidad con las publicaciones</h2>
                         <p class="mb-0">Puedes editar, Eliminar los posteos que creaste</p>
                     </div>
                     <div class="col mb-5 h-100">
-                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i class="bi bi-toggles2"></i></div>
+                        <div class="feature bg-primary bg-gradient text-white rounded-3 mb-3"><i
+                                class="bi bi-toggles2"></i></div>
                         <h2 class="h5">Comparte Tu trabajo!</h2>
                         <p class="mb-0">Vas a poder Compartir con tus amigos y los trabajos que realices</p>
                     </div>
@@ -55,5 +58,3 @@
 <!-- Registro-->
 
 {% endblock base %}
-    
-    

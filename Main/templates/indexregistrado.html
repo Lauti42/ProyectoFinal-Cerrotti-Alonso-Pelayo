@@ -1,138 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
 
-        {% load static %}
+<head>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Blog de Prueba para CoderHouse</title>
-        <!-- Favicon
+    {% load static %}
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Blog de Prueba para CoderHouse</title>
+    <!-- Favicon
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <!--<link href="css/styles.css" rel="stylesheet" />-->
-        <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
-    </head>
-    <body class="d-flex flex-column h-100">
-        <main class="flex-shrink-0">
-            <!-- Navigation-->
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <div class="container px-5">
-                    <a class="navbar-brand" href="http://127.0.0.1:8000/">HOME</a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/" >Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/about">About</a></li>
-                             <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/pricing">Pricing</a></li>-->
-                            <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/faq">FAQ</a></li>-->
-                            <li class="nav-item dropdown">
-                                <!--<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>-->
-                               <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">-->
-                                    <!--<li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>-->
-                                    <!--<li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>-->
-                                </ul>
-                            </li>
-                           <!-- <li class="nav-item dropdown">
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <!--<link href="css/styles.css" rel="stylesheet" />-->
+    <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
+</head>
+
+<body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="http://127.0.0.1:8000/">HOME</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation"><span
+                        class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/about">About</a></li>
+                        <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/contact">Contact</a></li>-->
+                        <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/pricing">Pricing</a></li>-->
+                        <!--<li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/faq">FAQ</a></li>-->
+                        <li class="nav-item dropdown">
+                            <!--<a class="nav-link dropdown-toggle" id="navbarDropdownBlog" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>-->
+                            <!-- <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">-->
+                            <!--<li><a class="dropdown-item" href="blog-home.html">Blog Home</a></li>-->
+                            <!--<li><a class="dropdown-item" href="blog-post.html">Blog Post</a></li>-->
+                    </ul>
+                    </li>
+                    <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" id="navbarDropdownPortfolio" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Portfolio</a>-->
-                                <!--<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">-->
-                                    <!--<li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>-->
-                                    <!--<li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>-->
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
+                    <!--<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownPortfolio">-->
+                    <!--<li><a class="dropdown-item" href="portfolio-overview.html">Portfolio Overview</a></li>-->
+                    <!--<li><a class="dropdown-item" href="portfolio-item.html">Portfolio Item</a></li>-->
+                    </ul>
+                    </li>
+                    </ul>
                 </div>
-            </nav>
-            <!-- Header-->
-            <header class="bg-dark py-5">
-                <div class="container px-5">
-                    <div class="row gx-5 align-items-center justify-content-center">
-                        <div class="col-lg-8 col-xl-7 col-xxl-6">
-                            <div class="my-5 text-center text-xl-start">
-                                <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a nuestro Blog de prueba de CODERHOUSE</h1>
-                                <p class="lead fw-normal text-white-50 mb-4">Vas a poder publicar tus trabajos, historias, tus gustos y Hobbys</p>
-                                <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
-                                    
-                                    <a class="btn btn-outline-light btn-lg px-4" href="http://127.0.0.1:8000/about">Sobre Nosotros</a>
-                                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-5">
+                <div class="row gx-5 align-items-center justify-content-center">
+                    <div class="col-lg-8 col-xl-7 col-xxl-6">
+                        <div class="my-5 text-center text-xl-start">
+                            <h1 class="display-5 fw-bolder text-white mb-2">Bienvenido a nuestro Blog de prueba de
+                                CODERHOUSE</h1>
+                            <p class="lead fw-normal text-white-50 mb-4">Vas a poder publicar tus trabajos, historias,
+                                tus gustos y Hobbys</p>
+                            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center justify-content-xl-start">
+
+                                <a class="btn btn-outline-light btn-lg px-4" href="http://127.0.0.1:8000/about">Sobre
+                                    Nosotros</a>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5" src="https://i.pinimg.com/originals/e0/73/71/e073716d0d0c92e002d603783a9854cd.gif" style="border: 12px solid rgba(63, 63, 63, 0.247);" width="560" height="350" alt=""/></div>
                     </div>
+                    <div class="col-xl-5 col-xxl-6 d-none d-xl-block text-center"><img class="img-fluid rounded-3 my-5"
+                            src="https://i.pinimg.com/originals/e0/73/71/e073716d0d0c92e002d603783a9854cd.gif"
+                            style="border: 12px solid rgba(63, 63, 63, 0.247);" width="560" height="350" alt="" /></div>
                 </div>
-            </header>
-            <!-- Features section-->
-            <!-- Registrado Correctamente-->
-            {% block preferenciasok %}
+            </div>
+        </header>
+        <!-- Features section-->
+        <!-- Registrado Correctamente-->
+        {% block preferenciasok %}
 
-            
 
-            <aside class="bg-light bg-gradient rounded-3 p-4 p-sm-5 mt-5">
-                <div class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
-                    <div class="mb-4 mb-xl-0">
-                        <div class="fs-3 fw-bold text-dark">{{mensaje}}</div>
-                        <div class="text-dark-50">Ahora vas a poder publbicar tu contenido!</div>
-            </aside>
-                    </div> 
-            <!-- Registrado Correctamente-->
-            <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5" >
-             <div class="container px-1">       
-             <div class="my-5 text-center text-xl-start">
-                <div class="row gx-5 align-items-center justify-content-center"></div>
-                <h1 class="display-5 fw-bolder text-white mb-2">Queremos conocer mas acerca tuyo, puedes llenar tus preferencias a continuacion</h1>
-                <div class="container px-5 my-5">
-                    <div class="row gx-5">
-                        <div class="col-lg-4 mb-5 mb-lg-0"><h2 class="fw-bolder mb-0">Las preferencias son privadas pero nos sirven para determinar como es nuestra comunidad</h2>
-                            <br></br>
+
+        <aside class="bg-light bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+            <div
+                class="d-flex align-items-center justify-content-between flex-column flex-xl-row text-center text-xl-start">
+                <div class="mb-4 mb-xl-0">
+                    <div class="fs-3 fw-bold text-dark">{{mensaje}}</div>
+                    <div class="text-dark-50">Ahora vas a poder publbicar tu contenido!</div>
+        </aside>
+        </div>
+        <!-- Registrado Correctamente-->
+        <header class="bg-dark bg-gradient rounded-3 p-4 p-sm-5 mt-5">
+            <div class="container px-1">
+                <div class="my-5 text-center text-xl-start">
+                    <div class="row gx-5 align-items-center justify-content-center"></div>
+                    <h1 class="display-5 fw-bolder text-white mb-2">Queremos conocer mas acerca tuyo, puedes llenar tus
+                        preferencias a continuacion</h1>
+                    <div class="container px-5 my-5">
+                        <div class="row gx-5">
+                            <div class="col-lg-4 mb-5 mb-lg-0">
+                                <h2 class="fw-bolder mb-0">Las preferencias son privadas pero nos sirven para determinar
+                                    como es nuestra comunidad</h2>
+                                <br></br>
                                 <div class="row gx-5 justify-content-center">
                                     <div class="col-lg-8 col-xl-12">
-                                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'preferencias'%}" method="post">
+                                        <form id="contactForm" data-sb-form-api-token="API_TOKEN"
+                                            action="{% url 'preferencias'%}" method="post">
                                             <!-- Name input-->
                                             {% csrf_token %}
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="Lenguaje" name="Lenguaje" type="text" placeholder="¿Que lenguaje de programacion conoces?" data-sb-validations="required" />
+                                                <input class="form-control" id="Lenguaje" name="Lenguaje" type="text"
+                                                    placeholder="¿Que lenguaje de programacion conoces?"
+                                                    data-sb-validations="required" />
                                                 <label for="Lenguaje">¿Que lenguaje de programacion conoces?</label>
-                                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
+                                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is
+                                                    required.</div>
                                             </div>
                                             <!-- Email address input-->
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="BackFront" name="BackFront" type="text" placeholder="Backend? , Frontend?" data-sb-validations="required,email" />
+                                                <input class="form-control" id="BackFront" name="BackFront" type="text"
+                                                    placeholder="Backend? , Frontend?"
+                                                    data-sb-validations="required,email" />
                                                 <label for="BackFront">Backend? , Frontend?</label>
                                             </div>
                                             <!-- Phone number input-->
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="Pais" name="Pais" type="text" placeholder="Pais"/>
+                                                <input class="form-control" id="Pais" name="Pais" type="text"
+                                                    placeholder="Pais" />
                                                 <label for="Pais">¿De que pais eres?</label>
-                                                
+
                                             </div>
                                             <!-- Phone number input-->
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="Trabajo" name="Trabajo" type="text" placeholder="¿Buscando trabajo?"/>
+                                                <input class="form-control" id="Trabajo" name="Trabajo" type="text"
+                                                    placeholder="¿Buscando trabajo?" />
                                                 <label for="Trabajo">¿Buscando trabajo?</label>
-                                                
+
                                             </div>
                                             <!-- Registrarse boton-->
-                                            <button class="btn btn-dark btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="preferencias">Enviar</button>
+                                            <button class="btn btn-dark btn-lg px-4 me-sm-3" type="submit"
+                                                class="submitBtn" value="preferencias">Enviar</button>
                                         </form>
                                     </div>
                                 </div>
-                            </div> 
-             </div>
-             </div>
-             </div>
-            </header>
-            {% endblock preferenciasok %}   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </header>
+        {% endblock preferenciasok %}
         <!-- Footer-->
         <footer class="bg-dark py-4 mt-auto">
             <div class="container px-5">
                 <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0 text-white">Copyright &copy; Your Website 2022</div></div>
+                    <div class="col-auto">
+                        <div class="small m-0 text-white">Copyright &copy; Your Website 2022</div>
+                    </div>
                     <div class="col-auto">
                         <a class="link-light small" href="#!">Privacy</a>
                         <span class="text-white mx-1">&middot;</span>
@@ -146,5 +171,6 @@
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
-    </body>
+</body>
+
 </html>
