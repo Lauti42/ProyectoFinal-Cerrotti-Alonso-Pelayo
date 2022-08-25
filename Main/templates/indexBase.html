@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Blog</title>
+    <title>Blog LLL</title>
     <!-- Favicon
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
     <!-- Bootstrap icons-->
@@ -30,7 +30,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
             <div class="container px-4">
-                <a href="http://127.0.0.1:8000/index"><img src="https://i.ibb.co/hZZ0R8r/tyhnk.gif" alt="tyhnk"
+                <a href="http://127.0.0.1:8000/index"><img src="http://imgfz.com/i/eZ5KGQo.gif" alt="tyhnk"
                         class="rounded" width="59" height="53"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -67,7 +67,11 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                 <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
                                 <li>
+                                    {% if user.is_superuser and user.is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'adminPosts'%}">Administrar</a></li>
+                                {% endif %}
                                     <hr class="dropdown-divider">
+                                    
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesion</a></li>
                             </ul>
@@ -141,7 +145,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img
-                            src="https://i.ibb.co/hZZ0R8r/tyhnk.gif" style="border: 12px solid rgba(63, 63, 63, 0.247);"
+                            src="http://imgfz.com/i/eZ5KGQo.gif" style="border: 12px solid rgba(63, 63, 63, 0.247);"
                             width="500" height="400" alt="">
 
                     </div>

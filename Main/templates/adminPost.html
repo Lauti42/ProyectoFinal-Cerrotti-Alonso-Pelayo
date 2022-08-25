@@ -15,82 +15,167 @@
 
 
 <link href="{% static 'css\styles.css' %}" rel="stylesheet" />
+<div class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <h2 class="display-10 fw-bolder text-white mb-2">Administrador</h2>
+    </div>
+</div>
 
-<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+<div class="d-flex flex-column align-items-center text-center p-3 py-6">
 
-
+    <br>
+    <br>
+    <br>
     <div class="row">
         <div class="col-md-3 border-right">
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle"
+            <div class="d-flex flex-column align-items-center text-center p-3 py-4"><img class="rounded-circle"
                     width="150" height="150" src="{{url}}"><br><span class="font-weight-bold">{{user.first_name}}
-                    {{user.last_name}}</span>
+                    {{user.last_name}}</span><span class="font-weight-bold">{{user.email}}</span><br>
+
+                            
+                    <div class="col-md-8"><label class="border px-3 p-1 add-experience">Aqui podras administrar los posteos cada vez que
+                        sean creados o editados, puedes eliminar, editar y hasta elegir la ubicacion dentro del sitio de cada uno de ellos.
+                    </label>
+            
+                    </div>
+                          
+
+
             </div>
-
-
-
         </div>
         {% if drafts %}
-
+    
         
-
+    <div class="col-md-3 border-right">
         <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">
+            <div class="bg-secondary py-4 mt-auto">
+                <div class="container px-5">
+                    <h3 class="display-10 fw-bolder text-white mb-2">Posteos para Autorizar</h3>
+                </div>
+            </div>
             
-            <h2 class="fw-bolder fs-5 mb-4">Los siguientes posteos estan a la espera de ser Publicados</h2>
             {% for draft in drafts %}
 
             <ul class="list-group">
+                
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' draft.id %}">Ver</a>
                     <form action="{% url 'editPost' draft.id %}" method="GET">
-                        <button class="btn btn-outline-success" type="submit">Configurar y Publicar</button>
+                        <button class="btn btn-outline-success" type="submit">Configurar y Editar</button>
                     </form>
-                    <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' draft.id %}">Eliminar</a>
-
-
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">Eliminar</button>
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea
+                                                    eliminar este Posteo?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                    </div>
+                    <form action="{% url 'eliminarPost' draft.pk %}" method="POST">{% csrf_token%}
+                        <button type="submit" , name="post_id" , value="{{draft.id}}" ,
+                            class="btn btn-primary">Eliminar</button>
+                
+                    </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                     <div class="b">
                         <span class="b">{{draft.titulo}}</span>
-
                     </div>
-                    <span>{{draft.fecha}}</span>
+                    <span class="b">{{draft.fecha}}</span>
                     <span class="b">{{draft.user}}</span>
-
+                    <div class="d-flex flex-column align-items-center text-center p-1 py-1"><img class="rounded-circle"
+                        width="35" height="35" src="{{draft.AvatarPublicacion}}">
+                    
+                      
                 </li>
 
                 {% endfor %}
-                {% endif %}
+                {% else %}
+                <div class="col-md-3 border-right">
+                    <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">
+                        <div class="bg-secondary py-4 mt-auto">
+                            <div class="container px-5">
+                                <h3 class="display-10 fw-bolder text-white mb-2">Posteos para Autorizar</h3>
+                            </div>
+                        </div>
+                        
+        
+        {% endif %}
                 
                 {% if publicados %}   
                 <br>  
-                <h2 class="fw-bolder fs-5 mb-4">Debajo los posteos ya Publicados</h2>
+                
+                <div class="bg-secondary py-4 mt-auto">
+                    <div class="container px-5">
+                        <h3 class="display-10 fw-bolder text-white mb-2">Posteos ya Publicados</h3>
+                    </div>
+                </div>
 
        
 
             {% for publicado in publicados %}
 
             <ul class="list-group">
+                
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' publicado.id %}">Ver</a>
                     <form action="{% url 'editPost' publicado.id %}" method="GET">
                         <button class="btn btn-outline-success" type="submit">Editar</button>
                     </form>
-                    <a class="btn btn-secondary bt-sm" href="{% url 'eliminarPost' publicado.id %}">Eliminar</a>
-
-
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">Eliminar</button>
+                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea
+                                                    eliminar este Posteo?</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                    </div>
+                    <form action="{% url 'eliminarPost' publicado.pk %}" method="POST">{% csrf_token%}
+                        <button type="submit" , name="post_id" , value="{{publicado.id}}" ,
+                            class="btn btn-primary">Eliminar</button>
+                
+                    </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+                    
                     <div class="b">
                         <span class="b">{{publicado.titulo}}</span>
-
                     </div>
-                    <span>{{publicado.fecha}}</span>
+                    <span class="b">{{publicado.fecha}}</span>
                     <span class="b">{{publicado.user}}</span>
-
+                    <div class="d-flex flex-column align-items-center text-center p-1 py-1"><img class="rounded-circle"
+                        width="35" height="35" src="{{publicado.AvatarPublicacion}}">
+                    
+                      
                 </li>
-
+                    
                 {% endfor %}
                 
-            
+                {% else %}
+                <div class="col-md-3 border-right">
+                    <div style="width:1000px;height:600px;line-height:3em;overflow:auto;padding:5px;">
+                        <div class="bg-secondary py-4 mt-auto">
+                            <div class="container px-5">
+                                <h3 class="display-10 fw-bolder text-white mb-2">Posteos para Autorizar</h3>
+                            </div>
+                        </div>
                 {% endif %}
 
 
         </div>
-
+    </div>
         {% endblock navigation %}

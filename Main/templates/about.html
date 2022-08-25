@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>Sobre Nosotros</title>
     <!-- Favicon
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
     <!-- Bootstrap icons-->
@@ -64,6 +64,9 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                 <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
                                 <li>
+                                    {% if user.is_superuser and user.is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'adminPosts'%}">Administrar</a></li>
+                                {% endif %}
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesion</a></li>

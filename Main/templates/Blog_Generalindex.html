@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Modern Business - Start Bootstrap Template</title>
+    <title>Blog Entradas</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap icons-->
@@ -51,9 +51,7 @@
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'NewPost'%}">Blog Post</a></li>
                                 
-                                {% if user.is_superuser and user.is_staff %}
-                                <li><a class="dropdown-item" href="{% url 'adminPosts'%}">Admin Posts</a></li>
-                                {% endif %}
+                                
                                 {% endif %}
                             </ul>
                         </li>
@@ -68,7 +66,11 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                 <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
                                 <li>
+                                    {% if user.is_superuser and user.is_staff %}
+                                <li><a class="dropdown-item" href="{% url 'adminPosts'%}">Administrar</a></li>
+                                {% endif %}
                                     <hr class="dropdown-divider">
+                                    
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'logout'%}">Cerrar Sesion</a></li>
                             </ul>
@@ -129,6 +131,7 @@
         <!-- Page Content-->
         <section class="py-5">
             <div class="container px-5">
+                {% if posts %}
                 {% if buesqueda_posteos %}
 
                 {% else %}
@@ -251,6 +254,7 @@
                                             {% endfor %}
 
                                             {% include "paginacion.html" %}
+                                            {% endif %}
                                             {% endif %}
                                         </div>
 
