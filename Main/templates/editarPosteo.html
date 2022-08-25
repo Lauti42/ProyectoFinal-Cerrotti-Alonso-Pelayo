@@ -10,7 +10,7 @@
 
 <br></br>
 <br></br>
-
+{{errors}}
 
 <div class="row gx-5 justify-content-center">
     <div class="col-lg-8 col-xl-6">
@@ -51,12 +51,27 @@
                 
                 
             </div>
-            <!-- Autor-->
-            <!--<div class="form-floating mb-3">
-                <input class="form-control" id="name" type="text" name="autor" placeholder="Por favor escribe el Autor" data-sb-validations="required" />
-                <label for="name">Autor</label>
+            {% if user.is_authenticated and user.is_superuser %}
             
-            </div>-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">¿Publicado?</label><br><br>
+                {{miPost.publicado}}
+                
+                
+            </div>
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Banner Superior</label><br><br>
+                {{miPost.muestra_superior}}
+                
+                
+            </div>
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Publicacion Inferior</label><br><br>
+                {{miPost.muestra_inferior}}
+                
+                
+            </div>
+            {% endif %}
             <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn" value="Postear">Postear</button>
             
         </form>

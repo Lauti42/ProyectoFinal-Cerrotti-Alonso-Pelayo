@@ -18,9 +18,9 @@ from django.urls import path
 
 from Blog_General.views import (NewPost, NewPostSave, PostDetalle,
                                 blog_general_index, darLike, editPost,
-                                eliminarPost)
+                                eliminarPost, adminPosts)
 
-from .views import buscarPost, darLike
+from .views import  buscarPost, darLike
 
 urlpatterns = [
     path('General/index/', blog_general_index , name='blog_general_index'),
@@ -31,6 +31,9 @@ urlpatterns = [
     path('eliminarPost/<int:pk>', eliminarPost, name='eliminarPost'),
     path('editarPost/<int:id>', editPost, name='editPost'),
     path('buscar/blogs/', buscarPost, name='buscarPost'),
+    path('administrar/drafts', adminPosts, name='adminPosts'),
+    
+    
     
 ]
-    
+     

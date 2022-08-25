@@ -32,6 +32,11 @@ class Publicacion(models.Model):
     avatar = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) # El autor sera una ForeignKey la cual es igual al usuario conectado.
 
+    def get_pk(self):
+        
+        return self.pk
+
+
     def AvatarPublicacion(self): #Buscamos el Avatar segun usuario/autor.
         if self.user:
             return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else None

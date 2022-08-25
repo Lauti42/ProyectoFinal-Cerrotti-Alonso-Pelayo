@@ -1,5 +1,7 @@
+ 
 
 
+from distutils import errors
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
@@ -61,7 +63,7 @@ def NewPostSave(request): # Utilizamos esta funcion para guardar los datos obten
             #Guardando los datos en la DB
             publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
             publicacion.save()
-            posteos = Publicacion.objects.filter(muestra_inferior="si")
+            posteos = Publicacion.objects.filter(muestra_inferior="si").filter(publicado="publicado")
     return render(request, 'indexBase.html',{'posteos':posteos})
 
 @login_required # Definimos que para poder postear es necesario estar conectado.
@@ -73,7 +75,7 @@ def NewPost(request):
 
 def blog_general_index(request): # Utilizamos esta def para establecer la paginacion segun la cantidad de objetos de Publicacion.
 
-    listado_posts= Publicacion.objects.all().order_by('-id') # Obtenemos los objetos
+    listado_posts= Publicacion.objects.filter(publicado="publicado").order_by('-id') # Obtenemos los objetos
     paginator= Paginator(listado_posts, 6) # Determinamos la cantidad que queremos renderizar
     pagina= request.GET.get('page') or 1 
     posts= paginator.get_page(pagina)
@@ -116,15 +118,15 @@ def editPost(request, id): # Editar Posteo.
     if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Objet por los ingresados en la Request
         
         miPost = PublicacionForm(request.POST)
-    
+        
         if miPost.is_valid():
 
-            post.titulo = miPost.cleaned_data['titulo']
-            post.contenido = miPost.cleaned_data['contenido']
-            post.imagen = miPost.cleaned_data['imagen']
-            post.descripcion = miPost.cleaned_data['descripcion']
+            post.__dict__.update(miPost.cleaned_data)
             post.save()
-            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)])) # Volvemos al blog editado
+            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)])) 
+        else:
+            context = miPost.errors# Volvemos al blog editado
+            return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})
     else: # De lo contrario pasamos los formularios correspondientes a editarPosteo.
 
         miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
@@ -152,3 +154,20 @@ def buscarPost(request): #Buscar Posteo
 
     else: # Si es POST renderizamos IndexBlog.
         return HttpResponseRedirect(reverse('blog_general_index'))
+
+
+
+def adminPosts(request):
+    draft = Publicacion.objects.filter(publicado="draft")
+    
+    return render(request, 'adminPost.html', {'drafts':draft})
+
+
+
+
+            
+            
+            
+    
+
+     

@@ -7,7 +7,7 @@ from Blog_General.models import Publicacion
 
 def indexview(request): #Renderizamos IndexBase con los posteos que tengan la propiedad Muestra_Inferior="si"
 
-    posteos = Publicacion.objects.filter(muestra_inferior= 'si')
+    posteos = Publicacion.objects.filter(muestra_inferior= 'si', publicado="publicado")
     return render(request, 'indexBase.html', {'posteos': posteos})
 
 class Error404View(TemplateView): # Creamos un template que se renderizara en caso de que la url no corresponda.

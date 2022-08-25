@@ -28,9 +28,20 @@ class NewCommentForm(forms.ModelForm):
 
 # Damos formato al form de PublicacionForm        
 class PublicacionForm(forms.ModelForm):
+
+
+    def __init__(self, *args, **kwargs):
+        super(PublicacionForm, self).__init__(*args, **kwargs)
+        self.fields['publicado'].required = False
+        self.fields['muestra_superior'].required = False
+        self.fields['muestra_inferior'].required = False
+        
+        
+
+    
     class Meta:
         model= Publicacion
-        fields= ("titulo", "contenido", "imagen", "descripcion")
+        fields= ("titulo", "contenido", "imagen", "descripcion","publicado",'muestra_superior','muestra_inferior')
         widgets= {
             'titulo': forms.TextInput(
                 attrs={
