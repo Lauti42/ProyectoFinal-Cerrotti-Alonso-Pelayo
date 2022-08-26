@@ -189,7 +189,7 @@
                                 {% csrf_token %}
                                 {% if liked %}
                                     <button type="submit" , name="post_id" , value="{{post.id}}" ,
-                                        class="btn btn-primary">Unlike</button> - {{ total_likes }} Me Gusta
+                                        class="btn btn-danger">Unlike</button> - {{ total_likes }} Me Gusta
                                     <br></br>
                                 {% else %}    
                                     <button type="submit" , name="post_id" , value="{{post.id}}" ,
