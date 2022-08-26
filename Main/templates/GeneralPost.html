@@ -187,9 +187,15 @@
                             </section>
                             <form action="{% url 'like_post' post.pk %}" method="POST">
                                 {% csrf_token %}
-                                <button type="submit" , name="post_id" , value="{{post.id}}" ,
-                                    class="btn btn-primary">Like</button> - {{ total_likes }} Me Gusta
-                                <br></br>
+                                {% if liked %}
+                                    <button type="submit" , name="post_id" , value="{{post.id}}" ,
+                                        class="btn btn-primary">Unlike</button> - {{ total_likes }} Me Gusta
+                                    <br></br>
+                                {% else %}    
+                                    <button type="submit" , name="post_id" , value="{{post.id}}" ,
+                                        class="btn btn-primary">Like</button> - {{ total_likes }} Me Gusta
+                                    <br></br>
+                                {% endif %}    
                             </form>
 
 

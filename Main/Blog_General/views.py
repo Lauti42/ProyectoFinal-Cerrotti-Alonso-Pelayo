@@ -27,12 +27,23 @@ class PostDetalle(DetailView):
     # Pasamos como contexto la clase comentarios para renderizar los mismos junto con los Likes.
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        liked= False
 
         comments_connected = Comentario.objects.filter(blogpost_connected= self.get_object()).order_by('-date_added')
         data['comments']= comments_connected
         stuff= get_object_or_404(Publicacion, id=self.kwargs['pk'])
         total_likes = stuff.total_likes()
         data['total_likes']= total_likes
+        
+
+        
+        if stuff.likes.filter(id=self.request.user.id).exists():
+            liked= True
+
+        data["liked"]= liked    
+       
+
+    
 
         if self.request.user.is_authenticated:
             data['comment_form']= NewCommentForm(instance=self.request.user)
@@ -86,10 +97,21 @@ def blog_general_index(request): # Utilizamos esta def para establecer la pagina
 
 
 def darLike(request, pk): # Contabilizamos los likes , recibe la request y el id de la pagina.
+    
     if request.user.is_authenticated: #Consultamos si esta logged
         post = Publicacion.objects.get(id=pk) 
-        post.likes.add(request.user)
-        post.save()#Guardamos los likes dentro de Publicacion
+        liked= False
+        # post.likes.add(request.user)
+        # post.save()#Guardamos los likes dentro de Publicacion
+        if post.likes.filter(id=request.user.id).exists():
+            post.likes.remove(request.user)
+            liked = False
+        else:
+            post.likes.add(request.user)
+            liked= True
+            
+
+
         
     return HttpResponseRedirect(reverse('verpost', args=[str(pk)])) # Redireccionamos a el mismo blog
 
