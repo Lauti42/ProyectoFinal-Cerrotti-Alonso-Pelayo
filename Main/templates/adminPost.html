@@ -63,28 +63,14 @@
                     <form action="{% url 'editPost' draft.id %}" method="GET">
                         <button class="btn btn-outline-success" type="submit">Configurar y Editar</button>
                     </form>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">Eliminar</button>
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea
-                                                    eliminar este Posteo?</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                    </div>
-                    <form action="{% url 'eliminarPost' draft.pk %}" method="POST">{% csrf_token%}
+                    <form action="{% url 'eliminarPostAdmin' draft.pk %}" method="POST">{% csrf_token%}
                         <button type="submit" , name="post_id" , value="{{draft.id}}" ,
-                            class="btn btn-primary">Eliminar</button>
+                            class="btn btn-danger">Eliminar</button>
                 
                     </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                
+                                      
+                                    
+                    
                     <div class="b">
                         <span class="b">{{draft.titulo}}</span>
                     </div>
@@ -128,28 +114,13 @@
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' publicado.id %}">Ver</a>
                     <form action="{% url 'editPost' publicado.id %}" method="GET">
                         <button class="btn btn-outline-success" type="submit">Editar</button>
-                    </form>
-                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">Eliminar</button>
-                                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
-                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">¿Esta seguro que desea
-                                                    eliminar este Posteo?</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                    </div>
-                    <form action="{% url 'eliminarPost' publicado.pk %}" method="POST">{% csrf_token%}
+                    </form>            
+                    <form action="{% url 'eliminarPostAdmin' publicado.pk %}" method="POST">{% csrf_token%}
                         <button type="submit" , name="post_id" , value="{{publicado.id}}" ,
-                            class="btn btn-primary">Eliminar</button>
+                            class="btn btn-danger">Eliminar</button>
                 
                     </form>
-                                        </div>
-                                    </div>
-                                    </div>
+                                      
                                     
                     
                     <div class="b">

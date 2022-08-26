@@ -62,7 +62,7 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
                                 <li><a class="dropdown-item" href="{% url 'modperfil'%}">Modificar Perfil</a></li>
                                 <li>
-                                    {% if user.is_superuser and user.is_staff %}
+                                    {% if user.is_superuser or user.is_staff %}
                                 <li><a class="dropdown-item" href="{% url 'adminPosts'%}">Administrar</a></li>
                                 {% endif %}
                                     <hr class="dropdown-divider">
@@ -194,7 +194,7 @@
 
 
                             {% if user.is_authenticated %}
-                            {% if user == post.user or user.is_superuser %}
+                            {% if user == post.user %}
                             <form action="{% url 'editPost' post.id %}" method="GET">
                                 <button type="submit" class="btn btn-secondary">Editar</button>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"

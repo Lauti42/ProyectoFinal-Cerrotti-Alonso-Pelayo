@@ -20,7 +20,7 @@ from Blog_General.views import (NewPost, NewPostSave, PostDetalle,
                                 blog_general_index, darLike, editPost,
                                 eliminarPost, adminPosts)
 
-from .views import  buscarPost, darLike
+from .views import  buscarPost, darLike, eliminarPostAdmin
 
 urlpatterns = [
     path('General/index/', blog_general_index , name='blog_general_index'),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('General/VerPost/<int:pk>', PostDetalle.as_view(), name='verpost'),
     path('like/<int:pk>', darLike, name='like_post'),
     path('eliminarPost/<int:pk>', eliminarPost, name='eliminarPost'),
+    path('eliminarPost/Admin<int:pk>', eliminarPostAdmin, name='eliminarPostAdmin'),
     path('editarPost/<int:id>', editPost, name='editPost'),
     path('buscar/blogs/', buscarPost, name='buscarPost'),
     path('administrar/drafts', adminPosts, name='adminPosts'),

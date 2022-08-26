@@ -3,6 +3,7 @@
 
 from distutils import errors
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -110,6 +111,18 @@ def eliminarPost(request, pk): #Eliminar posteo
         return render(request,'Blog_Generalindex.html') # Renderiza IndexBlog
     
 
+@staff_member_required
+def eliminarPostAdmin(request, pk): #Eliminar posteo
+    
+    if request.method == 'POST':
+    
+        post = get_object_or_404(Publicacion, id=pk)
+        post.delete() # Eliminamos el post 
+        return HttpResponseRedirect(reverse('blog_general_index')) # Renderiza IndexBlog        
+    else:
+        
+        return render(request,'Blog_Generalindex.html') # Renderiza IndexBlog
+
 
 def editPost(request, id): # Editar Posteo.
 
@@ -156,7 +169,7 @@ def buscarPost(request): #Buscar Posteo
         return HttpResponseRedirect(reverse('blog_general_index'))
 
 
-
+@staff_member_required
 def adminPosts(request):
     draft = Publicacion.objects.filter(publicado="draft")
     publicados = Publicacion.objects.filter(publicado="publicado")

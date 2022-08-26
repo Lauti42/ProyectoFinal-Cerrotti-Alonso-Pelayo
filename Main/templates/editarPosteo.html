@@ -52,7 +52,7 @@
 
 
             </div>
-            {% if user.is_authenticated and user.is_superuser %}
+            {% if user.is_superuser or user.is_staff %}
 
             <div class="form-floating mb-3">
                 <label class="fw-bold">¿Publicado?</label><br><br>
