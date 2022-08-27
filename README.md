@@ -11,7 +11,10 @@
 * Blog Index
 * Blog Search
 * Blog Post
+* Editar Post
 * Blog View
+* Modificar Perfil
+* Administrador
 
 
 :wrench:Modelos:
