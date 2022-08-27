@@ -19,8 +19,8 @@ class Publicacion(models.Model):
     )
 
     options2= (
-        ('si', 'si'),
         ('no', 'no'),
+        ('si', 'si'),
     )
 
     titulo = models.CharField(max_length=100)

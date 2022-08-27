@@ -60,7 +60,7 @@
                 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' draft.id %}">Ver</a>
-                    <form action="{% url 'editPost' draft.id %}" method="GET">
+                    <form action="{% url 'editPostAdmin' draft.id %}" method="GET">
                         <button class="btn btn-outline-success" type="submit">Configurar y Publicar</button>
                     </form>
                     <form action="{% url 'eliminarPostAdmin' draft.pk %}" method="POST">{% csrf_token%}
@@ -112,7 +112,7 @@
                 
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a class="btn btn-secondary bt-sm" href="{% url 'verpost' publicado.id %}">Ver</a>
-                    <form action="{% url 'editPost' publicado.id %}" method="GET">
+                    <form action="{% url 'editPostAdmin' publicado.id %}" method="GET">
                         <button class="btn btn-outline-success" type="submit">Editar</button>
                     </form>            
                     <form action="{% url 'eliminarPostAdmin' publicado.pk %}" method="POST">{% csrf_token%}
