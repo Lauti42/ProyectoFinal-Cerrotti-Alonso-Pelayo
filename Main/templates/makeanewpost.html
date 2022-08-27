@@ -7,7 +7,7 @@
         <h2 class="display-10 fw-bolder text-white mb-2">Aqui debajo puedes crear un nuevo Post</h2>
     </div>
 </div>
-
+<script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
 <br></br>
 <br></br>
 
@@ -17,48 +17,20 @@
         <!-- * * SB Forms Contact Form * *-->
         <!-- * * * * * * * * * * * * * * *-->
         <!-- This form is pre-integrated with SB Forms.-->
+            
         <!-- To make this form functional, sign up at-->
         <!-- https://startbootstrap.com/solution/contact-forms-->
         <!-- to get an API token!-->
         <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'NewPostSave'%}" method="post"> {%csrf_token %}
             <!-- Asunto-->
-            <div class="form-floating mb-3">
-                <input class="form-control" id="titulo" type="text" name="titulo"
-                    placeholder="Ingresa el Asunto del Post" data-sb-validations="required" />
-                <label for="name">Titulo</label>
-
-            </div>
-            <!-- descripcion-->
-            <div class="form-floating mb-3">
-                <textarea class="form-control" id="descripcion" type="text" name="descripcion"
-                    placeholder="Es necesario una descripcion para realizar el Post" style="height: 5rem"
-                    data-sb-validations="required"></textarea>
-                <label for="message">Descripción</label>
-
-            </div>
-            <!-- Contenido-->
-            <div class="form-floating mb-3">
-                <textarea class="form-control" id="message" type="text" name="contenido"
-                    placeholder="Es necesario un contenido para realizar el Post" style="height: 10rem"
-                    data-sb-validations="required"></textarea>
-                <label for="message">Contenido</label>
-
-            </div>
-            <!-- Imagen-->
-            <div class="form-floating mb-3">
-                <input class="form-control" id="name" type="text" name="imagen"
-                    placeholder="Ingresa una imagen para tu post" data-sb-validations="required" />
-                <label for="name">Imagen url</label>
-
-            </div>
-            <!-- Autor-->
-            <!--<div class="form-floating mb-3">
-                <input class="form-control" id="name" type="text" name="autor" placeholder="Por favor escribe el Autor" data-sb-validations="required" />
-                <label for="name">Autor</label>
-                
-            </div>-->
+            
+                {{pform.as_p}}
+                {{pform.media}}
+            
+            
             <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn"
                 value="Postear">Postear</button>
+            
         </form>
     </div>
 </div>

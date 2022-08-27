@@ -1,4 +1,4 @@
-
+from ckeditor.fields import RichTextField
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -25,7 +25,7 @@ class Publicacion(models.Model):
 
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField(max_length = 200, default="Some String")
-    contenido = models.TextField(max_length=3500)
+    contenido = RichTextField(blank=True, null=True)
     imagen = models.URLField(max_length=3000, blank=True, null=True)
     fecha = models.DateField(auto_now_add=True)
     publicado = models.CharField(max_length=10, choices=options, default='draft')

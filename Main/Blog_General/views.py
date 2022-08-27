@@ -15,7 +15,7 @@ from django.views.generic.detail import DetailView
 from Blog_General.forms import PublicacionForm
 from Blog_General.models import Comentario, Publicacion
 
-from .forms import NewCommentForm
+from .forms import NewCommentForm, PublicacionFormAdmin
 
 # Create your views here.
 
@@ -82,7 +82,8 @@ def NewPostSave(request): # Utilizamos esta funcion para guardar los datos obten
 def NewPost(request):
     
     form = AuthenticationForm() 
-    return render(request, 'makeanewpost.html', {'form': form}) #Renderizamos mañeanewpost.
+    pform = PublicacionForm()
+    return render(request, 'makeanewpost.html', {'form': form, 'pform':pform}) #Renderizamos mañeanewpost.
 
 
 def blog_general_index(request): # Utilizamos esta def para establecer la paginacion segun la cantidad de objetos de Publicacion.
@@ -207,7 +208,7 @@ def editPostAdmin(request, id): # Editar Posteo.
     
     if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Form por los ingresados en la Request
         
-        miPost = PublicacionForm(request.POST)
+        miPost = PublicacionFormAdmin(request.POST)
         
         if miPost.is_valid():
 
@@ -219,7 +220,7 @@ def editPostAdmin(request, id): # Editar Posteo.
             return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})
     else: # De lo contrario pasamos los formularios correspondientes a editarPosteo.
 
-        miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
+        miPost = PublicacionFormAdmin(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
         return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
 
             
