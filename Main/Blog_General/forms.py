@@ -35,13 +35,14 @@ class PublicacionForm(forms.ModelForm):
         self.fields['publicado'].required = False
         self.fields['muestra_superior'].required = False
         self.fields['muestra_inferior'].required = False
+        self.fields['likes'].required= False
         
         
 
     
     class Meta:
         model= Publicacion
-        fields= ("titulo", "contenido", "imagen", "descripcion","publicado",'muestra_superior','muestra_inferior')
+        fields= ("titulo", "contenido", "imagen", "descripcion","publicado",'muestra_superior','muestra_inferior','likes')
         widgets= {
             'titulo': forms.TextInput(
                 attrs={

@@ -80,12 +80,12 @@ def editar_perfil(request):
     usuario = request.user
 
     if request.method == 'POST':
-
+        print("post")
         miFormulario = UserEditForm(request.POST, instance=request.user) # Enviamos a los formularios Avatar y UserEditForm los datos de la Request.
         formAvatar = AvatarFormulario(request.POST, request.FILES)
 
         if miFormulario.is_valid():
-             
+            print("es valido")
             data = miFormulario.cleaned_data
             
 
@@ -95,8 +95,11 @@ def editar_perfil(request):
             usuario.password = data["password1"]
 
             # Actualizamos los datos obtenidos en la request.
+            
             usuario.set_password(usuario.password) 
             usuario.save()
+            
+
 
 
             '''
@@ -124,13 +127,14 @@ def editar_perfil(request):
                     avatar.save()
             
             return render(request, "indexBase.html", {"mensaje": "Datos actualizados con éxito..."}) #Devolvemos un mensaje de Exito
+        return render(request, "indexBase.html", {"mensaje": "La contraseña es invalida, Debe contener minimo 8 Caracteres alfanumericos y ambas deben coinicidir"}) #Si las contraseñas no coinciden o son solamente numeros
     else:
 
         miFormulario = UserEditForm(instance=request.user)         #Caso contrario , devolvemos los formularios correspondientes a modificar_perfil
         formAvatar = AvatarFormulario()    
         Posteos = Publicacion.objects.filter(user=request.user)
-
-    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "formAvatar": formAvatar, "Posteos": Posteos})
+        context = miFormulario.errors
+    return render(request, "modificar_perfil.html", {"miFormulario": miFormulario, "formAvatar": formAvatar, "Posteos": Posteos, 'context':context})
 
 
         

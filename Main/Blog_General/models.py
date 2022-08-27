@@ -5,6 +5,9 @@ from django.db import models
 
 from RegistroUsuarios.models import Avatar
 
+from Main.settings import MEDIA_URL
+
+import os
 # Create your models here.
 
 # Clase publicacion para guardar todos los posteos.
@@ -16,8 +19,8 @@ class Publicacion(models.Model):
     )
 
     options2= (
-        ('si', 'Si'),
-        ('no', 'No'),
+        ('si', 'si'),
+        ('no', 'no'),
     )
 
     titulo = models.CharField(max_length=100)
@@ -28,7 +31,7 @@ class Publicacion(models.Model):
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
-    likes = models.ManyToManyField(User, related_name='entry_likes')
+    likes = models.ManyToManyField(User, related_name='entry_likes', blank=True)
     avatar = models.URLField(blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) # El autor sera una ForeignKey la cual es igual al usuario conectado.
 
@@ -39,9 +42,9 @@ class Publicacion(models.Model):
 
     def AvatarPublicacion(self): #Buscamos el Avatar segun usuario/autor.
         if self.user:
-            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else None
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
         else:
-            return None
+            return Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
 
 
     def __str__(self):
@@ -65,7 +68,7 @@ class Comentario(models.Model):
     
     def imagenComentario(self): #Buscamos el Avatar segun usuario/autor.
         if self.user:
-            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else None
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
         else:
             return None
     

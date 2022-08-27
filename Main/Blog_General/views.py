@@ -175,8 +175,8 @@ def buscarPost(request): #Buscar Posteo
 
         if titulo != None: #Si se ingreso informacion obtendra todos los objetos dentro de Publicacion que correspondan al titulo.
 
-            publicacionBody = Publicacion.objects.filter(contenido__contains=titulo)
-           
+            publicacionBody = Publicacion.objects.filter(contenido__contains=titulo).filter(publicado="publicado")
+            print(publicacionBody)
             if len(publicacionBody) == 0: # Consultamos si se escribio algo en el form.
                 
                 return HttpResponseRedirect(reverse('blog_general_index')) # Lo devolvemos al IndexBlog
