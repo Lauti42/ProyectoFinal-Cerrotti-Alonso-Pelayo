@@ -151,461 +151,336 @@
 <h2 aling="center" >Modelos</h2>
 
  
-1) Modelos / Registro_usuarios.
+1) Modelos / Blog General (app).
    
    ```Python 
-   class Registro_usuarios(models.Model):
-    nombre = models.CharField(max_length=40)
-    email = models.EmailField(max_length=40)
-    password = models.CharField(max_length=40)
-    create = models.DateField(auto_now_add=True)
-
-    def __str__(self):
-        return self.nombre + " " + self.email
-   ```
-   * Nombre - Email - Contraseña - Create (Determina automaticamente la fecha de creacion del registro.)
-     <br></br>
-     
- 2) Modelos / Preferencias_Usuario:
-      
-    ```Python
-    class Preferencias_Usuario(models.Model):
-    lenguaje = models.CharField(max_length=40)
-    backOfront = models.CharField(max_length=40)
-    pais = models.CharField(max_length=40)
-    trabajo = models.CharField(max_length=40)
-
-    def __str__(self):
-        return self.lenguaje + " " + self.backOfront + " " + self.pais + " " + self.trabajo
-
-    class Meta():
-        verbose_name = "Preferencias"
-    ```
-    * Lenguaje - Backend o Frontend - Pail - Trabajo. 
-      <br></br>
- 
- 3) Modelos / Blog Entry:
-      
-    ```Python  
-    class Entry(models.Model):
-
+   class Publicacion(models.Model):
+    #Establecemos las opciones para muestra superior y muestra inferior (los admins podran determinar como se muestran los Post.)
     options= (
         ('draft', 'Draft'),
         ('publicado', 'Publicado'),
     )
 
     options2= (
-        ('si', 'Si'),
-        ('no', 'No'),
+        ('no', 'no'),
+        ('si', 'si'),
     )
 
-
-
-    nombre = models.CharField(max_length=100)
-    contenido = models.TextField(max_length=1000)
-    imagen = models.URLField()
-    autor = models.CharField(max_length=100)
+    titulo = models.CharField(max_length=100)
+    descripcion = models.TextField(max_length = 200, default="Some String")
+    contenido = models.TextField(max_length=3500)
+    imagen = models.URLField(max_length=3000, blank=True, null=True)
     fecha = models.DateField(auto_now_add=True)
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
     muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
+    likes = models.ManyToManyField(User, related_name='entry_likes', blank=True)
+    avatar = models.URLField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) # El autor sera una ForeignKey la cual es igual al usuario conectado.
+
+    def get_pk(self):
+        
+        return self.pk
+
+
+    def AvatarPublicacion(self): #Buscamos el Avatar segun usuario/autor.
+        if self.user:
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
+        else:
+            return Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
 
 
     def __str__(self):
-        return self.nombre + " - " + self.autor + " - " + str(self.fecha)
+        return self.titulo + " - "+ str(self.fecha)
+
+
+    def total_likes(self): #Contador de Likes
+        return self.likes.count()
+
+
+    @property
+    def number_of_comments(self):
+        return Comentario.objects.filter(blogpost_connected=self).count()
+
+   #Class comentario , almacenamos los comentarios y los clasificamos por usuario ForeignKey Blogpost_Connected / user.
+   class Comentario(models.Model):
+    blogpost_connected = models.ForeignKey(Publicacion, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    def imagenComentario(self): #Buscamos el Avatar segun usuario/autor.
+        if self.user:
+            return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
+        else:
+            return None
+    
+    def __str__(self):
+        return '%s - %s' % (self.user, self.body)  
+   ```
+   * Nombre - Email - Contraseña - Create (Determina automaticamente la fecha de creacion del registro.)
+     <br></br>
+     
+ 2) Modelos / Registro_Usuarios (app):
+      
+    ```Python
+    class Avatar(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    imagen = models.ImageField(upload_to='avatares', blank=True , null=True)
+
+    def __str__(self):
+        return self.user.username
     ```
-    * Nombre - Contenido - Imagen - Autor - Fecha (Se agrega de manera auto) - Publicado - Muestra Inferior (Determinamos si puede mostrarse o no debajo del index)
-      Muestra superior (Determianmos si va a estar en el Header de Blog Index.)
+    * Lenguaje - Backend o Frontend - Pail - Trabajo. 
+      <br></br>
  
- 4) Modelos / Blog Juegos:
-    
-   ```Python  
-    class Desarrollador(models.Model):
-    nombre = models.CharField(max_length=50)
-    pais = models.CharField(max_length=50)
+ 
 
-    def __str__(self) -> str:
-        return f'{self.nombre} - {self.pais}'
-  ```
-   ```Python 
-   class Genero(models.Model):
-       nombre = models.CharField(max_length=50)
-
-    def __str__(self) -> str:
-        return f'{self.nombre}'
-   ```
-   ```Python 
-    class Plataformas(models.Model):
-      nombre = models.CharField(max_length=50)
-      link = models.CharField(max_length=50)
-
-    def __str__(self) -> str:
-        return f'{self.nombre} - {self.link}'
-   ```
-   ```Python
-   class Juegos(models.Model):
-
-    options= (
-        ('draft', 'Draft'),
-        ('publicado', 'Publicado'),
-    )
-
-    options2= (
-        ('si', 'Si'),
-        ('no', 'No'),
-    )
-
-
-    nombre = models.CharField(max_length=50)
-    anodecreacion = models.IntegerField()
-    desarrollador = models.ForeignKey(Desarrollador, on_delete=models.CASCADE)
-    genero = models.ForeignKey(Genero, on_delete=models.CASCADE)
-    plataforma = models.ForeignKey(Plataformas, on_delete=models.CASCADE)
-    urlimagen = models.CharField(max_length=200)
-    descripcion = models.TextField(max_length=500)
-    muestra_superior = models.CharField(max_length=10, choices=options2, default='no')
-
-    def __str__(self) -> str:
-        return f'{self.nombre} ({self.anodecreacion})'
-   ```
-
-    
 <br></br>
 <h2 aling="center" >Formularios</h2>
 
 
-1) Formulario de Preferencias:
+1) Formulario de Blog_General (app):
    
    ```Python
-   class PreferenciasFormulario(forms.Form):
+   class NewCommentForm(forms.ModelForm):
+    class Meta:
+        model= Comentario
+        fields= ("body",)
+        widgets= {
+            'body': forms.Textarea(
+                attrs={
+                    'placeholder': 'Comenta aqui',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    
+                }
+            )
+        }
+        
 
-    lenguaje = forms.CharField()
-    backofront = forms.CharField()
-    pais = forms.CharField()
-    trabajo = forms.CharField()
-   ```
-   
-2) Formulario de Juegps:
-   
-   ```Python
-   class DesarrolladorCreate(CreateView):
-    model = Desarrollador
-    template_name = "crea-desarrollador.html"
-    fields = ["nombre", "pais"]
-    success_url = "/juegos/desarrolladores/"
-   ```
-   
-   ```Python
-   class GeneroCreate(CreateView):
-    model = Genero
-    template_name = "crea-genero.html"
-    fields = ["nombre"]
-    success_url = "/juegos/generos/"
-   ```
-   
-   ```Python
-   class PlataformasCreate(CreateView):
-    model = Plataformas
-    template_name = "crea-plataforma.html"
-    fields = ["nombre", "link"]
-    success_url = "/juegos/plataformas/"
-   ```
-   
-   ```Python
-   class JuegosCreate(CreateView):
-    model = Juegos
-    template_name = "crea-juego.html"
-    fields = ["nombre", "anodecreacion", "desarrollador", "genero", "plataforma", "urlimagen", "descripcion"]
-    success_url = "/juegos/"
-   ```
- + Formularios creados con Clases basadas en vistas
+   #Damos formato al form de PublicacionForm        
+   class PublicacionForm(forms.ModelForm):
 
-<br></br>
-<h2 aling="center" >Funcionalidades del Proyecto</h2>
 
-* :hammer:Registrar usuarios. Tenemos la funcionalidad de guardar datos que ingresan nuestros usuarios en la Base de datos.
-   ```Python
-   def registrarse(request):
-    return render(request, 'registrarse.html')
+    def __init__(self, *args, **kwargs):
+        super(PublicacionForm, self).__init__(*args, **kwargs)
+        self.fields['publicado'].required = False
+        self.fields['muestra_superior'].required = False
+        self.fields['muestra_inferior'].required = False 
+        self.fields['likes'].required= False
+        
+        
 
-   def registro(request):
-    if request.method == 'POST':
-        print("POST")
-
-        #Obteniendo datos del registro (Form)
-        nombre = request.POST['Usuario']
-        email = request.POST['Email']
-        password = request.POST['Contraseña']
-        password2 = request.POST['Contraseña2']
     
-        #Guardando los datos en la DB
-        User_registred = Registro_usuarios(nombre=nombre, email=email, password=password)
-        User_registred.save()
+    class Meta:
+        model= Publicacion
+        fields= ("titulo", "contenido", "imagen", "descripcion","publicado",'muestra_superior','muestra_inferior','likes')
+        widgets= {
+            'titulo': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario un titulo para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    
+                }
+            ),
+            'contenido': forms.Textarea(
+                attrs={
+                    'placeholder': 'Es necesario un contenido para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    'type':'textarea',
+                    'style':'height:314px;',
+                    
+                }
+            ),
+            'imagen': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario una imagen para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    
+                }
+            ),
+            'descripcion': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario una descripcion para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    'type':'textarea',
+                    'style':'height:90px;',
+                    
+                }
+            )
+        }
+   ```
+   * asdasdasdasdasd
+   <br></br>
+   
+   
+2) Formulario de Registro_Usuarios (app):
+   
+   ```Python
+   username_validator = UnicodeUsernameValidator()
+
+      # Formulario de Registro , establecemos los Placeholders, caracteres y formato
+
+    class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(label=_('.'),max_length=12, min_length=4, required=True,
+                                widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Nombre'}))
+    last_name = forms.CharField(label=_('.'),max_length=12, min_length=4, required=True,
+                               widget=(forms.TextInput(attrs={'class': 'form-control','placeholder':'Apellido'})))
+    email = forms.EmailField(label=_('.'),max_length=50,
+                             widget=(forms.TextInput(attrs={'class': 'form-control','placeholder':'Email'})))
+    password1 = forms.CharField(label=_('.'),
+                                widget=(forms.PasswordInput(attrs={'class': 'form-control','placeholder':'Contraseña'})),
+                                help_text=_('Al menos 8 caracteres alfanumericos'))
+    password2 = forms.CharField(label=_('.'), widget=forms.PasswordInput(attrs={'class': 'form-control','placeholder':'Repetir Contraseña'}),
+                                help_text=_('Ingresa de nuevo tu contraseña para Confirmar'))
+    username = forms.CharField(
+        label=_('.'),
+        max_length=150,
+        help_text=_(''),
+        validators=[username_validator],
+        error_messages={'unique': _("El nombre de usuario ingresado ya existe")},
+        widget=forms.TextInput(attrs={'class': 'form-control','placeholder':'Usuario'})
+    )
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2',)
+        
+
+      # Formulario de Edicion de perfil , establecemos los Placeholders, caracteres y formato
+      class UserEditForm(UserChangeForm):
+
+    password = forms.CharField(
+        help_text="",
+        widget=forms.HiddenInput(), required=False
+    )
+
+    password1 = forms.CharField(label="Contraseña", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password2 = forms.CharField(label="Repetir contraseña", widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+
+    class Meta:
+        model = User
+        fields = ['email', 'first_name', 'last_name','username']
+        widgets= {
+            'imagen': forms.FileInput(
+                attrs={
+                    'type': 'file',
+                    'class': 'form-control',
+                
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'type': 'email',
+                    'class': 'form-control',
+                    'placeholder': 'Email',
+                    'required': 'true',
+                    'data-sb-validations':'required|email',
+                    'data-sb-errors':'Email no válido',
+                    'data-sb-required-message':'Email requerido',
+                }
+            ),
+            'first_name': forms.TextInput(
+                attrs={
+                    'type': 'text',
+                    'class': 'form-control',
+                    'placeholder': 'Nombre',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Nombre requerido',
+                    'data-sb-required-message':'Nombre requerido',
+                }
+            ),
+            'last_name': forms.TextInput(
+                attrs={
+                    'type': 'text',
+                    'class': 'form-control',
+                    'placeholder': 'Apellido',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Apellido requerido',
+                    'data-sb-required-message':'Apellido requerido',
+                }
+            ),
+            'username': forms.TextInput(
+                attrs={
+                    'type': 'text',
+                    'class': 'form-control',
+                    'placeholder': 'Nombre de usuario',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Nombre de usuario requerido',
+                    'data-sb-required-message':'Nombre de usuario requerido',
+                }
+            ),
+            'password': forms.PasswordInput(
+                attrs={
+                    'type': 'password',
+                    'class': 'form-control',
+                    'placeholder': 'Contraseña',
+                    'required': 'true',
+                    'data-sb-validations':'required',
+                    'data-sb-errors':'Contraseña requerida',
+                    'data-sb-required-message':'Contraseña requerida',
+                }
+            ),
             
-        documentoDeTexto = f"Integrante creado con exito: {nombre} {email} {password} {password2}"
-        return render(request, "indexregistrado.html", {'documentoDeTexto': documentoDeTexto})
-   ```
+        }
+
+    def clean_password2(self):
+
+        password2 = self.cleaned_data["password2"]
+        if password2 != self.cleaned_data["password1"] or password2.isnumeric() or len(password2) < 8:
+            raise forms.ValidationError("...")
+            
+        return password2
+
+
+      #Traemos el formulario de Avatar para renderizarlo con formato en la web.
+      class AvatarFormulario(forms.ModelForm):
+
+    class Meta:
+        model=Avatar
+        fields=('imagen',) 
+        widgets= {
+            'imagen': forms.FileInput(
+                attrs={
+                    'type': 'file',
+                    'class': 'form-control',
+                
+                }
+            ),
+        }
+     ```
 * :hammer:Registrar Preferecias. Tenemos la funcionalidad de guardar las preferencias ingresadas por nuestros usuarios en la Base de datos.
-   ```Python
-   def preferencias(request):
-    if request.method == "POST":
-        print("POST")
-        #Obteniendo datos del registro (Form)
-        preferenciasUsuarioForm = PreferenciasFormulario(request.POST)    
-        
-        if preferenciasUsuarioForm.is_valid():
-
-            data = preferenciasUsuarioForm.cleaned_data
-
-            #Guardando los datos en la DB
-            Pref = Preferencias_Usuario(lenguaje=data["lenguaje"], backOfront=["backofront"], pais=["pais"], trabajo=["trabajo"])
-            Pref.save()
-
-        return render(request, "preferenciasenviadas.html")
-   ```
-* :hammer:Filtrar preferencias. Tenemos la funcionalidad de revisar las preferencias de nuestros usuarios.
-   ```Python
-   def buscarPreferencias(request):
-    return render(request, 'buscarpreferencias.html')
-
-
-   def resultadoPreferencias(request):
-    if request.GET["lenguaje"]:
-
-        lenguaje = request.GET["lenguaje"]
-        preferencias = Preferencias_Usuario.objects.filter(lenguaje__icontains=lenguaje)
-
-        return render(request, 'resultadopreferencias.html', {'preferencias': preferencias, 'lenguaje': lenguaje})
-   ```
-* :hammer:Realizar Posteos. Tenemos la funcionalidad de realizar posteos, reflejarlos en la Base de datos y mostrarlos a eleccion dentro de todo el sitio.
-   ```Python
-   class PostDetalle(DetailView):
-    model = Entry
-    context_object_name = 'post'
-    template_name = 'GeneralPost.html'
-
-
-   def NewPostSave(request):
-    if request.method == 'POST':
-        print("POST")
-     #Obteniendo datos del registro (Form)
-        nombre = request.POST['nombre']
-        contenido = request.POST['contenido']
-        imagen = request.POST['imagen']
-        autor = request.POST['autor']
-        
-        #Guardando los datos en la DB
-        Entrys = Entry(nombre=nombre, contenido=contenido, imagen=imagen, autor=autor)
-        Entrys.save()
-        
-    return render(request, 'indexBase.html')
-
-
-   def NewPost(request):
-    return render(request, 'makeanewpost.html')
-
-
-   def blog_general_index(self):
-
-    post= Entry.objects.all()
-    # post_sup= Entry.objects.filter(muestra_superior= 'si')
    
-
-    return render(self, 'Blog_Generalindex.html', {'post': post})
-
-   def verpost(request):
-    print(request)
-    return render(request, 'indexBase.html')
-   ```
-* :hammer:Listas con entrada a Detalles de los modelos. Tenemos la funcionalidad de ver la lista de los modelos creados y guardados en base de datos. Se pueden ver los detalles de cada modelo.
-
-   ```Python
-   def all_games(request):
-
-    post= Juegos.objects.all()
-    # post_sup= Entry.objects.filter(muestra_superior= 'si')
-   
-
-    return render(request, 'Blog_GeneralindexG.html', {'post': post})
-    
-   class JuegosList(ListView):
-    
-    model = Juegos
-    template_name = "iniciojuegos.html"
-    context_object_name= 'juegos'
-
-   class JuegosDetail(DetailView):
-    model = Juegos
-    template_name = "GeneralPostG.html"
-    context_object_name= 'juegos'
-   ```
-   ```Python
-   class PlataformasList(ListView):
-    
-    model = Plataformas
-    template_name = "lista-plataformas.html"
-    context_object_name= 'plataformas'
-
-   class PlataformasDetail(DetailView):
-    model = Plataformas
-    template_name = "detalle-plataforma.html"
-    context_object_name= 'plataformas'
-   ```
-   ```Python
-   class GeneroList(ListView):
-    
-    model = Genero
-    template_name = "lista-generos.html"
-    context_object_name= 'generos'
-
-   class GeneroDetail(DetailView):
-    model = Genero
-    template_name = "detalle-genero.html"
-    context_object_name= 'generos'
-   ```
-   ```Python
-   class DesarrolladorList(ListView):
-    
-    model = Desarrollador
-    template_name = "lista-desarrolladores.html"
-    context_object_name= 'desarrollador'
-
-   class DesarrolladorDetail(DetailView):
-    model = Desarrollador
-    template_name = "detalle-desarrollador.html"
-    context_object_name= 'desarrollador'
-   ```
-   
-* :hammer:Posibilidad de borrar y editar los modelos. Tenemos la funcionalidad de editar y eliminar los modelos guardados en base de datos.
-
-   ```Python
-   class JuegosUpdate(UpdateView):
-    model = Juegos
-    template_name = "edita-juego.html"
-    fields = ('__all__')
-    success_url = "/juegos/"
-
-   class Juegosdelete(DeleteView):
-    model = Juegos
-    template_name = "eliminar-juego.html"
-    success_url = "/juegos/"
-
-   ```
-   ```Python
-   class PlataformasUpdate(UpdateView):
-    model = Plataformas
-    template_name = "edita-plataforma.html"
-    fields = ('__all__')
-    success_url = "/juegos/plataformas/"
-    
-   class Plataformasdelete(DeleteView):
-    model = Plataformas
-    template_name = "eliminar-plataforma.html"
-    success_url = "/juegos/plataformas/"
-   ```
-   ```Python
-   class GeneroUpdate(UpdateView):
-    model = Genero
-    template_name = "edita-genero.html"
-    fields = ('__all__')
-    success_url = "/juegos/generos/"
-    
-   class Generodelete(DeleteView):
-    model = Genero
-    template_name = "eliminar-genero.html"
-    success_url = "/juegos/generos/"
-   ```
-   ```Python
-   class DesarrolladorUpdate(UpdateView):
-    model = Desarrollador
-    template_name = "edita-desarrollador.html"
-    fields = ('__all__')
-    success_url = "/juegos/desarrolladores/"
-
-   class Desarrolladordelete(DeleteView):
-    model = Desarrollador
-    template_name = "eliminar-desarrollador.html"
-    success_url = "/juegos/desarrolladores/"
-   ```
-   
-* :hammer:Buscar por nombre de modelo. Tenemos la posibilidad de buscar por el nombre de cada modelos registrado en la base de datos.
-   
-   ```Python
-   def buscar(request): 
-
-    if request.GET["nombre"]:
-
-        nombre = request.GET["nombre"]
-
-        juegos = Juegos.objects.filter(nombre__icontains=nombre)
-
-        return render (request, "resultadoBusqueda.html", {"juegos": juegos, "nombre": nombre})
-
-    else:
-
-        respuesta = "No enviaste datos"
-
-    return HttpResponse (respuesta)
-   ```
-   
-   ```Python
-   def buscarplataforma(request): 
-
-    if request.GET["plataforma"]:
-
-        plataforma = request.GET["plataforma"]
-
-        plataformas = Juegos.objects.filter(nombre__icontains=plataforma)
-
-        return render (request, "resultadoBusqueda.html", {"plataformas": plataformas, "nombre": plataforma})
-
-    else:
-
-        respuesta = "No enviaste datos"
-
-    return HttpResponse (respuesta)
-   ```
-   
-   ```Python
-   def buscargenero(request): 
-
-    if request.GET["genero"]:
-
-        genero = request.GET["genero"]
-
-        generos = Genero.objects.filter(nombre__icontains=genero)
-
-        juegos = Juegos.objects.filter(genero__icontains=generos)
-
-        return render (request, "resultadoBusqueda.html", {"generos": juegos, "nombre": genero})
-
-    else:
-
-        respuesta = "No enviaste datos"
-
-    return HttpResponse (respuesta)
-   ```
-   
-   ```Python
-   def buscardesarrollador(request): 
-
-    if request.GET["desarrollador"]:
-
-        desarrollador = request.GET["desarrollador"]
-
-        desarrolladores = Desarrollador.objects.filter(nombre__icontains=desarrollador)
-
-        return render (request, "resultadoBusqueda.html", {"desarrolladores": desarrolladores, "nombre": desarrollador})
-
-    else:
-
-        respuesta = "No enviaste datos"
-
-    return HttpResponse (respuesta)
-   ```
-
-   
-
 <br></br>
 <h2 aling="center" >Orden de Prueba</h2>
 
