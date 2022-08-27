@@ -7,39 +7,39 @@
 :page_facing_up:Templates:
 * Inicio.
 * Registro
-* Registrado / Registrar Preferencias
-* Preferencias Agregadas
-* Buscar Preferencias
-* Resutlados Preferencias
 * About
 * Blog Index
+* Blog Search
 * Blog Post
 * Blog View
-* Blog Juegos
+
 
 :wrench:Modelos:
 
-* Modelo de Registro
-* Modelo de Preferencias
-* Modelo de Blog Entry
-* Modelo de Juegos
+* Modelo de Blog_General (app)
+* Modelo de Registro_Usuarios (app)
+
 
 :spiral_notepad:Formularios: 
-* Formulario de Preferencias
-* Modelo de Juegos
-* Modelo de Desarrolladores
-* Modelo de Generos
-* Modelo de Plataformas
+* Formularios de Blog_General (app)
+* Formularios de Registro_Usuarios (app)
 
 :hammer:Funcionalidades del proyecto
-* :hammer:Registrar usuarios. Tenemos la funcionalidad de guardar datos que ingresan nuestros usuarios en la Base de datos.
-* :hammer:Registrar Preferecias. Tenemos la funcionalidad de guardar las preferencias ingresadas por nuestros usuarios en la Base de datos.
-* :hammer:Filtrar preferencias. Tenemos la funcionalidad de revisar las preferencias de nuestros usuarios.
-* :hammer:Realizar Posteos. Tenemos la funcionalidad de realizar posteos, reflejarlos en la Base de datos y mostrarlos a eleccion dentro de todo el sitio.
+* :hammer:Registrar usuarios.
+* :hammer:LogIn de usuarios.  
+* :hammer:Realizar Posteos. 
+* :hammer:Editar Posteos.
+* :hammer:Eliminar Posteos.
+* :hammer:Administrar Posteos.
+* :hammer:Dar Like, Comentar.
+* :hammer:Modificar perfil completo.
+* :hammer:Ver todos los posteos, buscar posteos.
+
 
 :abc:Orden de Prueba:
-* Registro / Preferencias / Busqueda / Blog**.
-* **Blog / Blog Juegos / Formularios(Desarrolladores, Generos, Plataformas, Juegos) / Inicio / Busqueda
+* Registro
+* Blog 
+* Administrador
 
 :hammer_and_wrench:Futuros Cambios:
 
@@ -88,8 +88,8 @@
     
     [![Blog-Index-Nuevo.png](https://i.postimg.cc/Zn5DzkWv/Blog-Entradas-Search.png)](https://postimg.cc/CRTsF0Ty)
     
-    * Blog Index es un template Individual , contiene una navbar propia.
-    * El proposito de Blog Index es resaltar un Blog de nuestra eleccion  (Mas informacion en Models) y mostrar todos los blogs creados por los usuarios.
+    * Funcionalidad implementada en BlogIndex
+    * Caja de busqueda, filtra lo ingresado en el campo por todo el cuerpo de las publicaciones existentes y renderiza el resultado..
     <br></br> 
 
 
@@ -99,7 +99,7 @@
     
     * Blog Post es un template extendido del Index, solo se conserva la nabvar.
     * Contiene un formulario para ingresar un blog completo
-    * Se puede agregar un autor , contenido , imagen , asunto.
+    * Se puede agregar un autor , contenido , imagen , asunto y descripcion.
     <br></br>
     
     
@@ -107,9 +107,9 @@
     
     [![Blog-Publicado.png](https://i.postimg.cc/Dfpx4MW5/Blog-LLL-Editar.png)](https://postimg.cc/XZhJbVmd)
     
-    * Blog View es un template Individual.
-    * Reenderiza un objeto de Publicacion 
-    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    * Es un template extendido del Index, solo se conserva la nabvar.
+    * Contiene un formulario para ingresar un blog completo
+    * Se puede editar contenido , imagen , asunto y descripcion.
     <br></br>
     
     
@@ -127,9 +127,9 @@
     
     [![Blog-Publicado.png](https://i.postimg.cc/j21vVDVB/Blog-LLL-Modificar-Perfil.png)](https://postimg.cc/XZhJbVmd)
     
-    * Blog View es un template Individual.
-    * Reenderiza un objeto de Publicacion 
-    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    * Es un template extendido del Index, solo se conserva la nabvar.
+    * Renderiza un formulario de editar perfil junto a todos los posteos que ese usuario publico. 
+    * Se puede modificar todos los campos, hasta su contraseña
     <br></br>
    
     
@@ -137,9 +137,9 @@
     
     [![Blog-Publicado.png](https://i.postimg.cc/d0cHtZ7Y/Blog-LLL-Administrador.png)](https://postimg.cc/XZhJbVmd)
     
-    * Blog View es un template Individual.
-    * Reenderiza un objeto de Publicacion 
-    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    * Es un template extendido del Index, solo se conserva la nabvar.
+    * Renderiza todos los objetos de Publicacion , permite al administrador , editar , publicar y eliminar los posteos de los usuarios comunes.
+    
     <br></br>
   
 
@@ -218,7 +218,10 @@
     def __str__(self):
         return '%s - %s' % (self.user, self.body)  
    ```
-   * Nombre - Email - Contraseña - Create (Determina automaticamente la fecha de creacion del registro.)
+   * Class de Pulbicacion : La mayoria de las propiedades del objeto sirven para mosntrar el contenido en las paginas seleccionadas de la publicacion de un autor.
+   Luego tiene varias propiedades que nos ayudan a determinar la ubicacion de la publicacion en el sitio , su estado de publicacion , likes y comentarios.
+   
+   * Class de Comentario: Utilizamos esta clase para vincular los comentarios con cada objeto de Publicacion.
      <br></br>
      
  2) Modelos / Registro_Usuarios (app):
@@ -231,7 +234,7 @@
     def __str__(self):
         return self.user.username
     ```
-    * Lenguaje - Backend o Frontend - Pail - Trabajo. 
+    * Class Avatar: Utilizamos esta clase para vincular los avatars con cada usuario registrado. 
       <br></br>
  
  
@@ -337,7 +340,7 @@
             )
         }
    ```
-   * asdasdasdasdasd
+  
    <br></br>
    
    
@@ -479,43 +482,47 @@
             ),
         }
      ```
-* :hammer:Registrar Preferecias. Tenemos la funcionalidad de guardar las preferencias ingresadas por nuestros usuarios en la Base de datos.
+
    
 <br></br>
 <h2 aling="center" >Orden de Prueba</h2>
 
 Para probar todo el contenido recomendamos una secuencia que lo llevara atravez de cada funcionalidad implementada al momento.
 
+Registro/Login:
+
    * Iniciamos por index. Simplemente ingresando al link http://127.0.0.1:8000/ podemos visualizar el index completo
    * Seguimos por el registro, haciendo click en el boton Registrarte se cargara la vista registro y procederas a ingresar tus datos.
-   * A continuacion , al enviar el formulario entraras a una web donde confirma tu registro. si bajas en la web tendras otro formulario para completar (Pref)
-   * Si completaste todos los datos , pasaras a otra web donde confirma tus preferencias.
-   * Dirigirse al Index.
-   * Ahora vamos a buscar preferencias haciendo click sobre "Buscar Preferencias" en la navbar.
-   * Ingresando un Lenguaje (recomendamos buscar Html por mayor cantidad de datos agregados al momento) y presionando buscar apareceran los resultados.
-   * Dirigirse al Index.
-   * Ahora vamos a ver el Blog Index, Hacemos click sobre Blog/Blog Home en la navbar.
-   * Vas a ver una web donde se muestran los posteos realizados por los usuarios del blog.
-   * Tambien podemos crear un post nosotros y para ello necesitamos ingresar a Blog/Blog Post en la navbar.
+   * Dirigirse a la navbar y en el boton INICIAR se abrira un formulario de inicio.
+   
+Crear Posteo:   
+   
+   * Una vez conectado, podemos crear un post nosotros y para ello necesitamos ingresar a Blog/Blog Post en la navbar.
    * Aqui veremos un formulario donde llenaremos los datos del Posteo a realizar (en imagen utilizar una url)
-   * Para ver el post creado debemos volver a Blog Home y aparecera en el inicio, haciendo un click podemos acceder para ver el contenido agregado de manera ordenada.
-   * En la navbar podemos acceder a la sección Juegos
-   * En sección juegos debemos primeramente añadir genero, desarrollador y plataforma, luegos podremos generar juegos para visualizarlos en el inicio
-   * En el inicio ademas de visualizar los post de juegos creados, podemos buscar juegos por su nombre y accesder a las distintas secciones del Blog Juegos
+   * Ya tenemos nuestro posteo creado pero para poder verlo publicado, primero un administrador debera autorizar la publicacion.
+
+Administrador:
+   
+   * Si ingresamos con un usuario de staff , debajo de nuestro perfil aparece la opcion de Administrar, lo que nos llevara a el admin.
+   * Dentro del admin podemos ver los posteos esperando autorizacion arriba y los ya publicados abajo.
+   * Desde alli podremos editar, publicar o eliminar.
+   * Si entramos a editar, tendremos campos que como usuarios comunes no teniamos.
+   * Publicacion: Draft(no pulbicado) , Publicado (se publicara dentro del sitio)
+   * muestra_superior: Mostramos la publicacion en la parte superior de Blog_General
+   * muestra_inferior: Mostramos la publicacion en la parte inferior de IndexBase
+   
+Editar y modificar Publicaciones:
+   
+   * Desdde cualquier usuario, una vez creado una Publicacion, Podremos ver 2 botones (solo si la publicacion te pertenece)
+   * El primer boton es el de eliminar, al hacer click sobre el nos saldra una advertencia que debemos aceptar para terminar de eliminar el Posteo
+   * El segundo boton es el de editar, al hacer click nos llevara a un formulario donde podremos editar completamente el posteo.
+   * Hay que tener en cuenta que al editar dicho posteo, debera pasar por la etapa de autorizacion (admin) otra vez antes de ser publicado.
   
   
 <br></br>
 <h2 aling="center" >Futuros cambios</h2>
 
-* Debemos revisar la totalidad de los enlaces para que funcionen absolutamente todos con {% url 'urls' %}.
-* Identificar los Try: Except: mas importantes para implementar (Caracteres no validos en formularios , Formularios incompletos , Busqueda de elementos de objetos no existentes , Urls inexistentes).
+
 * Establecer tamaños de imagenes estaticos para distintas partes de la web.
-* Un modelo de comentarios para aplicar esta funcionalidad.
-* Colocar imagenes faltantes y reemplazo de Lorem.
-* Establecer Login y Logout.
-* Enlazar Registro de Usuarios con Preferencias atravez de Foreign Key.
-* Permitir solamente valores unicos en Registro de Usuarios.
-* Posibilidad de editar / borrar posteos realizados.
-* Establecer permisos de usuarios.
-* En los post queda agregar al autor de dicho blog
-* Tememos problemas con el menu desplegable en el extend de Buscar Preferencias.
+* Sistema de comunicacion via Email.
+
