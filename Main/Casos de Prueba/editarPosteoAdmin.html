@@ -1,0 +1,94 @@
+{% extends 'indexBase.html' %}
+
+{% block navigation %}
+
+<div class="bg-dark py-4 mt-auto">
+    <div class="container px-5">
+        <h2 class="display-10 fw-bolder text-white mb-2">Editando posteo: {{titulo}}</h2>
+    </div>
+</div>
+
+<br></br>
+<br></br>
+{{errors}}
+
+<div class="row gx-5 justify-content-center">
+    <div class="col-lg-8 col-xl-6">
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- * * SB Forms Contact Form * *-->
+        <!-- * * * * * * * * * * * * * * *-->
+        <!-- This form is pre-integrated with SB Forms.-->
+        <!-- To make this form functional, sign up at-->
+        <!-- https://startbootstrap.com/solution/contact-forms-->
+        <!-- to get an API token!-->
+        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'editPost' post_id %}" method="post">
+            {% csrf_token %}
+            <!-- Asunto-->
+
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Titulo</label><br><br>
+                {{miPost.titulo}}
+
+
+            </div>
+            <!-- descripcion-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Descripción</label><br><br>
+                {{miPost.descripcion}}
+
+
+            </div>
+            <!-- Contenido-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Contenido</label><br><br>
+                {{miPost.contenido}}
+
+
+            </div>
+            <!-- Imagen-->
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Imagen url</label><br><br>
+                {{miPost.imagen}}
+
+
+            </div>
+            
+
+            <div class="form-floating mb-3">
+                <label class="fw-bold">¿Publicado?</label><br><br>
+                {{miPost.publicado}}
+
+
+            </div>
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Banner Superior</label><br><br>
+                {{miPost.muestra_superior}}
+
+
+            </div>
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Publicacion Inferior</label><br><br>
+                {{miPost.muestra_inferior}}
+
+
+            </div>
+            <div class="form-floating mb-3">
+                <label class="fw-bold">Likes</label><br><br>
+                {{miPost.likes}}
+
+
+            </div>
+            
+            <button class="btn btn-primary btn-lg px-4 me-sm-3" type="submit" class="submitBtn"
+                value="Postear">Postear</button>
+
+        </form>
+        
+    </div>
+</div>
+</div>
+
+
+
+{% endblock navigation %}
+

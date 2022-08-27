@@ -1,0 +1,29 @@
+CASO DE PRUEBA 1: Editar posteos, Autorizacion  Video: https://youtu.be/i_nKBOwrfik
+-----------------------------------------------------------------------------------
+
+Error: Cuando un usuario editaba un posteo, este desaparecia de el sitio y fuera del dash
+de los administradores.
+
+¿Por que corregirlo?:
+-----------------------
+Al no aparecer en el dash de los administradores, cualquier usuario 
+podria postear una Publicacion, esta podia ser autorizada y en instantes editada de nuevo
+por el usuario para mostrar otro tipo de contenido ("no autorizado"), perdiendo asi, el 
+proposito de los administradores.
+
+¿Que causaba el error?:
+-----------------------
+El error lo causaba el archivo EditarPosteo.html el cual tenia
+un snippet de django que ocultaba 3 caracteristicas del Objet Publicacion para
+el usuario comun. (publicado,muestra_superior, muestra_inferior). Al renderizar ese HTML y
+ocutlar dichos valores,no se respetaba el default de muestra_superior y muestra_inferior.
+
+Solucion del Error: 
+-------------------
+Para solucionar el error, a EditarPosteo.html se le quito el condicio-
+nal de django (if user.is_staff) y dentro de sus <div> se aplico style="visibility: hidden;"
+para que el usuario comnun no pudiera ver estos campos pero que el defautl permanezca 
+siendo el mismo. Solucionado esto , necesitabamos tener otro HTML y otra def para que
+el administrador si pudiera ver esos campos y modificarlos manualmente; Es por ello que
+se creo el html editarPosteoAdmin y una funcion para editar con decorador @staff_member_required
+

@@ -86,16 +86,17 @@ def NewPost(request):
 
 
 def blog_general_index(request): # Utilizamos esta def para establecer la paginacion segun la cantidad de objetos de Publicacion.
+    try:
+        listado_posts= Publicacion.objects.filter(publicado="publicado").order_by('-id') # Obtenemos los objetos
+        paginator= Paginator(listado_posts, 6) # Determinamos la cantidad que queremos renderizar
+        pagina= request.GET.get('page') or 1 
+        posts= paginator.get_page(pagina)
+        pagina_actual= int(pagina)
+        paginas= range(1, posts.paginator.num_pages + 1) # Rango de paginas que se crearan.
 
-    listado_posts= Publicacion.objects.filter(publicado="publicado").order_by('-id') # Obtenemos los objetos
-    paginator= Paginator(listado_posts, 6) # Determinamos la cantidad que queremos renderizar
-    pagina= request.GET.get('page') or 1 
-    posts= paginator.get_page(pagina)
-    pagina_actual= int(pagina)
-    paginas= range(1, posts.paginator.num_pages + 1) # Rango de paginas que se crearan.
-
-    return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
-
+        return render(request, 'Blog_Generalindex.html', {'posts': posts, 'pagina_actual': pagina_actual, 'paginas': paginas})
+    except:
+        return render(request, 'Blog_Generalindex.html') #Realizamos un except para que si no hay posts que renderizar no arroje error.
 
 def darLike(request, pk): # Contabilizamos los likes , recibe la request y el id de la pagina.
     
@@ -204,7 +205,7 @@ def editPostAdmin(request, id): # Editar Posteo.
 
     post = Publicacion.objects.get(id=id) #Obtenemos el objeto segun id
     
-    if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Objet por los ingresados en la Request
+    if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Form por los ingresados en la Request
         
         miPost = PublicacionForm(request.POST)
         
