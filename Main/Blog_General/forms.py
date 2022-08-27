@@ -34,7 +34,7 @@ class PublicacionForm(forms.ModelForm):
         super(PublicacionForm, self).__init__(*args, **kwargs)
         self.fields['publicado'].required = False
         self.fields['muestra_superior'].required = False
-        self.fields['muestra_inferior'].required = False
+        self.fields['muestra_inferior'].required = False 
         self.fields['likes'].required= False
         
         

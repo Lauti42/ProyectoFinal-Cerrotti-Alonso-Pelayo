@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="shortcut icon" href="https://i.postimg.cc/7LPZfwg2/ms-icon-150x150-modified.png">
     <title>Blog Entradas</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -129,138 +128,121 @@
         </nav>
         </nav>
 
-        <!-- Page Content-->
-        <section class="py-5">
+         <!-- Page Content-->
+         <section class="py-5">
             <div class="container px-5">
-                
                 {% if buesqueda_posteos %}
-                {% if posts %}
+                
                 {% else %}
                 {% for posteo in posts %}
-
-                {% if posteo.muestra_superior == 'si' %}
-                <div class="card border-0 shadow rounded-3 overflow-hidden">
-                    <div class="card-body p-0">
-                        <div class="row gx-0">
-                            <div class="col-lg-6 col-xl-5 py-lg-5">
-                                <div class="p-4 p-md-5">
-                                    <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                    <div class="h2 fw-bolder">{{posteo.titulo}}</div>
-                                    <p>{{posteo.descripcion}}</p>
-                                    <a class="stretched-link text-decoration-none" href="{% url 'verpost' posteo.id %}">
-                                        Read more
-                                        <i class="bi bi-arrow-right"></i>
-                                    </a>
+                    
+                    {% if posteo.muestra_superior == 'si' %}
+                        <div class="card border-0 shadow rounded-3 overflow-hidden">
+                            <div class="card-body p-0">
+                                <div class="row gx-0">
+                                    <div class="col-lg-6 col-xl-5 py-lg-5">
+                                        <div class="p-4 p-md-5">
+                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                            <div class="h2 fw-bolder">{{posteo.titulo}}</div>
+                                            <p>{{posteo.descripcion}}</p>
+                                            <a class="stretched-link text-decoration-none" href="{% url 'verpost' posteo.id %}">
+                                                Read more
+                                                 <i class="bi bi-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xl-7"><div class="bg-featured-blog" style="background-image: url('{{posteo.imagen}}')"></div></div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-xl-7">
-                                <div class="bg-featured-blog" style="background-image: url('{{posteo.imagen}}')"></div>
+                                
                             </div>
                         </div>
-
-                    </div>
-                </div>
-                {% endif %}
+                    {% endif %}
                 {% endfor %}
-                {% endif %}
-
+                {% endif %}        
+                
             </div>
         </section>
-
+         
         {% if ceroData %}
         <section class="py-5">
             <div class="container px-5">
                 <h2 class="fw-bolder fs-5 mb-4">{{ceroData}}</h2>
                 <div class="row gx-5">
-                    {% endif %}
-                    <!-- Blog preview section-->
-                    {% if buesqueda_posteos %}
-                    <section class="py-5">
-                        <div class="container px-5">
-                            <h2 class="fw-bolder fs-5 mb-4">Estos son los resultados...</h2>
-                            <div class="row gx-5">
+        {% endif %}
+        <!-- Blog preview section-->
+        {% if buesqueda_posteos %}
+        <section class="py-5">
+            <div class="container px-5">
+                <h2 class="fw-bolder fs-5 mb-4">Estos son los resultados...</h2>
+                <div class="row gx-5">
 
-                                {% for buesqueda_posteos in buesqueda_posteos %}
+                    {% for buesqueda_posteos in buesqueda_posteos %}
 
 
-                                <div class="col-lg-4 mb-5">
-                                    <div class="card h-100 shadow border-0">
-                                        <img class="card-img-top" src="{{buesqueda_posteos.imagen}}" width="500"
-                                            height="300" alt="..." />
-                                        <div class="card-body p-4">
-                                            <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
-                                            <a class="text-decoration-none link-dark stretched-link"
-                                                href="{% url 'verpost' buesqueda_posteos.id %}">
-                                                <div class="h5 card-title mb-3">{{buesqueda_posteos.titulo}}</div>
-                                            </a>
-                                            <p class="card-text mb-0">{{buesqueda_posteos.descripcion}}</p>
-                                        </div>
-                                        <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                            <div class="d-flex align-items-end justify-content-between">
-                                                <div class="d-flex align-items-center">
-                                                    <img class="rounded-circle me-3"
-                                                        src="{{buesqueda_posteos.AvatarPublicacion}}" alt="user"
-                                                        class="rounded-circle" width="50" height="50" />
-                                                    <div class="small">
-                                                        <div class="fw-bold">{{buesqueda_posteos.user}}</div>
-                                                        <div class="text-muted">{{buesqueda_posteos.fecha}}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <br></br>
-
-                                        </div>
+                     <div class="col-lg-4 mb-5" >
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="{{buesqueda_posteos.imagen}}"  width="500" height="300" alt="..." />
+                            <div class="card-body p-4">
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'verpost' buesqueda_posteos.id %}"><div class="h5 card-title mb-3">{{buesqueda_posteos.titulo}}</div></a>
+                                <p class="card-text mb-0">{{buesqueda_posteos.descripcion}}</p>
+                            </div>
+                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle me-3" src="{{buesqueda_posteos.AvatarPublicacion}}" alt="user" class="rounded-circle" width="50" height="50" />
+                                        <div class="small">
+                                            <div class="fw-bold">{{buesqueda_posteos.user}}</div>
+                                            <div class="text-muted">{{buesqueda_posteos.fecha}}</div>
+                                        </div> 
                                     </div>
                                 </div>
-                                {% endfor %}
-                                {% else %}
-                                <section class="py-5">
-                                    <div class="container px-5">
-                                        <h2 class="fw-bolder fs-5 mb-4">Publicaciones</h2>
-                                        <div class="row gx-5">
+                                <br></br>
+                                    
+                            </div>
+                        </div>
+                     </div>
+                    {% endfor %}
+        {% else %}
+        <section class="py-5">
+            <div class="container px-5">
+                <h2 class="fw-bolder fs-5 mb-4">Publicaciones</h2>
+                <div class="row gx-5">
 
-                                            {% for posteo in posts %}
+                    {% for posteo in posts %}
 
 
-                                            <div class="col-lg-4 mb-5">
-                                                <div class="card h-100 shadow border-0">
-                                                    <img class="card-img-top" src="{{posteo.imagen}}" width="500"
-                                                        height="300" alt="..." />
-                                                    <div class="card-body p-4">
-                                                        <div class="badge bg-primary bg-gradient rounded-pill mb-2">News
-                                                        </div>
-                                                        <a class="text-decoration-none link-dark stretched-link"
-                                                            href="{% url 'verpost' posteo.id %}">
-                                                            <div class="h5 card-title mb-3">{{posteo.titulo}}</div>
-                                                        </a>
-                                                        <p class="card-text mb-0">{{posteo.descripcion}}</p>
-                                                    </div>
-                                                    <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
-                                                        <div class="d-flex align-items-end justify-content-between">
-                                                            <div class="d-flex align-items-center">
-                                                                <img class="rounded-circle me-3"
-                                                                    src="{{posteo.AvatarPublicacion}}" alt="user"
-                                                                    class="rounded-circle" width="50" height="50" />
-                                                                <div class="small">
-                                                                    <div class="fw-bold">{{posteo.user}}</div>
-                                                                    <div class="text-muted">{{posteo.fecha}}</div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <br></br>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {% endfor %}
-
-                                            {% include "paginacion.html" %}
-                                            {% endif %}
-                                            {% endif %}
-                                        </div>
-
+                     <div class="col-lg-4 mb-5" >
+                        <div class="card h-100 shadow border-0">
+                            <img class="card-img-top" src="{{posteo.imagen}}"  width="500" height="300" alt="..." />
+                            <div class="card-body p-4">
+                                <div class="badge bg-primary bg-gradient rounded-pill mb-2">News</div>
+                                <a class="text-decoration-none link-dark stretched-link" href="{% url 'verpost' posteo.id %}"><div class="h5 card-title mb-3">{{posteo.titulo}}</div></a>
+                                <p class="card-text mb-0">{{posteo.descripcion}}</p>
+                            </div>
+                            <div class="card-footer p-4 pt-0 bg-transparent border-top-0">
+                                <div class="d-flex align-items-end justify-content-between">
+                                    <div class="d-flex align-items-center">
+                                        <img class="rounded-circle me-3" src="{{posteo.AvatarPublicacion}}" alt="user" class="rounded-circle" width="50" height="50" />
+                                        <div class="small">
+                                            <div class="fw-bold">{{posteo.user}}</div>
+                                            <div class="text-muted">{{posteo.fecha}}</div>
+                                        </div> 
                                     </div>
-                                </section>
+                                </div>
+                                <br></br>
+                                    
+                            </div>
+                        </div>
+                     </div>
+                    {% endfor %}
+
+                    {% include "paginacion.html" %}
+                {% endif %}    
+                </div>
+                
+            </div>
+        </section>
     </main>
     <!-- Footer-->
     <footer class="bg-dark py-4 mt-auto">
