@@ -49,7 +49,7 @@
 
 1) Templates / Inicio: 
    
-   [![Index-Nuevo.png](https://i.postimg.cc/vHVQBMdp/Index-Nuevo.png)](https://postimg.cc/GHb07WtQ)
+   [![Index-Nuevo.png](https://i.postimg.cc/YCYRV2dy/Blog-LLL-Index.png)](https://postimg.cc/GHb07WtQ)
    
    * En el index podemos encontrar un encabezado donde nos da la Bienvenida
    * Podemos encontrar una barra de navegacion que nos guiara a cada una de nuestras funcionalidades.
@@ -62,116 +62,89 @@
    
 2) Templates / Registro:
     
-    [![Registro-Primer-formulario.png](https://i.postimg.cc/s2wBcyxT/Registro-Primer-formulario.png)](https://postimg.cc/p95XWwDj)
+    [![Registro-Primer-formulario.png](https://i.postimg.cc/HWNtk8Kh/Blog-LLL-Registro.png)](https://postimg.cc/p95XWwDj)
     
     * El template de Registro , es una extencion del Index , se agrega unicamente Un formulario y una generalizacion de las actividades que se pueden realizar.
     <br></br>
     
-3) Templates / Registrado / Registrar Preferencias:
     
-    [![Blog-registro-OK-Agregar-Preferencias.png](https://i.postimg.cc/YSY7rxKY/Blog-registro-OK-Agregar-Preferencias.png)](https://postimg.cc/f3zp5mbR)
+3) Templates / About:
     
-    * El template de Registrar preferencias es la Extencion del Index y es una renderizacion de la vista registrar.
-    * Se agrega una descripcion donde explicamos para que utilizamos las preferencias y por debajo un formulario para agregarlas.
-    <br></br>
- 
-4) Templates / Preferencias Agregadas:
-    
-    [![Preferencias-Agregadas.png](https://i.postimg.cc/02nd3gzJ/Preferencias-Agregadas.png)](https://postimg.cc/SJXM2v7y)
-    
-    * El template es una extencion de Index , se agrega solamente un mensaje de Confirmacion.
-    <br></br>
-    
-5) Templates / Buscar Preferencias:
-    
-    [![Busqueda-Preferencias.png](https://i.postimg.cc/WbYqgsDS/Busqueda-Preferencias.png)](https://postimg.cc/kB85d3vt)
-    
-    * El template es una extencion del Index , unicamente se conserva la navbar y se agrega un formulario para buscar las preferencias atravez de un Lenguaje.
-    <br></br>
-    
-6) Templates / Resultados Preferencias:
-      
-      [![Resultado-Busqueda-Preferencias.png](https://i.postimg.cc/K8qYCf7N/Resultado-Busqueda-Preferencias.png)](https://postimg.cc/JsXmkb2D)
-      
-      * El template es una extencion del Index , unicamente se conserva la navbar y se agregan listas que muestran los resultados de la busqueda.
-    
-7) Templates / About:
-    
-    
+      [![Registro-Primer-formulario.png](https://i.postimg.cc/633d9BhK/Sobre-Nosotros.png)](https://postimg.cc/p95XWwDj)
     
     * Es un template individual , contiene una descripcion individual de cada uno de los integrantes
     * Al final del template se puede econtrar una seccion donde Estan los integrantes.
     <br></br>
     
-8) Templates / Blog Index: 
+4) Templates / Blog Index: 
     
-    [![Blog-Index-Nuevo.png](https://i.postimg.cc/XYXHkNsv/Blog-Index-Nuevo.png)](https://postimg.cc/CRTsF0Ty)
+    [![Blog-Index-Nuevo.png](https://i.postimg.cc/3wZB8S5X/Blog-Entradas.png)](https://postimg.cc/CRTsF0Ty)
     
     * Blog Index es un template Individual , contiene una navbar propia.
     * El proposito de Blog Index es resaltar un Blog de nuestra eleccion  (Mas informacion en Models) y mostrar todos los blogs creados por los usuarios.
     <br></br>
  
-9) Templates / Blog Post: 
+5) Templates / Blog Search: 
     
-    [![Blog-Post.png](https://i.postimg.cc/fLMY5BMv/Blog-Post.png)](https://postimg.cc/yJrJ8hgJ)
+    [![Blog-Index-Nuevo.png](https://i.postimg.cc/Zn5DzkWv/Blog-Entradas-Search.png)](https://postimg.cc/CRTsF0Ty)
+    
+    * Blog Index es un template Individual , contiene una navbar propia.
+    * El proposito de Blog Index es resaltar un Blog de nuestra eleccion  (Mas informacion en Models) y mostrar todos los blogs creados por los usuarios.
+    <br></br> 
+
+
+6) Templates / Blog Post: 
+    
+    [![Blog-Post.png](https://i.postimg.cc/N08NyGTr/Blog-LLL-Posteos.png)](https://postimg.cc/yJrJ8hgJ)
     
     * Blog Post es un template extendido del Index, solo se conserva la nabvar.
     * Contiene un formulario para ingresar un blog completo
     * Se puede agregar un autor , contenido , imagen , asunto.
     <br></br>
     
-10) Templates / Blog View:
     
-    [![Blog-Publicado.png](https://i.postimg.cc/W3pJ0z7W/Blog-Publicado.png)](https://postimg.cc/XZhJbVmd)
+7) Templates / Editar Post:
+    
+    [![Blog-Publicado.png](https://i.postimg.cc/Dfpx4MW5/Blog-LLL-Editar.png)](https://postimg.cc/XZhJbVmd)
     
     * Blog View es un template Individual.
-    * Reenderiza un objeto de Blog 
-    * Renderiza Autor,Contenido,Imagen y asunto.
+    * Reenderiza un objeto de Publicacion 
+    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    <br></br>
+    
+    
+8) Templates / Blog View:
+    
+    [![Blog-Publicado.png](https://i.postimg.cc/GpbF5F8H/Entrada-1.png)](https://postimg.cc/XZhJbVmd)
+    
+    * Blog View es un template Individual.
+    * Reenderiza un objeto de Publicacion 
+    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    <br></br>
+    
+    
+9) Templates / Modificar Perfil:
+    
+    [![Blog-Publicado.png](https://i.postimg.cc/j21vVDVB/Blog-LLL-Modificar-Perfil.png)](https://postimg.cc/XZhJbVmd)
+    
+    * Blog View es un template Individual.
+    * Reenderiza un objeto de Publicacion 
+    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
     <br></br>
    
-11) Templates / Blog Juegos:
     
-   [![imagen-2022-08-01-014426739.png](https://i.postimg.cc/Qdm58QbH/imagen-2022-08-01-014426739.png)](https://postimg.cc/mPchVFKs)
+10) Templates / Administrador:
     
-   * Entrada a la sección Juegos
-   * Aqui se encuentran los ultimos juegos cargados
-   * Se encuentra la entrada a visualizaciones de generos, desarrolladores, plataformas
-   * Se encuentra boton de busqueda de juegos
-   <br></br>
+    [![Blog-Publicado.png](https://i.postimg.cc/d0cHtZ7Y/Blog-LLL-Administrador.png)](https://postimg.cc/XZhJbVmd)
+    
+    * Blog View es un template Individual.
+    * Reenderiza un objeto de Publicacion 
+    * Renderiza Autor,Contenido,Imagen, Avatar, Comentarios , Likes, asunto.
+    <br></br>
+  
 
-12) Templates / Blog Juegos / Todos los juegos:
     
-   [![imagen-2022-08-01-015047030.png](https://i.postimg.cc/bwhWchCq/imagen-2022-08-01-015047030.png)](https://postimg.cc/ykLvcwCG)
-    
-   * Vista de todos los juegos cargados
-   <br></br>
-   
-13) Templates / Blog Juegos / Detalle de juegos:
-    
-   [![imagen-2022-08-01-015801911.png](https://i.postimg.cc/wvGZSRPr/imagen-2022-08-01-015801911.png)](https://postimg.cc/zbTxhvqw)
-    
-   * Detalle de los juegos cargados
-   <br></br>
 
-14) Templates / Blog Juegos / (generos, desarrolladores, plataformas):
-    
-   [![imagen-2022-08-01-014741515.png](https://i.postimg.cc/Wb3cYjHC/imagen-2022-08-01-014741515.png)](https://postimg.cc/grf7n9dH)
-   [![imagen-2022-08-01-014758916.png](https://i.postimg.cc/MG1CfGnM/imagen-2022-08-01-014758916.png)](https://postimg.cc/wtTfSgcg)
-   [![imagen-2022-08-01-014814592.png](https://i.postimg.cc/6qbgx2mS/imagen-2022-08-01-014814592.png)](https://postimg.cc/PvZ2mxhz)
-    
-   * Vista de cada uno de los modelos
-   * Visual en construcción
-   * Se encuentra boton de busqueda de cada sección (en un futuro de devolverla los juegos corrrepondientes a cada sección)
-   * Cada modelo se puede editar, borrar y crear nuevos
-   <br></br>
-   
-15) Templates / Blog Juegos / Resultado de busqueda:
-    
-   [![imagen-2022-08-01-015420557.png](https://i.postimg.cc/BZC1c5rN/imagen-2022-08-01-015420557.png)](https://postimg.cc/Z0CRJNKy)
-    
-   * Busqueda dependiendo del origen de la busqueda
-   * Visual en construcción
-   <br></br>
 
 
 <br></br>
