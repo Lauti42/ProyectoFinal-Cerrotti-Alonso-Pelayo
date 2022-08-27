@@ -1,0 +1,2 @@
+# return render(request, "indexBase.html", {"mensaje": "La contraseña es invalida, Debe contener minimo 8 
+# Caracteres alfanumericos y ambas deben coinicidir"}) #Si las contraseñas no coinciden o son solamente numeros

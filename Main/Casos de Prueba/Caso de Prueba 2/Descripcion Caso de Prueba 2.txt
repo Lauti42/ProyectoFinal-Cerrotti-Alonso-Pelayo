@@ -1,0 +1,25 @@
+CASO DE PRUEBA 2: Actualizacion de contraseña en editar perfil. Video: https://youtu.be/d0G84JhyKTQ
+-----------------------------------------------------------------------------------
+
+Error: Cuando un usuario editaba sus datos en Editar Perfil, se podia poner cualquier contraseña sin respetar
+las condiciones dadas durante la etapa de registro. 
+
+¿Por que corregirlo?:
+-----------------------
+Es importante que no haya ningun "cabo suelto" que pueda a llegar a dejar caer la pagina. Ademas, 
+es un error muy comun que cometemos todos el de poner mal la contraseña al momento de confirmarla, 
+por lo que no hay que asumir que todos los usuarios van a colocar en los dos imput la contraseña 
+correcta. Como ultima razon, no tiene logica que para registrarte se pidan unas condiciones minimas y 
+al momento de editar el perfil no se pidan mas.
+
+¿Que causaba el error?:
+-----------------------
+El error era causa de una nula prevision de las condiciones que deben darse al momento de elegir una 
+contraseña, por ejemplo que no sea enteramente numerica.
+
+Solucion del Error: 
+-------------------
+Para solucionar el error, lo que hicimos fue agregar una funcion en el formulario para editar perfil, para que 
+en cualquier momento en que las contraseñas no sean iguales, use solo numeros o menos de 8 caracteres, 
+la pagina no deje de funcionar por un error y que el usuario sea consciente de este error a traves del 
+mensaje que le dejamos en la plataforma. 
