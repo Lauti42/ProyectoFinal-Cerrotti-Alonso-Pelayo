@@ -484,6 +484,81 @@
                 }
             ),
         }
+        class PublicacionFormAdmin(forms.ModelForm):
+
+
+    def __init__(self, *args, **kwargs):
+        super(PublicacionFormAdmin, self).__init__(*args, **kwargs)
+        self.fields['publicado'].required = False
+        self.fields['muestra_superior'].required = False
+        self.fields['muestra_inferior'].required = False 
+        self.fields['likes'].required= False
+        
+        
+
+    
+    class Meta:
+        model= Publicacion
+        fields= ("titulo", "descripcion", "contenido", "imagen","publicado",'muestra_superior','muestra_inferior','likes')
+        widgets= {
+            'titulo': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario un titulo para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    
+                }
+            ),
+            'contenido': forms.Textarea(
+                attrs={
+                    'placeholder': 'Es necesario un contenido para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    'type':'textarea',
+                    'style':'height:314px;',
+                    
+                }
+            ),
+            'descripcion': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario una descripcion para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    'type':'textarea',
+                    'style':'height:90px;',
+                    
+                }
+            ),
+            'imagen': forms.TextInput(
+                attrs={
+                    'placeholder': 'Es necesario una imagen para realizar el Post',
+                    'width': 38,
+                    'height': 100,
+                    'cols': '115',
+                    'rows': '3',
+                    'class': 'form-control', 
+                    'type': 'text',
+                    'data-sb-validations':'required',
+                    
+                }
+            ),
+            
+        }        
      ```
 
    
