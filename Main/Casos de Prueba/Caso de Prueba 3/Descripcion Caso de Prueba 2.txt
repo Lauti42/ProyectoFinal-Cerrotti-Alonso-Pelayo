@@ -1,0 +1,19 @@
+CASO DE PRUEBA 3: Subida de Imagenes en las Publicaciones. Video: https://youtu.be/WHpFnBRcNhQ
+-----------------------------------------------------------------------------------
+
+Error: El usuario tenia que ingresar las imagenes en formato url. (link)
+
+¿Por que corregirlo?:
+-----------------------
+Es importante tener un selector de archivos ya que si dependemos unicamente de imagenes, este link
+podria "romperse" y quedar sin imagen la publicacion.
+
+Solucion del Error: 
+-------------------
+Para solucionar el error, implementamos una nueva clase que se relaciona directamente con Publicacion.
+Esta clase tiene solo 2 campos (publicacion_id , imagen)
+Creamos ademas un formulario para enviar como contexto al HTML y que el usuario pueda subir dicha imagen.
+Luego una funcion dentro del modelo Publicacion que llame a la imagen cuando lo solicita el template.
+Implementamos ademas 3 condicionales que elegiria que imagen subir dependiendo la situacion.
+
+ 
