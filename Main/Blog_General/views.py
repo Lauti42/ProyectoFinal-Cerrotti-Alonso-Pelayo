@@ -12,11 +12,14 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic.detail import DetailView
 
-from Blog_General.forms import PublicacionForm
-from Blog_General.models import Comentario, Publicacion
+from Blog_General.forms import PublicacionForm , BlogImagenForm
+from Blog_General.models import Comentario, Publicacion,BlogImagen
 
 from .forms import NewCommentForm, PublicacionFormAdmin
 
+from Main.settings import MEDIA_URL
+
+import os
 # Create your views here.
 
 # Esta vista renderiza cada objeto de Publicacion en vistas separadas.
@@ -65,25 +68,48 @@ def NewPostSave(request): # Utilizamos esta funcion para guardar los datos obten
     if request.method == 'POST': # Consultamos Method
         if request.user.is_authenticated: # Consultamos si esta logged
             
+            ImgForm = BlogImagenForm(request.POST, request.FILES)
+            
             #Obteniendo datos del registro (Form)
             titulo = request.POST['titulo']
             contenido = request.POST['contenido']
-            imagen = request.POST['imagen']
             user = User.objects.get(id=request.user.id)
             descripcion = request.POST['descripcion']
             
             #Guardando los datos en la DB
-            publicacion = Publicacion(titulo=titulo, contenido=contenido, imagen=imagen, user=user, descripcion=descripcion)
+            publicacion = Publicacion(titulo=titulo, contenido=contenido, user=user, descripcion=descripcion)
             publicacion.save()
-            posteos = Publicacion.objects.filter(muestra_inferior="si").filter(publicado="publicado")
-    return render(request, 'indexBase.html',{'posteos':posteos})
+            print(publicacion.id)
+            if ImgForm.is_valid():
+                ImagenPost = ImgForm.cleaned_data
+                print(ImagenPost)
+                if ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=publicacion).last():
+                    print("1")
+                    imagenB = BlogImagen.objects.filter(publicacion_id=publicacion).last()
+                    imagenB.save()
+                elif ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=publicacion.id).last() == None:
+                    print("2")
+                    imagenB = BlogImagen(publicacion_id=publicacion, imagen=os.path.join(MEDIA_URL, 'img/defaultblog.jpg'))
+                    imagenB.save()
+                elif ImagenPost['imagen'] != None:
+                    print("3")
+                    print(ImagenPost["imagen"])
+                    imagenB = BlogImagen(publicacion_id=publicacion, imagen=ImagenPost["imagen"])
+                    imagenB.save()    
+               
+        return render(request, "indexBase.html", {"mensaje": "Gracias pro Publicar, tu publicacion se encuentra en etapa de revision."})   
+    else:            
+        posteos = Publicacion.objects.filter(muestra_inferior="si").filter(publicado="publicado")
+        return render(request, 'indexBase.html',{'posteos':posteos})
+
 
 @login_required # Definimos que para poder postear es necesario estar conectado.
 def NewPost(request):
     
     form = AuthenticationForm() 
     pform = PublicacionForm()
-    return render(request, 'makeanewpost.html', {'form': form, 'pform':pform}) #Renderizamos mañeanewpost.
+    ImgForm = BlogImagenForm()
+    return render(request, 'makeanewpost.html', {'form': form, 'pform':pform,'ImgForm':ImgForm}) #Renderizamos mañeanewpost.
 
 
 def blog_general_index(request): # Utilizamos esta def para establecer la paginacion segun la cantidad de objetos de Publicacion.
@@ -160,14 +186,34 @@ def editPost(request, id): # Editar Posteo.
 
             post.__dict__.update(miPost.cleaned_data)
             post.save()
-            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)])) 
+            
+
+            if ImgForm.is_valid():
+                ImagenPost = ImgForm.cleaned_data
+                print(ImagenPost)
+                if ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=post).last():
+                    print("1")
+                    imagenB = BlogImagen.objects.filter(publicacion_id=post).last()
+                    imagenB.save()
+                elif ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=post.id).last() == None:
+                    print("2")
+                    imagenB = BlogImagen(publicacion_id=post, imagen=os.path.join(MEDIA_URL, 'img/defaultblog.jpg'))
+                    imagenB.save()
+                elif ImagenPost['imagen'] != None:
+                    print("3")
+                    print(ImagenPost["imagen"])
+                    imagenB = BlogImagen(publicacion_id=post, imagen=ImagenPost["imagen"])
+                    imagenB.save()
+
+            return render(request, "indexBase.html", {"mensaje": "Datos Actualizados tu publicacion se encuentra en etapa de revision."})
         else:
             context = miPost.errors# Volvemos al blog editado
-            return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})
+            return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})   
     else: # De lo contrario pasamos los formularios correspondientes a editarPosteo.
 
-        miPost = PublicacionForm(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
-        return render(request,'editarPosteo.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
+        miPost = PublicacionFormAdmin(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
+        ImgForm = BlogImagenForm()
+        return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'ImgForm':ImgForm})
 
 
 def buscarPost(request): #Buscar Posteo
@@ -209,19 +255,41 @@ def editPostAdmin(request, id): # Editar Posteo.
     if request.method == 'POST':  #Si el method es POST remplazaremos los campos del Form por los ingresados en la Request
         
         miPost = PublicacionFormAdmin(request.POST)
-        
+        ImgForm = BlogImagenForm(request.POST, request.FILES)
+
         if miPost.is_valid():
 
             post.__dict__.update(miPost.cleaned_data)
             post.save()
-            return HttpResponseRedirect(reverse('verpost', args=[str(post.id)])) 
+             
+
+            if ImgForm.is_valid():
+                ImagenPost = ImgForm.cleaned_data
+                print(ImagenPost)
+                if ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=post).last():
+                    print("1")
+                    imagenB = BlogImagen.objects.filter(publicacion_id=post).last()
+                    imagenB.save()
+                elif ImagenPost['imagen'] == None and BlogImagen.objects.filter(publicacion_id=post.id).last() == None:
+                    print("2")
+                    imagenB = BlogImagen(publicacion_id=post, imagen=os.path.join(MEDIA_URL, 'img/defaultblog.jpg'))
+                    imagenB.save()
+                elif ImagenPost['imagen'] != None:
+                    print("3")
+                    print(ImagenPost["imagen"])
+                    imagenB = BlogImagen(publicacion_id=post, imagen=ImagenPost["imagen"])
+                    imagenB.save()   
+               
+            return render(request, "indexBase.html", {"mensaje": "Datos Actualizados tu publicacion se encuentra en etapa de revision."})
         else:
             context = miPost.errors# Volvemos al blog editado
-            return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})
+            
+            return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'errors':context})   
     else: # De lo contrario pasamos los formularios correspondientes a editarPosteo.
 
         miPost = PublicacionFormAdmin(initial={'titulo': post.titulo, 'contenido': post.contenido, 'imagen': post.imagen, 'descripcion': post.descripcion})        
-        return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo})
+        ImgForm = BlogImagenForm()
+        return render(request,'editarPosteoAdmin.html', {'miPost': miPost, 'post_id': id, 'titulo': post.titulo,'ImgForm':ImgForm})
 
             
             

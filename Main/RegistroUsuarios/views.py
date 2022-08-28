@@ -99,7 +99,7 @@ def editar_perfil(request):
             usuario.set_password(usuario.password) 
             usuario.save()
             
-
+ 
 
 
             '''

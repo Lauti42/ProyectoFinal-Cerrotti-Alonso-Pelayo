@@ -4,7 +4,7 @@ from django import forms
 
 from Blog_General.models import Publicacion
 
-from .models import Comentario
+from .models import Comentario, BlogImagen
 
 
 # Damos formato al formulario de NewComment.
@@ -42,7 +42,7 @@ class PublicacionForm(forms.ModelForm):
     
     class Meta:
         model= Publicacion
-        fields= ("titulo", "descripcion", "contenido", "imagen","publicado",'muestra_superior','muestra_inferior','likes')
+        fields= ("titulo", "descripcion", "contenido","publicado",'muestra_superior','muestra_inferior','likes')
         widgets= {
             'titulo': forms.TextInput(
                 attrs={
@@ -84,19 +84,6 @@ class PublicacionForm(forms.ModelForm):
                     'data-sb-validations':'required',
                     'type':'textarea',
                     'style':'height:90px;',
-                    
-                }
-            ),
-            'imagen': forms.TextInput(
-                attrs={
-                    'placeholder': 'Es necesario una imagen para realizar el Post',
-                    'width': 38,
-                    'height': 100,
-                    'cols': '115',
-                    'rows': '3',
-                    'class': 'form-control', 
-                    'type': 'text',
-                    'data-sb-validations':'required',
                     
                 }
             ),
@@ -144,7 +131,7 @@ class PublicacionFormAdmin(forms.ModelForm):
     
     class Meta:
         model= Publicacion
-        fields= ("titulo", "descripcion", "contenido", "imagen","publicado",'muestra_superior','muestra_inferior','likes')
+        fields= ("titulo", "descripcion", "contenido","publicado",'muestra_superior','muestra_inferior','likes')
         widgets= {
             'titulo': forms.TextInput(
                 attrs={
@@ -189,18 +176,21 @@ class PublicacionFormAdmin(forms.ModelForm):
                     
                 }
             ),
-            'imagen': forms.TextInput(
-                attrs={
-                    'placeholder': 'Es necesario una imagen para realizar el Post',
-                    'width': 38,
-                    'height': 100,
-                    'cols': '115',
-                    'rows': '3',
-                    'class': 'form-control', 
-                    'type': 'text',
-                    'data-sb-validations':'required',
-                    
-                }
-            ),
             
         }        
+
+
+class BlogImagenForm(forms.ModelForm):
+
+    class Meta:
+        model=BlogImagen
+        fields=('imagen',) 
+        widgets= {
+            'imagen': forms.FileInput(
+                attrs={
+                    'type': 'file',
+                    'class': 'form-control',
+                
+                }
+            ),
+        }

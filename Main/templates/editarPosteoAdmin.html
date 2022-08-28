@@ -21,12 +21,13 @@
         <!-- To make this form functional, sign up at-->
         <!-- https://startbootstrap.com/solution/contact-forms-->
         <!-- to get an API token!-->
-        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'editPost' post_id %}" method="post">
+        <form enctype="multipart/form-data" id="contactForm" data-sb-form-api-token="API_TOKEN" action="{% url 'editPostAdmin' post_id %}" method="post">
             {% csrf_token %}
             <!-- Asunto-->
 
              {{miPost.as_p}} 
-             {{miPost.media}}           
+             {{miPost.media}}  
+             {{ImgForm}}         
 
 
             

@@ -26,7 +26,7 @@ class Publicacion(models.Model):
     titulo = models.CharField(max_length=100)
     descripcion = models.TextField(max_length = 200, default="Some String")
     contenido = RichTextField(blank=True, null=True)
-    imagen = models.URLField(max_length=3000, blank=True, null=True)
+    imagen = models.URLField(blank=True, null=True)
     fecha = models.DateField(auto_now_add=True)
     publicado = models.CharField(max_length=10, choices=options, default='draft')
     muestra_inferior = models.CharField(max_length=10, choices=options2, default='no')
@@ -45,6 +45,11 @@ class Publicacion(models.Model):
             return Avatar.objects.filter(user=self.user.id).last().imagen.url if Avatar.objects.filter(user=self.user.id).last() else Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
         else:
             return Avatar(user=self.user, imagen=os.path.join(MEDIA_URL, 'img/default.jpg')).imagen.url
+
+    def imagen_Publicacion(self): #Buscamos el Avatar segun usuario/autor.
+        
+        return BlogImagen.objects.filter(publicacion_id=self.id).last().imagen.url if BlogImagen.objects.filter(publicacion_id=self.id).last() else BlogImagen(publicacion_id=self.id, imagen=os.path.join(MEDIA_URL, 'img/defaultblog.jpg')).imagen.url
+        
 
 
     def __str__(self):
@@ -74,3 +79,10 @@ class Comentario(models.Model):
     
     def __str__(self):
         return '%s - %s' % (self.user, self.body)  
+
+class BlogImagen(models.Model):
+
+    publicacion_id = models.ForeignKey(Publicacion, on_delete=models.CASCADE, null=True ,blank=True, related_name="imagen_blog")
+    imagen = models.ImageField(upload_to='BlogImagenes', blank=True , null=True)
+
+    
