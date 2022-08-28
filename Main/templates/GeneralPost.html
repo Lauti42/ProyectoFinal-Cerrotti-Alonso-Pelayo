@@ -170,7 +170,7 @@
                             <header class="mb-4">
                                 <!-- Post title-->
                                 <section class="mb-5">
-                                    <h1 class="fs-5 mb-4 fw-bold">{{post.titulo}}</h1>
+                                    <h1 class="fs-4 mb-4 fw-bold">{{post.titulo}}</h1>
                                 </section>
                                 <!-- Post meta content-->
                                 <div class="text-muted fst-italic mb-2">{{post.fecha}}</div>
@@ -179,11 +179,11 @@
                                 <a class="badge bg-secondary text-decoration-none link-light" href="#!"></a>
                             </header>
                             <!-- Preview image figure-->
-                            <figure class="mb-4"><img class="img-fluid rounded" src="{{post.imagen_Publicacion}}" width="400"
-                                    height="100" alt="..." /></figure>
+                            <figure class="mb-4"><img class="img-fluid rounded" src="{{post.imagen_Publicacion}}" style="border: 6px solid rgba(63, 63, 63, 0.247);" width="auto"
+                                    height="auto" alt="..." /></figure>
                             <!-- Post content--> 
                             <section class="mb-5">
-                                <p class="fs-5 mb-4">{{post.contenido}}</p>
+                                <p class="fs-5 mb-4">{{post.contenido|safe}}</p>
 
                             </section>
                             <form action="{% url 'like_post' post.pk %}" method="POST">
