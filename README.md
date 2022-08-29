@@ -45,10 +45,10 @@
 * Administrador
 
 :abc:Usuarios con permisos de Staff:
-	Lalonso
-   lcerrotti
-   Lauri
-   LioMessi : Qatar2022
+* Lalonso
+* lcerrotti
+* Lauri
+* LioMessi : Qatar2022
 
 :hammer_and_wrench:Futuros Cambios:
 
