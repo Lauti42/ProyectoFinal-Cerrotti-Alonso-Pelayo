@@ -4,7 +4,7 @@ from django import forms
 
 from Blog_General.models import Publicacion
 
-from .models import Comentario, BlogImagen
+from .models import BlogImagen, Comentario
 
 
 # Damos formato al formulario de NewComment.

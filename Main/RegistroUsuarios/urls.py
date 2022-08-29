@@ -1,8 +1,7 @@
 
 from django.urls import path
 
-from RegistroUsuarios.views import (editar_perfil, registrarse,
-                                    registro)
+from RegistroUsuarios.views import editar_perfil, registrarse, registro
 
 urlpatterns = [
     

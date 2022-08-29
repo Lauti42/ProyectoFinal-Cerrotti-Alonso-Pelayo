@@ -16,11 +16,11 @@ Including another URLconf
 
 from django.urls import path
 
-from Blog_General.views import (NewPost, NewPostSave, PostDetalle,
+from Blog_General.views import (NewPost, NewPostSave, PostDetalle, adminPosts,
                                 blog_general_index, darLike, editPost,
-                                eliminarPost, adminPosts,editPostAdmin)
+                                editPostAdmin, eliminarPost)
 
-from .views import  buscarPost, darLike, editPostAdmin, eliminarPostAdmin
+from .views import buscarPost, darLike, editPostAdmin, eliminarPostAdmin
 
 urlpatterns = [
     path('General/index/', blog_general_index , name='blog_general_index'),

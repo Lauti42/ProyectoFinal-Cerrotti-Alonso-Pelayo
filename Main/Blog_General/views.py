@@ -1,9 +1,11 @@
  
 
 
+import os
 from distutils import errors
-from django.contrib.auth.decorators import login_required
+
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
@@ -12,14 +14,12 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic.detail import DetailView
 
-from Blog_General.forms import PublicacionForm , BlogImagenForm
-from Blog_General.models import Comentario, Publicacion,BlogImagen
+from Blog_General.forms import BlogImagenForm, PublicacionForm
+from Blog_General.models import BlogImagen, Comentario, Publicacion
+from Main.settings import MEDIA_URL
 
 from .forms import NewCommentForm, PublicacionFormAdmin
 
-from Main.settings import MEDIA_URL
-
-import os
 # Create your views here.
 
 # Esta vista renderiza cada objeto de Publicacion en vistas separadas.
@@ -97,7 +97,7 @@ def NewPostSave(request): # Utilizamos esta funcion para guardar los datos obten
                     imagenB = BlogImagen(publicacion_id=publicacion, imagen=ImagenPost["imagen"])
                     imagenB.save()    
                
-        return render(request, "indexBase.html", {"mensaje": "Gracias pro Publicar, tu publicacion se encuentra en etapa de revision."})   
+        return render(request, "indexBase.html", {"mensaje": "Gracias por Publicar, tu publicacion se encuentra en etapa de revision."})   
     else:            
         posteos = Publicacion.objects.filter(muestra_inferior="si").filter(publicado="publicado")
         return render(request, 'indexBase.html',{'posteos':posteos})

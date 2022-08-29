@@ -1,13 +1,12 @@
-from ckeditor.fields import RichTextField
+import os
 
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 
+from Main.settings import MEDIA_URL
 from RegistroUsuarios.models import Avatar
 
-from Main.settings import MEDIA_URL
-
-import os
 # Create your models here.
 
 # Clase publicacion para guardar todos los posteos.

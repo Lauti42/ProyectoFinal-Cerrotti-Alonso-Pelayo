@@ -46,11 +46,11 @@
                                 <li><a class="dropdown-item" href="{% url 'blog_general_index'%}">Blog Home</a></li>
 
                                 <li>
-                                    
+                                    {% if user.is_authenticated %}
                                     <hr class="dropdown-divider">
                                 </li>
                                 <li><a class="dropdown-item" href="{% url 'NewPost'%}">Blog Post</a></li>
-
+                                {% endif %}
 
 
                             </ul>
