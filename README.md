@@ -1,5 +1,5 @@
 <em>Entrega1-   Cerrotti  Pelayo   Alonso </em>
-
+* Video: https://www.youtube.com/watch?v=IIjm0W7wrgc
 <h1 aling="center" >Primera entrega del Proyecto Final.</em>
 
 ### Indice:
@@ -43,6 +43,12 @@
 * Registro
 * Blog 
 * Administrador
+
+:abc:Usuarios con permisos de Staff:
+* Lalonso
+* lcerrotti
+* Lauri
+* LioMessi : Qatar2022
 
 :hammer_and_wrench:Futuros Cambios:
 
